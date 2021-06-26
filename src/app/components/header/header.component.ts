@@ -6,9 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  icon = 'arrow-back';
+  hasBackButton = true;
+  pageTitle: string;
+  hasPageTitle: boolean;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }

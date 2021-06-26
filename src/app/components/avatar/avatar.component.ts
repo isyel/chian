@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./avatar.component.scss'],
 })
 export class AvatarComponent implements OnInit {
+  avatarImage: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }
