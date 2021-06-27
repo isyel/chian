@@ -1,15 +1,91 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title> Home </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-hero-card [dark]="true">
+    <ion-header collapse="condense" class="ion-no-border">
+      <app-header pageTitle="Home" [hasNotifications]="true"></app-header>
+    </ion-header>
+    <div class="ion-padding welcomeText">
+      <ion-text color="light">Hello,</ion-text>
+      <ion-text color="light">Welcome to easy life</ion-text>
+    </div>
 
-  <app-explore-container name="Home page"></app-explore-container>
+    <ion-searchbar
+      placeholder="Search orders"
+      color="tertiary"
+      debounce="500"
+      animated
+    ></ion-searchbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" color="tertiary">
+            <span> Refill & Accessories</span>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block">
+            <span> Repairs & maintenance</span>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </app-hero-card>
+  <div class="ion-padding-horizontal">
+    <ion-button expand="block">
+      <span> Login</span>
+    </ion-button>
+    <ion-button expand="block" color="tertiary">
+      <ion-icon name="home" slot="start"></ion-icon>
+      <span>Register</span>
+    </ion-button>
+
+    <ion-fab-button><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
+    <ion-fab-button><ion-icon name="chevron-back"></ion-icon></ion-fab-button>
+    <app-order-item></app-order-item>
+  </div>
 </ion-content>
+<ion-footer>
+  <app-hero-card [borderBottom]="false">
+    <ion-grid class="header">
+      <ion-row class="ion-align-items-center ion-justify-content-between">
+        <ion-col>
+          <ion-text>Sub Total</ion-text>
+        </ion-col>
+        <ion-col>
+          <ion-text color="primary"><strong>₦3000</strong></ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-center ion-justify-content-between">
+        <ion-col>
+          <ion-text>Shipping</ion-text>
+        </ion-col>
+        <ion-col>
+          <ion-text color="primary"><strong>₦1000</strong></ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <hr color="tertiary" />
+        </ion-col>
+      </ion-row>
+      <ion-row
+        class="
+          ion-align-items-center
+          ion-justify-content-between
+          ion-padding-vertical
+          ion-margin-top
+        "
+      >
+        <ion-col>
+          <ion-text><strong>Total</strong></ion-text>
+        </ion-col>
+        <ion-col>
+          <ion-text color="primary"><strong>₦4000</strong></ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-button expand="block" color="primary">
+        <span>Proceed to cart</span>
+      </ion-button>
+    </ion-grid>
+  </app-hero-card>
+</ion-footer>

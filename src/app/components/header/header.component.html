@@ -1,7 +1,18 @@
-<div class="header ion-padding-vertical">
-  <ion-button *ngIf="hasBackButton" navPop>
-    <ion-icon [name]="icon"></ion-icon>
-  </ion-button>
-  <span *ngIf="hasPageTitle">{{ pageTitle }}</span>
-  <app-avatar></app-avatar>
-</div>
+<ion-grid class="header">
+  <ion-row class="ion-align-items-center ion-justify-content-between">
+    <ion-col class="ion-align-self-start" size="1">
+      <ion-fab-button *ngIf="hasBackButton"
+        ><ion-icon [name]="icon"></ion-icon
+      ></ion-fab-button>
+    </ion-col>
+    <ion-col class="ion-align-self-center header__title">
+      <ion-text color="primary" *ngIf="hasPageTitle">{{ pageTitle }}</ion-text>
+    </ion-col>
+    <ion-col class="header__avatar">
+      <ion-avatar
+        ><img
+          src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+      /></ion-avatar>
+    </ion-col>
+  </ion-row>
+</ion-grid>

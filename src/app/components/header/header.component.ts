@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  icon = 'arrow-back';
-  hasBackButton = true;
-  pageTitle: string;
-  hasPageTitle: boolean;
+  @Input() icon = 'chevron-back';
+  @Input() hasBackButton = true;
+  @Input() pageTitle: string;
+  @Input() hasPageTitle = true;
+  @Input() hasNotifications: boolean;
 
   constructor() {}
 

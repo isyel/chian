@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-hero-card',
@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hero-card.component.scss'],
 })
 export class HeroCardComponent implements OnInit {
+  @Input() dark = false;
+  @Input() borderBottom = true;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }
