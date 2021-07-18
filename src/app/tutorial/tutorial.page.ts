@@ -48,10 +48,7 @@ export class TutorialPage implements OnInit {
     this.lastSlide = true;
   }
 
-  async goToNext() {
-    const hasSeenTutorial = await this.userData.checkHasSeenTutorial();
-    console.log('hasSeenTutorial: ', hasSeenTutorial);
-
+  goToNext() {
     this.slides.slideNext();
     if (this.lastSlide) {
       this.completeTutorial();
