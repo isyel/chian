@@ -7,7 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HeroCardComponent implements OnInit {
   @Input() dark = false;
-  @Input() borderBottom = true;
+  @Input() radiusBottom = true;
+  @Input() radiusTop = true;
 
   constructor() {}
 

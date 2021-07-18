@@ -1,50 +1,38 @@
 <ion-content [fullscreen]="true">
-  <app-hero-card [dark]="true">
-    <ion-header collapse="condense" class="ion-no-border">
-      <app-header pageTitle="Home" [hasNotifications]="true"></app-header>
-    </ion-header>
-    <div class="ion-padding welcomeText">
-      <ion-text color="light">Hello,</ion-text>
-      <ion-text color="light">Welcome to easy life</ion-text>
+  <div class="ion-padding">
+    <app-hero-card [dark]="true">
+      <div class="selectItem">
+        <div>
+          <img
+            class="selectItem__image"
+            src="assets/images/tutorial_illustration.svg"
+          />
+        </div>
+        <ion-text
+          class="selectItem__text ion-padding-bottom ion-margin-vertical"
+          >Select cyliner size and how to refill</ion-text
+        >
+        <div class="selectItem__collapseButton">
+          <ion-card
+            class="selectItem__collapseButton__button"
+            (click)="showPicker()"
+          >
+            <ion-icon name="chevron-down"></ion-icon>
+          </ion-card>
+        </div>
+      </div>
+    </app-hero-card>
+    <div class="ion-padding buttonGroup">
+      <span class="ion-padding buttonGroup__button active">Refill</span>
+      <span class="ion-padding buttonGroup__button">Buy Accessories</span>
     </div>
-
-    <ion-searchbar
-      placeholder="Search orders"
-      color="tertiary"
-      debounce="500"
-      animated
-    ></ion-searchbar>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-button expand="block" color="tertiary">
-            <span> Refill & Accessories</span>
-          </ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button expand="block">
-            <span> Repairs & maintenance</span>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </app-hero-card>
-  <div class="ion-padding-horizontal">
-    <ion-button expand="block">
-      <span> Login</span>
-    </ion-button>
-    <ion-button expand="block" color="tertiary">
-      <ion-icon name="home" slot="start"></ion-icon>
-      <span>Register</span>
-    </ion-button>
-
-    <ion-fab-button><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
-    <ion-fab-button><ion-icon name="chevron-back"></ion-icon></ion-fab-button>
-    <app-order-item></app-order-item>
+    <div class="concentricCircles">
+      <ion-icon name="checkmark"></ion-icon>
+    </div>
   </div>
 </ion-content>
 <ion-footer>
-  <app-hero-card [borderBottom]="false">
+  <app-hero-card [radiusBottom]="false">
     <ion-grid class="header">
       <ion-row class="ion-align-items-center ion-justify-content-between">
         <ion-col>
@@ -83,7 +71,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-button expand="block" color="primary">
+      <ion-button expand="block" color="primary" (click)="presentModal()">
         <span>Proceed to cart</span>
       </ion-button>
     </ion-grid>

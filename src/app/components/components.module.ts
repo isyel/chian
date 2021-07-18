@@ -6,6 +6,7 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { CircularProgressComponent } from './circular-progress/circular-progress.component';
 import { HeaderComponent } from './header/header.component';
 import { HeroCardComponent } from './hero-card/hero-card.component';
+import { LocationModalComponent } from './location-modal/location-modal.component';
 import { OrderItemComponent } from './order-item/order-item.component';
 
 @NgModule({
@@ -15,12 +16,14 @@ import { OrderItemComponent } from './order-item/order-item.component';
     HeroCardComponent,
     CircularProgressComponent,
     OrderItemComponent,
+    LocationModalComponent,
   ],
   declarations: [
     HeaderComponent,
     HeroCardComponent,
     CircularProgressComponent,
     OrderItemComponent,
+    LocationModalComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

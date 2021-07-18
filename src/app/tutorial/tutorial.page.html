@@ -1,0 +1,52 @@
+<ion-content>
+  <ion-slides
+    (ionSlideWillChange)="onSlideChangeStart($event)"
+    [options]="slideOpts"
+  >
+    <ion-slide padding-top margin-top>
+      <img src="assets/imgs/logo.png" class="slide-image" />
+      <h2 class="slide-title">Welcome to <b>MBD</b></h2>
+      <p>
+        <b>MyBoardDeals</b> is an ad-tech product designed with a powerful set
+        of features and services that helps you reach your locality as well as
+        monetize all your influences.
+      </p>
+    </ion-slide>
+
+    <ion-slide padding-top margin-top>
+      <img src="assets/imgs/noad.png" class="slide-image" />
+      <h2 class="slide-title">What is MBD about?</h2>
+      <p>
+        <b>MyBoardDeals</b> believes you ought to share from the enormous funds
+        channeled towards adverts by companies, since you are the targeted user.
+      </p>
+    </ion-slide>
+
+    <ion-slide padding-top margin-top>
+      <img src="assets/img/ica-slidebox-img-3.png" class="slide-image" />
+      <h2 class="slide-title">How does it work?</h2>
+      <p>
+        You partake of ad funds from companies by accepting offers and earn
+        according to the <strong>Boardworth</strong> you've built, which is your
+        influence in your locality real time
+      </p>
+    </ion-slide>
+
+    <ion-slide padding-top margin-top>
+      <img src="assets/imgs/enterimg.png" class="slide-image" />
+      <h2 class="slide-title">Let's get started</h2>
+      <button
+        ion-button
+        icon-end
+        large
+        outline
+        (click)="completeTutorial()"
+        color="light"
+        round
+      >
+        Continue
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

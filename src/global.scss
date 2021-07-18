@@ -83,3 +83,23 @@ ion-searchbar {
     }
   }
 }
+
+.modal {
+  --max-height: 60%;
+  --height: 350px;
+  --max-width: 80%;
+  --width: 300px;
+  --border-radius: var(--ion-border-radius);
+  ion-backdrop {
+    --backdrop-opacity: 0.33;
+    --background: rgba(245, 81, 4, 0.9);
+  }
+}
+
+.locationPicker {
+  --max-height: 60%;
+  --height: 350px;
+  --max-width: 80%;
+  --width: 300px;
+  --border-radius: var(--ion-border-radius);
+}

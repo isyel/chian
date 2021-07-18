@@ -1,0 +1,109 @@
+.selectItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30%;
+
+  &__image {
+    background-color: var(--ion-color-primary-contrast);
+    border-radius: var(--ion-border-radius);
+    height: 80px;
+  }
+
+  &__text {
+    color: var(--ion-color-primary-contrast);
+    text-align: center;
+  }
+
+  &__collapseButton {
+    position: absolute;
+    bottom: -40%;
+
+    &__button {
+      border-radius: var(--ion-border-radius);
+      background-color: var(--ion-color-primary-contrast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+
+      ion-icon {
+        font-size: large;
+      }
+    }
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  flex-grow: 2;
+
+  &__button {
+    flex: 1;
+    display: flex;
+    background-color: #f5f6f8;
+    justify-content: center;
+    &:first-child {
+      border-radius: var(--ion-border-radius-round) 0 0
+        var(--ion-border-radius-round);
+    }
+
+    &:last-child {
+      border-radius: 0 var(--ion-border-radius-round)
+        var(--ion-border-radius-round) 0;
+    }
+
+    &:only-child {
+      border-radius: var(--ion-border-radius-round);
+    }
+  }
+
+  .active {
+    background-color: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+  }
+}
+
+.concentricCircles {
+  width: 80px;
+  height: 80px;
+  margin-top: 50px;
+  margin-left: 50%;
+  background-color: var(--ion-color-primary);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition: all 0.2s ease-in-out;
+  animation: ripple 2s 0.2s infinite;
+  -webkit-animation: ripple 2s 0.2s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon {
+    color: var(--ion-color-primary-contrast);
+    font-size: 3rem;
+  }
+}
+
+.concentricCircles:hover {
+  transform: translateX(-50%) scale(1.2);
+}
+
+@keyframes ripple {
+  20% {
+    box-shadow: 0px 0px 0px 12px rgba(5, 15, 68, 0.05);
+  }
+
+  50% {
+    box-shadow: 0px 0px 0px 12px rgba(5, 15, 68, 0.05),
+      0px 0px 0px 24px rgba(5, 15, 68, 0.04);
+  }
+
+  100% {
+    box-shadow: 0px 0px 0px 12px rgba(5, 15, 68, 0.05),
+      0px 0px 0px 24px rgba(5, 15, 68, 0.04),
+      0px 0px 0px 36px rgba(5, 15, 68, 0.02);
+  }
+}
