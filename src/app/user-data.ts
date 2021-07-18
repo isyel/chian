@@ -9,7 +9,7 @@ export class UserData {
 
   constructor(private storageService: StorageService) {}
 
-  async checkHasSeenTutorial(): Promise<string> {
+  async checkHasSeenTutorial(): Promise<boolean> {
     return await this.storageService.get(this.hasSeenTutorial);
   }
 

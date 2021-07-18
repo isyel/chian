@@ -8,8 +8,8 @@
   <h2>Sample progressbar</h2>
 
   <div class="progress-wrapper">
-    <div class="current" [ngStyle]="getOverlayStyle()">
-      <ion-fab-button
+    <div class="nextButton">
+      <ion-fab-button (click)="increment(30)" class="nextButton__button"
         ><ion-icon name="chevron-forward"></ion-icon
       ></ion-fab-button>
     </div>
@@ -27,7 +27,8 @@
       [duration]="duration"
       [animation]="animation"
       [animationDelay]="animationDelay"
-    ></round-progress>
+    >
+    </round-progress>
   </div>
 
   <button (click)="increment()">Increment</button>

@@ -14,14 +14,15 @@ export class AppComponent {
     private userData: UserData,
     private router: Router
   ) {
-    this.platform.ready().then(() => {
-      this.userData.checkHasSeenTutorial().then((hasSeenTutorial) => {
-        if (hasSeenTutorial) {
-          this.router.navigate(['/tabs']);
-        } else {
-          this.router.navigate(['/tutorial']);
-        }
-      });
+    this.platform.ready().then(async () => {
+      const hasSeenTutorial = await this.userData.checkHasSeenTutorial();
+      console.log('hasSeenTutorial: ', hasSeenTutorial);
+
+      if (hasSeenTutorial) {
+        this.router.navigate(['/tabs']);
+      } else {
+        this.router.navigate(['/tutorial']);
+      }
     });
   }
 }

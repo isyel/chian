@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./circular-progress.component.scss'],
 })
 export class CircularProgressComponent implements OnInit {
-  current = 27;
-  max = 50;
+  current = 30;
+  max = 90;
   stroke = 15;
   radius = 125;
   semicircle = false;
@@ -60,6 +60,8 @@ export class CircularProgressComponent implements OnInit {
   ngOnInit() {}
 
   increment(amount = 1) {
+    console.log('increment');
+
     this.current += amount;
   }
 

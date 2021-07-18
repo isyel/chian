@@ -1,0 +1,19 @@
+.slideScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__title {
+    color: var(--ion-color-primary);
+    font-weight: 900;
+  }
+
+  &__imageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__image {
+      width: 250px;
+    }
+  }
+}

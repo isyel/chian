@@ -8,6 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { HeroCardComponent } from './hero-card/hero-card.component';
 import { LocationModalComponent } from './location-modal/location-modal.component';
 import { OrderItemComponent } from './order-item/order-item.component';
+import { SlideScreenComponent } from './slide-screen/slide-screen.component';
 
 @NgModule({
   imports: [IonicModule, CommonModule, FormsModule, RoundProgressModule],
@@ -17,6 +18,7 @@ import { OrderItemComponent } from './order-item/order-item.component';
     CircularProgressComponent,
     OrderItemComponent,
     LocationModalComponent,
+    SlideScreenComponent,
   ],
   declarations: [
     HeaderComponent,
@@ -24,6 +26,7 @@ import { OrderItemComponent } from './order-item/order-item.component';
     CircularProgressComponent,
     OrderItemComponent,
     LocationModalComponent,
+    SlideScreenComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

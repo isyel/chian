@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { IonSlides, NavController } from '@ionic/angular';
 import { UserData } from '../user-data';
 
 @Component({
@@ -8,22 +9,56 @@ import { UserData } from '../user-data';
   styleUrls: ['./tutorial.page.scss'],
 })
 export class TutorialPage implements OnInit {
-  currentSlide = 1;
-  slideOpts = {
-    initialSlide: 1,
-    speed: 400,
-  };
-  showSkip = true;
+  @ViewChild('slides', { static: false }) slides: IonSlides;
+  progress = 10;
+  max = 30;
+  stroke = 3;
+  radius = 50;
+  semicircle = false;
+  rounded = false;
+  responsive = false;
+  clockwise = true;
+  color = '#050F44';
+  background = '#050F441A';
+  duration = 800;
+  animation = 'easeOutCubic';
+  animationDelay = 0;
+  slideOpts: any;
+  lastSlide = false;
 
-  constructor(private userData: UserData, public navCtrl: NavController) {}
+  constructor(
+    private userData: UserData,
+    public navCtrl: NavController,
+    private router: Router
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.slideOpts = {
+      initialSlide: 0,
+      speed: 400,
+    };
+  }
 
   completeTutorial() {
     this.userData.setHasSeenTutorial();
+    this.router.navigate(['/tabs']);
   }
 
-  onSlideChangeStart(slider) {
-    this.showSkip = !slider.isEnd();
+  isAtLastSlide() {
+    this.lastSlide = true;
+  }
+
+  async goToNext() {
+    const hasSeenTutorial = await this.userData.checkHasSeenTutorial();
+    console.log('hasSeenTutorial: ', hasSeenTutorial);
+
+    this.slides.slideNext();
+    if (this.lastSlide) {
+      this.completeTutorial();
+    }
+  }
+
+  increment(amount = 1) {
+    this.progress += amount;
   }
 }
