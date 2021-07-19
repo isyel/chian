@@ -3,7 +3,7 @@ export type RegisterModel = {
   phoneNumber: number;
   password: string;
   email: string;
-  referralId: string;
+  referralId?: string;
 };
 
 export type LoginModel = {

@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
+import { AppConfig } from './services/app-config';
+import { BaseServiceService } from './services/base-service.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +31,11 @@ import { Drivers } from '@ionic/storage';
     }),
     HttpClientModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AppConfig,
+    BaseServiceService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
