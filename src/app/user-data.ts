@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserModel } from './models/UserModel';
 import { StorageService } from './services/storage.service';
 
 @Injectable({
@@ -7,6 +8,7 @@ import { StorageService } from './services/storage.service';
 export class UserData {
   hasSeenTutorial = 'HAS_SEEN_TUTORIAL';
   authToken = 'AUTH_TOKEN';
+  isLoggedIn = 'IS_LOGGED_IN';
 
   constructor(private storageService: StorageService) {}
 
@@ -18,11 +20,27 @@ export class UserData {
     return await this.storageService.set(this.hasSeenTutorial, true);
   }
 
-  getAuthorizationToken(): Promise<string> {
-    return this.storageService.get(this.authToken);
+  async getAuthorizationToken(): Promise<string> {
+    return await this.storageService.get(this.authToken);
   }
 
   async setAuthorizationToken(token: string): Promise<string> {
     return await this.storageService.set(this.authToken, token);
+  }
+
+  async getUserData(): Promise<UserModel> {
+    return await this.storageService.get(this.authToken);
+  }
+
+  async setUserData(userData: UserModel) {
+    return await this.storageService.set(this.isLoggedIn, userData);
+  }
+
+  async getIsLoggedIn() {
+    return await this.storageService.get(this.isLoggedIn);
+  }
+
+  async setisLoggedIn(loginStatus: UserModel) {
+    return await this.storageService.set(this.authToken, loginStatus);
   }
 }

@@ -9,6 +9,7 @@ import { UserData } from '../user-data';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   authToken: string;
+
   constructor(private userData: UserData) {
     this.getLoginToken();
   }

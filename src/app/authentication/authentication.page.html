@@ -1,9 +1,37 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>authentication</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <h1>Create New Account</h1>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in convallis
+    leo.
+  </p>
+  <div [ngSwitch]="showLogin">
+    <div class="registerForm" *ngSwitchCase="false">
+      <ion-item>
+        <ion-label position="stacked">Full Name</ion-label>
+        <ion-input required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Email Address</ion-label>
+        <ion-input required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Phone Number</ion-label>
+        <ion-input required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input required></ion-input>
+      </ion-item>
+    </div>
+    <div class="loginForm" *ngSwitchCase="true">
+      <ion-item>
+        <ion-label position="stacked">Email Address</ion-label>
+        <ion-input required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input required></ion-input>
+      </ion-item>
+    </div>
+  </div>
 </ion-content>

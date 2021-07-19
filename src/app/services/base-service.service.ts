@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { AppConfig } from './app-config';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,9 @@ export class BaseServiceService {
   private baseUrl: string;
   private actionUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private config: AppConfig) {
+    this.baseUrl = this.config.apiUrl;
+  }
 
   public getAll<T>(): Observable<T> {
     return this.http

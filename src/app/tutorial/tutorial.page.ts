@@ -39,9 +39,13 @@ export class TutorialPage implements OnInit {
     };
   }
 
-  completeTutorial() {
-    this.userData.setHasSeenTutorial();
-    this.router.navigate(['/tabs']);
+  async completeTutorial() {
+    const isLoggedIn = this.userData.getIsLoggedIn();
+    if (isLoggedIn) {
+      this.router.navigate(['/tabs']);
+    } else {
+      this.router.navigate(['/authentication']);
+    }
   }
 
   isAtLastSlide() {
