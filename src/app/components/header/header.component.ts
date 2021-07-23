@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +12,13 @@ export class HeaderComponent implements OnInit {
   @Input() pageTitle: string;
   @Input() hasPageTitle = true;
   @Input() hasNotifications: boolean;
+  @Input() lightTheme: boolean;
 
-  constructor() {}
+  constructor(private navController: NavController) {}
 
   ngOnInit() {}
+
+  handleGoBack() {
+    this.navController.pop();
+  }
 }

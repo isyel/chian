@@ -1,7 +1,10 @@
-<ion-grid class="header">
+<ion-grid class="header ion-margin-vertical">
   <ion-row class="ion-align-items-center ion-justify-content-between">
-    <ion-col class="ion-align-self-start" size="1">
-      <ion-fab-button *ngIf="hasBackButton"
+    <ion-col class="ion-align-items-center">
+      <ion-fab-button
+        *ngIf="hasBackButton"
+        [color]="lightTheme ? 'light' : 'primary'"
+        (click)="handleGoBack()"
         ><ion-icon [name]="icon"></ion-icon
       ></ion-fab-button>
     </ion-col>
@@ -9,7 +12,7 @@
       <ion-text color="primary" *ngIf="hasPageTitle">{{ pageTitle }}</ion-text>
     </ion-col>
     <ion-col class="header__avatar">
-      <ion-avatar
+      <ion-avatar class="header__avatar__image" *ngIf="hasNotifications"
         ><img
           src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
       /></ion-avatar>

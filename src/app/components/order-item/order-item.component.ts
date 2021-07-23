@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-order-item',
@@ -6,9 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-item.component.scss'],
 })
 export class OrderItemComponent implements OnInit {
+  @Output() handleClick: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
 
+  emitClickEvent() {
+    this.handleClick.emit();
+  }
 }

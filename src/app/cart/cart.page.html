@@ -1,39 +1,30 @@
-<ion-content [fullscreen]="true">
+<ion-content class="ion-padding">
   <ion-header collapse="condense" class="ion-no-border">
     <app-header
-      pageTitle="Orders"
+      pageTitle="Order"
       [hasNotifications]="true"
       [lightTheme]="true"
     ></app-header>
   </ion-header>
   <div class="ion-padding">
-    <app-hero-card [dark]="true">
-      <div class="selectItem">
-        <div>
-          <img
-            class="selectItem__image"
-            src="assets/images/tutorial_illustration.svg"
-          />
-        </div>
-        <ion-text
-          class="selectItem__text ion-padding-bottom ion-margin-vertical"
-          >Select cyliner size and how to refill</ion-text
-        >
-        <div class="selectItem__collapseButton">
-          <ion-card
-            class="selectItem__collapseButton__button"
-            (click)="showPicker()"
-          >
-            <ion-icon name="chevron-down"></ion-icon>
-          </ion-card>
-        </div>
-      </div>
-    </app-hero-card>
-    <div class="ion-padding buttonGroup">
-      <span class="ion-padding buttonGroup__button active">Refill</span>
-      <span class="ion-padding buttonGroup__button">Buy Accessories</span>
+    <h5>Address:</h5>
+    <div class="cart__address">
+      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+      <ion-text color="secondary">Edit</ion-text>
     </div>
   </div>
+  <div class="ion-padding">
+    <h5>Delivery Information:</h5>
+    <ion-textarea
+      cols="2"
+      placeholder="(Optional) Enter additional delivery information"
+    ></ion-textarea>
+  </div>
+
+  <app-cart-item
+    [quantity]="2"
+    (handleRemove)="removeFromCart()"
+  ></app-cart-item>
 </ion-content>
 <ion-footer>
   <app-hero-card [radiusBottom]="false">
@@ -42,7 +33,7 @@
         <ion-col>
           <ion-text>Sub Total</ion-text>
         </ion-col>
-        <ion-col>
+        <ion-col class="ion-text-end">
           <ion-text color="primary"><strong>₦3000</strong></ion-text>
         </ion-col>
       </ion-row>
@@ -50,7 +41,7 @@
         <ion-col>
           <ion-text>Shipping</ion-text>
         </ion-col>
-        <ion-col>
+        <ion-col class="ion-text-end">
           <ion-text color="primary"><strong>₦1000</strong></ion-text>
         </ion-col>
       </ion-row>
@@ -70,13 +61,13 @@
         <ion-col>
           <ion-text><strong>Total</strong></ion-text>
         </ion-col>
-        <ion-col>
+        <ion-col class="ion-text-end">
           <ion-text color="primary"><strong>₦4000</strong></ion-text>
         </ion-col>
       </ion-row>
 
-      <ion-button expand="block" color="primary" (click)="presentModal()">
-        <span>Proceed to cart</span>
+      <ion-button expand="block" color="primary" (click)="goToCheckout()">
+        <span>Place order</span>
       </ion-button>
     </ion-grid>
   </app-hero-card>

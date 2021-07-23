@@ -1,79 +1,72 @@
 <ion-content [fullscreen]="true">
-  <div class="ion-padding">
-    <app-hero-card [dark]="true">
-      <div class="selectItem">
-        <div>
-          <img
-            class="selectItem__image"
-            src="assets/images/tutorial_illustration.svg"
-          />
+  <div class="home__heroFixed">
+    <app-hero-card [dark]="true" [radiusTop]="false">
+      <div class="home__heroCard">
+        <ion-header collapse="condense" class="ion-no-border">
+          <app-header
+            pageTitle="Home"
+            [hasNotifications]="true"
+            [hasBackButton]="false"
+          ></app-header>
+        </ion-header>
+        <div class="ion-padding home__welcomeText">
+          <ion-text color="light">Hello,</ion-text><br />
+          <ion-text color="light">Welcome to ease with Chian</ion-text>
         </div>
-        <ion-text
-          class="selectItem__text ion-padding-bottom ion-margin-vertical"
-          >Select cyliner size and how to refill</ion-text
-        >
-        <div class="selectItem__collapseButton">
-          <ion-card
-            class="selectItem__collapseButton__button"
-            (click)="showPicker()"
-          >
-            <ion-icon name="chevron-down"></ion-icon>
-          </ion-card>
-        </div>
+
+        <ion-searchbar
+          placeholder="Search orders"
+          color="light"
+          debounce="500"
+          animated
+          class="home__searchBar"
+        ></ion-searchbar>
       </div>
     </app-hero-card>
-    <div class="ion-padding buttonGroup">
-      <span class="ion-padding buttonGroup__button active">Refill</span>
-      <span class="ion-padding buttonGroup__button">Buy Accessories</span>
-    </div>
-    <div class="concentricCircles">
-      <ion-icon name="checkmark"></ion-icon>
-    </div>
   </div>
-</ion-content>
-<ion-footer>
-  <app-hero-card [radiusBottom]="false">
-    <ion-grid class="header">
-      <ion-row class="ion-align-items-center ion-justify-content-between">
-        <ion-col>
-          <ion-text>Sub Total</ion-text>
-        </ion-col>
-        <ion-col>
-          <ion-text color="primary"><strong>₦3000</strong></ion-text>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-align-items-center ion-justify-content-between">
-        <ion-col>
-          <ion-text>Shipping</ion-text>
-        </ion-col>
-        <ion-col>
-          <ion-text color="primary"><strong>₦1000</strong></ion-text>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <hr color="tertiary" />
-        </ion-col>
-      </ion-row>
-      <ion-row
-        class="
-          ion-align-items-center
-          ion-justify-content-between
-          ion-padding-vertical
-          ion-margin-top
-        "
-      >
-        <ion-col>
-          <ion-text><strong>Total</strong></ion-text>
-        </ion-col>
-        <ion-col>
-          <ion-text color="primary"><strong>₦4000</strong></ion-text>
-        </ion-col>
-      </ion-row>
+  <ion-grid class="ion-padding ion-margin-top">
+    <ion-row>
+      <ion-col>
+        <div class="ion-padding-top home__orderInfo">
+          <app-hero-card (click)="goToItemsPage()">
+            Last Order: <strong>15 days ago</strong>
+            <h5>Running out of Gas?</h5>
+            <p>Order Now and get <strong>15% off</strong></p>
+          </app-hero-card>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" color="tertiary">
+          <span> Refill & Accessories</span>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block">
+          <span> Repairs & maintenance</span>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col
+        ><app-hero-card
+          ><br /><br /><br />
+          <br /></app-hero-card
+      ></ion-col>
+      <ion-col
+        ><app-hero-card> <br /><br /><br /><br /></app-hero-card
+      ></ion-col>
+    </ion-row>
 
-      <ion-button expand="block" color="primary" (click)="presentModal()">
-        <span>Proceed to cart</span>
-      </ion-button>
-    </ion-grid>
-  </app-hero-card>
-</ion-footer>
+    <ion-row>
+      <ion-col
+        ><app-hero-card> <br /><br /><br /><br /></app-hero-card
+      ></ion-col>
+      <ion-col
+        ><app-hero-card> <br /><br /><br /><br /></app-hero-card
+      ></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer> </ion-footer>

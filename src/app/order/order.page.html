@@ -1,0 +1,71 @@
+<ion-content>
+  <ion-header collapse="condense" class="ion-no-border">
+    <app-header
+      pageTitle="Order"
+      [hasNotifications]="true"
+      [lightTheme]="true"
+    ></app-header>
+  </ion-header>
+  <div class="ion-padding ion-margin-bottom">
+    <app-hero-card [dark]="true">
+      <div class="selectItem">
+        <div>
+          <img class="selectItem__image" [src]="steps[currentStep].image" />
+        </div>
+        <ion-text
+          class="selectItem__text ion-padding-bottom ion-margin-vertical"
+          >{{steps[currentStep].description}}</ion-text
+        >
+        <div class="selectItem__collapseButton">
+          <ion-card class="selectItem__collapseButton__button">
+            <ion-icon name="chevron-down"></ion-icon>
+          </ion-card>
+        </div>
+      </div>
+    </app-hero-card>
+  </div>
+  <div class="ion-padding" *ngIf="currentStep === 0">
+    <app-hero-card [dark]="true">
+      <div class="order__container ion-padding">
+        <span class="order__cylinderSize">15kg </span>
+        <span (click)="showPicker()">Change cylinder</span>
+      </div>
+      <div class="order__quantity ion-padding">
+        <ion-icon
+          name="remove-circle-outline"
+          (click)="decrementQuantity()"
+        ></ion-icon>
+        <span>{{quantity}}</span>
+        <ion-icon
+          name="add-circle-outline"
+          (click)="incrementQuantity()"
+        ></ion-icon>
+      </div>
+      <div class="order__nextSteps ion-padding">
+        <span (click)="goToNextStep()">Next</span>
+      </div>
+    </app-hero-card>
+  </div>
+  <div class="ion-padding" *ngIf="currentStep === 1">
+    <app-hero-card [dark]="true">
+      <div class="order__container ion-padding-horizontal ion-padding-bottom">
+        <div (click)="showPicker()">
+          <h5>Select State</h5>
+          <ion-text color="medium">No state selected</ion-text>
+        </div>
+        <div (click)="showPicker()">
+          <h5>Select City</h5>
+          <ion-text color="medium">No city selected</ion-text>
+        </div>
+      </div>
+      <div class="order__container ion-padding">
+        <span>Use your current location</span>
+        <ion-toggle color="tertiary"></ion-toggle>
+      </div>
+      <div class="order__container ion-padding">
+        <span (click)="goToPrevStep()">Back</span>
+        <span (click)="goToNextStep()">Next</span>
+      </div>
+    </app-hero-card>
+  </div>
+</ion-content>

@@ -1,4 +1,12 @@
 .header {
+  ion-fab-button {
+    width: 40px;
+    height: 40px;
+    ion-icon {
+      font-size: 25px;
+    }
+  }
+
   &__title {
     display: flex;
     justify-content: center;
@@ -8,9 +16,13 @@
   &__avatar {
     display: flex;
     justify-content: flex-end;
+    &__image {
+      width: 40px;
+      height: 40px;
+    }
   }
 
   &__title {
-    font-size: xx-large;
+    font-size: x-large;
   }
 }

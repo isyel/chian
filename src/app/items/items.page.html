@@ -1,0 +1,21 @@
+<ion-content>
+  <ion-header collapse="condense" class="ion-no-border">
+    <app-header
+      pageTitle="Items"
+      [hasNotifications]="true"
+      [lightTheme]="true"
+    ></app-header>
+  </ion-header>
+
+  <div class="ion-padding buttonGroup">
+    <span class="ion-padding buttonGroup__button active">Refill</span>
+    <span class="ion-padding buttonGroup__button">Buy Accessories</span>
+  </div>
+  <div class="ion-padding">
+    <app-order-item (handleClick)="orderItem()"></app-order-item>
+    <app-order-item (handleClick)="orderItem()"></app-order-item>
+    <app-order-item (handleClick)="orderItem()"></app-order-item>
+    <app-order-item (handleClick)="orderItem()"></app-order-item>
+    <app-order-item (handleClick)="orderItem()"></app-order-item>
+  </div>
+</ion-content>

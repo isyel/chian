@@ -1,0 +1,18 @@
+.authForm {
+  margin-top: 3em;
+  h1 {
+    font-weight: 900;
+  }
+  &__loginSwitch {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.switchLink {
+  font-size: medium;
+  font-weight: 600;
+  color: var(--ion-color-primary);
+}

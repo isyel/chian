@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import { CartItemComponent } from './cart-item/cart-item.component';
 import { CircularProgressComponent } from './circular-progress/circular-progress.component';
 import { HeaderComponent } from './header/header.component';
 import { HeroCardComponent } from './hero-card/hero-card.component';
@@ -19,6 +20,7 @@ import { SlideScreenComponent } from './slide-screen/slide-screen.component';
     OrderItemComponent,
     LocationModalComponent,
     SlideScreenComponent,
+    CartItemComponent,
   ],
   declarations: [
     HeaderComponent,
@@ -27,6 +29,7 @@ import { SlideScreenComponent } from './slide-screen/slide-screen.component';
     OrderItemComponent,
     LocationModalComponent,
     SlideScreenComponent,
+    CartItemComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

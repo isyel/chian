@@ -1,112 +1,131 @@
 <ion-content>
-  <h1>Create New Account</h1>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in convallis
-    leo.
-  </p>
-  <div [ngSwitch]="showLogin">
-    <div class="registerForm" *ngSwitchCase="false">
+  <div [ngSwitch]="showLogin" class="ion-padding ion-margin-top">
+    <div class="authForm" *ngSwitchCase="false">
+      <div class="ion-padding-horizontal">
+        <h1>Create New Account</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in
+          convallis leo.
+        </p>
+      </div>
       <form [formGroup]="signupForm" (ngSubmit)="handleSignup()">
-        <ion-item>
-          <ion-label position="stacked">Full Name</ion-label>
-          <ion-input
-            placeholder="Your Full Name"
-            formControlName="fullName"
-            name="fullName"
-          ></ion-input>
-        </ion-item>
-        <div
-          *ngIf="signupForm.controls.fullName.errors && !signupForm.controls.fullName.pristine"
-        >
-          <ion-text
-            *ngIf="signupForm.controls.fullName.errors.required"
-            color="danger"
-            padding-left
+        <div class="ion-padding-vertical">
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Full Name</ion-label
+            >
+            <ion-input
+              placeholder="Your Full Name"
+              formControlName="fullName"
+              name="fullName"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="signupForm.controls.fullName.errors && !signupForm.controls.fullName.pristine"
+            class="ion-padding-horizontal"
           >
-            Enter your full name
-          </ion-text>
-        </div>
-        <ion-item>
-          <ion-label position="stacked">Email Address</ion-label>
-          <ion-input
-            placeholder="Your Email"
-            formControlName="email"
-            name="email"
-            type="email"
-          ></ion-input>
-        </ion-item>
-        <div
-          *ngIf="signupForm.controls.email.errors && !signupForm.controls.email.pristine"
-        >
-          <ion-text
-            *ngIf="signupForm.controls.email.errors.required"
-            color="danger"
-            padding-left
+            <ion-text
+              *ngIf="signupForm.controls.fullName.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter your full name
+            </ion-text>
+          </div>
+
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Email Address</ion-label
+            >
+            <ion-input
+              placeholder="Your Email"
+              formControlName="email"
+              name="email"
+              type="email"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="signupForm.controls.email.errors && !signupForm.controls.email.pristine"
+            class="ion-padding-horizontal"
           >
-            Enter an email
-          </ion-text>
-          <ion-text
-            *ngIf="signupForm.controls.email.invalid"
-            color="danger"
-            padding-left
+            <ion-text
+              *ngIf="signupForm.controls.email.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter an email
+            </ion-text>
+            <ion-text
+              *ngIf="signupForm.controls.email.invalid && !signupForm.controls.email.errors.required"
+              color="danger"
+              padding-left
+            >
+              Invalid email address.
+            </ion-text>
+          </div>
+
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Phone Number</ion-label
+            >
+            <ion-input
+              placeholder="Mobile Number"
+              formControlName="phoneNumber"
+              name="phoneNumber"
+              type="text"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="signupForm.controls.phoneNumber.errors && !signupForm.controls.phoneNumber.pristine"
+            class="ion-padding-horizontal"
           >
-            Invalid email address.
-          </ion-text>
-        </div>
-        <ion-item>
-          <ion-label position="stacked">Phone Number</ion-label>
-          <ion-input
-            placeholder="Mobile Number"
-            formControlName="phoneNumber"
-            name="phoneNumber"
-            type="text"
-          ></ion-input>
-        </ion-item>
-        <div
-          *ngIf="signupForm.controls.phoneNumber.errors && !signupForm.controls.phoneNumber.pristine"
-        >
-          <ion-text
-            *ngIf="signupForm.controls.phoneNumber.errors.required"
-            color="danger"
-            padding-left
+            <ion-text
+              *ngIf="signupForm.controls.phoneNumber.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter a phone number
+            </ion-text>
+            <ion-text
+              *ngIf="signupForm.controls.phoneNumber.errors.minlength"
+              color="danger"
+              padding-left
+            >
+              Phone number must be at least 11 characters.
+            </ion-text>
+          </div>
+
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Password</ion-label
+            >
+            <ion-input
+              placeholder="Password"
+              formControlName="password"
+              name="password"
+              [type]="passwordType"
+              clearOnEdit="false"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="signupForm.controls.password.errors && !signupForm.controls.password.pristine"
+            class="ion-padding-horizontal"
           >
-            Enter a phone number
-          </ion-text>
-          <ion-text
-            *ngIf="signupForm.controls.phoneNumber.errors.minlength"
-            color="danger"
-            padding-left
-          >
-            Phone number must be at least 11 characters.
-          </ion-text>
-        </div>
-        <ion-item>
-          <ion-label position="stacked">Password</ion-label>
-          <ion-input
-            placeholder="Password"
-            formControlName="password"
-            name="password"
-            [type]="passwordType"
-            clearOnEdit="false"
-          ></ion-input>
-        </ion-item>
-        <div
-          *ngIf="signupForm.controls.password.errors && !signupForm.controls.password.pristine"
-        >
-          <ion-text
-            *ngIf="signupForm.controls.password.errors.required"
-            color="danger"
-            padding-left
-          >
-            Enter a password
-          </ion-text>
-          <ion-text
-            *ngIf="signupForm.controls.password.errors.minlength"
-            color="danger"
-            padding-left
-          >
-            Password must be at least 6 characters.
-          </ion-text>
+            <ion-text
+              *ngIf="signupForm.controls.password.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter a password
+            </ion-text>
+            <ion-text
+              *ngIf="signupForm.controls.password.errors.minlength"
+              color="danger"
+              padding-left
+            >
+              Password must be at least 6 characters.
+            </ion-text>
+          </div>
         </div>
         <div>
           <ion-button
@@ -119,49 +138,65 @@
         </div>
       </form>
     </div>
-    <div class="loginForm" *ngSwitchCase="true">
+    <div class="authForm" *ngSwitchCase="true">
+      <div class="ion-padding-horizontal">
+        <h1>Login</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in
+          convallis leo.
+        </p>
+      </div>
       <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
-        <ion-item>
-          <ion-label position="stacked">Email Address</ion-label>
-          <ion-input
-            placeholder="Enter Email"
-            formControlName="email"
-            name="email"
-            type="email"
-          ></ion-input>
-        </ion-item>
-        <div
-          *ngIf="loginForm.controls.email.errors && !loginForm.controls.email.pristine"
-        >
-          <ion-text
-            *ngIf="loginForm.controls.email.errors.required"
-            color="danger"
-            padding-left
+        <div class="ion-padding-vertical">
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Email or Phone number</ion-label
+            >
+            <ion-input
+              placeholder="Enter Email"
+              formControlName="email"
+              name="email"
+              type="email"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="loginForm.controls.email.errors && !loginForm.controls.email.pristine"
+            class="ion-padding-horizontal"
           >
-            Enter an email
-          </ion-text>
-        </div>
-        <ion-item>
-          <ion-label position="stacked">Password</ion-label>
-          <ion-input
-            placeholder="Password"
-            formControlName="password"
-            name="password"
-            [type]="passwordType"
-            clearOnEdit="false"
-          ></ion-input>
-        </ion-item>
-        <div
-          *ngIf="loginForm.controls.password.errors && !loginForm.controls.password.pristine"
-        >
-          <ion-text
-            *ngIf="loginForm.controls.password.errors.required"
-            color="danger"
-            padding-left
+            <ion-text
+              *ngIf="loginForm.controls.email.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter an email
+            </ion-text>
+          </div>
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Password</ion-label
+            >
+            <ion-input
+              placeholder="Password"
+              formControlName="password"
+              name="password"
+              [type]="passwordType"
+              clearOnEdit="false"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="loginForm.controls.password.errors && !loginForm.controls.password.pristine"
+            class="ion-padding-horizontal"
           >
-            Enter a password
-          </ion-text>
+            <ion-text
+              *ngIf="loginForm.controls.password.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter a password
+            </ion-text>
+          </div>
         </div>
+
         <div>
           <ion-button
             expand="block"
@@ -174,15 +209,19 @@
       </form>
     </div>
   </div>
-</ion-content>
-<ion-footer>
   <div [ngSwitch]="showLogin">
-    <div *ngSwitchCase="false">
-      Own an account<a (click)="switchPage()">Login here</a>
+    <div *ngSwitchCase="false" class="authForm__loginSwitch">
+      <h5>Already have an account?</h5>
+      <a (click)="switchPage()" class="ion-padding-vertical switchLink"
+        >Login</a
+      >
     </div>
 
-    <div *ngSwitchCase="true">
-      Don't have an account?<a (click)="switchPage()">Create an account here</a>
+    <div *ngSwitchCase="true" class="authForm__loginSwitch">
+      <h5>Don't have an account?</h5>
+      <a (click)="switchPage()" class="ion-padding-vertical switchLink"
+        >Create an account</a
+      >
     </div>
   </div>
-</ion-footer>
+</ion-content>

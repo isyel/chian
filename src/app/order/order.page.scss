@@ -35,3 +35,34 @@
     }
   }
 }
+
+.order {
+  &__cylinderSize {
+    font-size: large;
+    font-weight: 800;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+    ion-icon {
+      font-size: x-large;
+    }
+
+    & > * {
+      padding: 0.2em;
+    }
+  }
+
+  &__nextSteps {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -1,4 +1,4 @@
-.order-item {
+.cart-item {
   border: var(--ion-border);
   border-radius: var(--ion-border-radius);
   &__description {
@@ -20,5 +20,9 @@
   &__image {
     height: 40px;
     opacity: 1;
+  }
+
+  &__removeButton {
+    margin-right: 10px;
   }
 }

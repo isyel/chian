@@ -1,0 +1,31 @@
+<ion-content>
+  <ion-header collapse="condense" class="ion-no-border ion-margin-buttom">
+    <app-header
+      pageTitle="Confirmation"
+      [hasNotifications]="false"
+      [hasBackButton]="false"
+      [lightTheme]="true"
+    ></app-header>
+  </ion-header>
+  <div class="ion-margin-vertical ion-padding">
+    <div class="concentricCircles">
+      <ion-icon name="checkmark"></ion-icon>
+    </div>
+  </div>
+  <div class="ion-padding ion-text-center">
+    <h1><strong>Successful</strong></h1>
+    <p class="ion-margin">
+      Your have successfully<br />
+      placed an order!
+    </p>
+    <br /><br />
+
+    <ion-button
+      expand="block"
+      class="ion-margin"
+      (click)="closeSuccessNotification()"
+    >
+      <span> Close</span>
+    </ion-button>
+  </div>
+</ion-content>
