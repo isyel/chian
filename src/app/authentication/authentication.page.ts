@@ -54,6 +54,7 @@ export class AuthenticationPage implements OnInit {
       email: this.signupForm.value.email,
       phoneNumber: this.signupForm.value.phoneNumber,
       password: this.signupForm.value.password,
+      referralId: this.signupForm.value.password || '',
     };
     this.authService.register(signupCredentials).subscribe(
       (result) => {
@@ -67,7 +68,7 @@ export class AuthenticationPage implements OnInit {
 
   handleLogin() {
     const loginCredentials: LoginModel = {
-      email: this.loginForm.value.email,
+      'email/phone': this.loginForm.value.email,
       password: this.loginForm.value.password,
     };
     this.authService.login(loginCredentials).subscribe(

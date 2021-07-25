@@ -8,7 +8,7 @@ export type RegisterModel = {
 
 export type LoginModel = {
   password: string;
-  email: string;
+  'email/phone': string;
 };
 
 export type ReissueTokenModel = {
