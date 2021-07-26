@@ -1,0 +1,74 @@
+<ion-content class="ion-padding">
+  <ion-header collapse="condense" class="ion-no-border">
+    <app-header
+      pageTitle="Checkout"
+      [hasNotifications]="false"
+      [lightTheme]="true"
+    ></app-header>
+  </ion-header>
+  <div class="ion-padding-horizontal ion-padding-bottom">
+    <h5>Address:</h5>
+    <div class="checkout__address">
+      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+      <ion-text color="secondary">Edit</ion-text>
+    </div>
+  </div>
+  <div class="ion-padding-horizontal">
+    <h5>Delivery Information:</h5>
+    <ion-textarea
+      cols="2"
+      placeholder="(Optional) Enter additional delivery information"
+    ></ion-textarea>
+  </div>
+
+  <app-cart-item
+    [quantity]="2"
+    (handleRemove)="removeFromCart()"
+  ></app-cart-item>
+</ion-content>
+<ion-footer>
+  <app-hero-card [radiusBottom]="false">
+    <ion-grid class="header">
+      <ion-row class="ion-align-items-center ion-justify-content-between">
+        <ion-col>
+          <ion-text>Sub Total</ion-text>
+        </ion-col>
+        <ion-col class="ion-text-end">
+          <ion-text color="primary"><strong>₦3000</strong></ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-center ion-justify-content-between">
+        <ion-col>
+          <ion-text>Shipping</ion-text>
+        </ion-col>
+        <ion-col class="ion-text-end">
+          <ion-text color="primary"><strong>₦1000</strong></ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <hr color="tertiary" />
+        </ion-col>
+      </ion-row>
+      <ion-row
+        class="
+          ion-align-items-center
+          ion-justify-content-between
+          ion-padding-vertical
+          ion-margin-top
+        "
+      >
+        <ion-col>
+          <ion-text><strong>Total</strong></ion-text>
+        </ion-col>
+        <ion-col class="ion-text-end">
+          <ion-text color="primary"><strong>₦4000</strong></ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-button expand="block" color="primary" (click)="goToCheckout()">
+        <span>Place order</span>
+      </ion-button>
+    </ion-grid>
+  </app-hero-card>
+</ion-footer>

@@ -1,0 +1,72 @@
+<ion-content class="ion-padding">
+  <ion-header collapse="condense" class="ion-no-border">
+    <app-header
+      pageTitle="Order details"
+      [hasNotifications]="false"
+      [lightTheme]="true"
+    ></app-header>
+  </ion-header>
+
+  <div class="ion-margin-vertical ion-padding order-details">
+    <div class="order-details__invoice"><strong>Invoice: </strong> 273Q78</div>
+    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    <hr />
+    <div class="order-details__status ion-padding-top">
+      <div>
+        <ion-text>Status:</ion-text><br />
+        <ion-text>Delivered</ion-text>
+      </div>
+      <div class="order-details__status__time ion-text-right">
+        <ion-text>02:15pm</ion-text><br />
+        <ion-text>6th July, 2021</ion-text>
+      </div>
+    </div>
+    <hr />
+    <div class="order-details__pricing ion-padding-top">
+      <ion-text><strong>1 of 12.5kg</strong></ion-text>
+      <ion-text color="secondary"><strong>₦ 3,000</strong></ion-text>
+    </div>
+  </div>
+
+  <div class="order-details__deliveryStatus ion-margin ion-padding-vertical">
+    <div class="order-details__deliveryStatus__top">
+      <div class="order-details__deliveryStatus__icon icon-active">
+        <ion-icon name="cart-outline"></ion-icon>
+      </div>
+      <ion-text color="primary">Order placed</ion-text>
+    </div>
+    <div
+      class="
+        order-details__deliveryStatus__middle
+        ion-padding-vertical ion-margin-vertical
+      "
+    >
+      <div class="order-details__deliveryStatus__item">
+        <div class="order-details__deliveryStatus__icon icon-disabled">
+          <ion-icon name="home" slot="start"></ion-icon>
+        </div>
+        <ion-text color="primary">Delivered</ion-text>
+      </div>
+      <div class="order-details__deliveryStatus__middle__date">
+        <ion-text class="order-details__deliveryStatus__date__time"
+          >02:15pm</ion-text
+        >
+        <ion-text>06 July, 2021</ion-text>
+      </div>
+
+      <div class="order-details__deliveryStatus__item">
+        <div class="order-details__deliveryStatus__icon icon-active">
+          <ion-icon name="checkmark-done-outline"></ion-icon>
+        </div>
+
+        <ion-text class="ion-text-center"> Order<br />Received</ion-text>
+      </div>
+    </div>
+    <div class="order-details__deliveryStatus__bottom ion-text-center">
+      <div class="order-details__deliveryStatus__icon icon-outline">
+        <ion-icon name="timer-outline"></ion-icon>
+      </div>
+      <ion-text>Pending</ion-text>
+    </div>
+  </div>
+</ion-content>

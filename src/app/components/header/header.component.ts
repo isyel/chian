@@ -21,4 +21,8 @@ export class HeaderComponent implements OnInit {
   handleGoBack() {
     this.navController.pop();
   }
+
+  goToNotifications() {
+    this.navController.navigateForward('/notifications');
+  }
 }

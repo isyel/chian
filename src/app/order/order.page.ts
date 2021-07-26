@@ -74,7 +74,7 @@ export class OrderPage implements OnInit {
 
   goToNextStep() {
     if (this.currentStep === 1) {
-      this.router.navigate(['/cart']);
+      this.router.navigate(['/checkout']);
     } else {
       this.currentStep++;
     }
