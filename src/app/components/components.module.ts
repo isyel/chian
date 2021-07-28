@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { CircularProgressComponent } from './circular-progress/circular-progress.component';
+import { DebitCardComponent } from './debit-card/debit-card.component';
 import { HeaderComponent } from './header/header.component';
 import { HeroCardComponent } from './hero-card/hero-card.component';
 import { LocationModalComponent } from './location-modal/location-modal.component';
@@ -21,6 +22,7 @@ import { SlideScreenComponent } from './slide-screen/slide-screen.component';
     LocationModalComponent,
     SlideScreenComponent,
     CartItemComponent,
+    DebitCardComponent,
   ],
   declarations: [
     HeaderComponent,
@@ -30,6 +32,7 @@ import { SlideScreenComponent } from './slide-screen/slide-screen.component';
     LocationModalComponent,
     SlideScreenComponent,
     CartItemComponent,
+    DebitCardComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

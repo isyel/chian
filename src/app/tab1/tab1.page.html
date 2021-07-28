@@ -38,34 +38,31 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button expand="block" color="tertiary">
-          <span> Refill & Accessories</span>
-        </ion-button>
+        <app-hero-card (click)="goToCartPage()">
+          <div class="home__cartItems ion-padding-horizontal">
+            <div>
+              <ion-text class="home__cartItems__number" color="secondary"
+                >3</ion-text
+              >
+              <ion-text>Items in cart</ion-text>
+            </div>
+
+            <ion-button expand="block" size="small" color="primary">
+              <span>Go to cart</span>
+            </ion-button>
+          </div>
+        </app-hero-card>
       </ion-col>
-      <ion-col>
-        <ion-button expand="block">
-          <span> Repairs & maintenance</span>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col
-        ><app-hero-card
-          ><br /><br /><br />
-          <br /></app-hero-card
-      ></ion-col>
-      <ion-col
-        ><app-hero-card> <br /><br /><br /><br /></app-hero-card
-      ></ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col
-        ><app-hero-card> <br /><br /><br /><br /></app-hero-card
-      ></ion-col>
-      <ion-col
-        ><app-hero-card> <br /><br /><br /><br /></app-hero-card
-      ></ion-col>
+      <ion-col class="ion-padding-top">
+        <ion-text><strong>Recent Orders</strong></ion-text
+        ><br />
+        <app-order-item (handleClick)="viewDetails()"></app-order-item>
+        <app-order-item (handleClick)="viewDetails()"></app-order-item>
+        <app-order-item (handleClick)="viewDetails()"></app-order-item>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

@@ -1,0 +1,36 @@
+.debit-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--ion-border-radius);
+  background: #00116d;
+  padding: 1.7em;
+  color: var(--ion-color-primary-contrast);
+
+  &__details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__chip {
+      display: flex;
+      align-items: center;
+      & > * {
+        padding-right: 1.5em;
+      }
+    }
+
+    &__validDate {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  &__number {
+    font-size: x-large;
+  }
+
+  &__image {
+    height: 35px;
+  }
+}

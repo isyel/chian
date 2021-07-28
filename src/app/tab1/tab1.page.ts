@@ -16,4 +16,12 @@ export class Tab1Page {
   goToItemsPage() {
     this.router.navigate(['/items']);
   }
+
+  goToCartPage() {
+    this.router.navigate(['/cart']);
+  }
+
+  viewDetails() {
+    this.router.navigate(['/order-details']);
+  }
 }

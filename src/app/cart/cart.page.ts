@@ -12,7 +12,7 @@ export class CartPage implements OnInit {
   ngOnInit() {}
 
   goToCheckout() {
-    this.router.navigate(['/success']);
+    this.router.navigate(['/checkout']);
   }
 
   removeFromCart() {}

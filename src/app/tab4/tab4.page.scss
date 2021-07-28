@@ -1,0 +1,16 @@
+.settings {
+  &__group {
+    border: 1px solid var(--ion-color-light-shade);
+    border-radius: var(--ion-border-radius);
+
+    &__header {
+      padding-top: 0.5em;
+      font-size: medium;
+    }
+
+    &__item {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

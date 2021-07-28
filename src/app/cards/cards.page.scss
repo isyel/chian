@@ -1,0 +1,17 @@
+.cards {
+  &__addCard {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed var(--ion-color-medium);
+    max-width: 200px;
+    border-radius: var(--ion-border-radius);
+    margin: auto;
+
+    &__icon {
+      font-size: large;
+    }
+  }
+}

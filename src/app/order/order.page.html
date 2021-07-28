@@ -2,7 +2,7 @@
   <ion-header collapse="condense" class="ion-no-border">
     <app-header
       pageTitle="Order"
-      [hasNotifications]="true"
+      [hasNotifications]="false"
       [lightTheme]="true"
     ></app-header>
   </ion-header>
@@ -49,11 +49,11 @@
   <div class="ion-padding" *ngIf="currentStep === 1">
     <app-hero-card [dark]="true">
       <div class="order__container ion-padding-horizontal ion-padding-bottom">
-        <div (click)="showPicker()">
+        <div (click)="showStatePicker()">
           <h5>Select State</h5>
           <ion-text color="medium">No state selected</ion-text>
         </div>
-        <div (click)="showPicker()">
+        <div (click)="showCityPicker()">
           <h5>Select City</h5>
           <ion-text color="medium">No city selected</ion-text>
         </div>

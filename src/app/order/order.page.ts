@@ -9,7 +9,9 @@ import { PickerOptions } from '@ionic/core';
   styleUrls: ['./order.page.scss'],
 })
 export class OrderPage implements OnInit {
-  animals: string[] = ['3kg', '5kg', '7kg', '10kg', '12kg'];
+  cylinders: string[] = ['3kg', '5kg', '7kg', '10kg', '12kg'];
+  states: string[] = ['Cross River', 'Lagos', 'Abia', 'Enugu', 'Anambra'];
+  cities: string[] = ['Calabar', 'Lagos', 'Aba', 'Enugu', 'Onitsha'];
   steps = {
     0: {
       image: 'assets/images/tutorial_illustration.svg',
@@ -47,8 +49,62 @@ export class OrderPage implements OnInit {
       ],
       columns: [
         {
-          name: 'Animals',
+          name: 'Cylinder Size',
           options: this.getColumnOptions(),
+        },
+      ],
+      cssClass: 'pickerModal',
+    };
+
+    const picker = await this.pickerController.create(options);
+    picker.present();
+  }
+
+  async showStatePicker() {
+    const options: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Ok',
+          handler: (value: any) => {
+            console.log(value);
+          },
+        },
+      ],
+      columns: [
+        {
+          name: 'Available States',
+          options: this.getStateOptions(),
+        },
+      ],
+      cssClass: 'pickerModal',
+    };
+
+    const picker = await this.pickerController.create(options);
+    picker.present();
+  }
+
+  async showCityPicker() {
+    const options: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Ok',
+          handler: (value: any) => {
+            console.log(value);
+          },
+        },
+      ],
+      columns: [
+        {
+          name: 'Available Cities',
+          options: this.getCityOptions(),
         },
       ],
       cssClass: 'pickerModal',
@@ -60,7 +116,21 @@ export class OrderPage implements OnInit {
 
   getColumnOptions() {
     const options = [];
-    this.animals.forEach((x) => {
+    this.cylinders.forEach((x) => {
+      options.push({ text: x, value: x });
+    });
+    return options;
+  }
+  getStateOptions() {
+    const options = [];
+    this.states.forEach((x) => {
+      options.push({ text: x, value: x });
+    });
+    return options;
+  }
+  getCityOptions() {
+    const options = [];
+    this.cities.forEach((x) => {
       options.push({ text: x, value: x });
     });
     return options;
