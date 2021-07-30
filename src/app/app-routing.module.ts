@@ -64,6 +64,10 @@ const routes: Routes = [
   {
     path: 'about',
     loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'authentication-agents',
+    loadChildren: () => import('./authentication-agents/authentication-agents.module').then( m => m.AuthenticationAgentsPageModule)
   }
 
 ];
