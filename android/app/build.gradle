@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    buildToolsVersion '30.0.2'
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "io.ionic.starter"
