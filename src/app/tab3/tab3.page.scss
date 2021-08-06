@@ -7,8 +7,18 @@
     &__image {
       height: 120px;
       width: 90px;
-      background-color: var(--ion-color-medium);
+      background-color: var(--ion-color-light-shade);
       border-radius: var(--ion-border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      &__edit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
     }
 
     &__fullName {
@@ -34,6 +44,7 @@
     &__item:last-child {
       border: 1px solid var(--ion-color-light-shade);
       border-right: none;
+      border-left: none;
       width: 100%;
     }
 

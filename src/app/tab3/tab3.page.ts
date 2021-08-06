@@ -12,4 +12,8 @@ export class Tab3Page {
   goToCards() {
     this.router.navigate(['/cards']);
   }
+
+  handleLogout() {
+    this.router.navigate(['/authentication']);
+  }
 }
