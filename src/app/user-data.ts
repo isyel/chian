@@ -16,6 +16,7 @@ export class UserData {
   pushNotificationStatus = 'PUSH_NOTIFICATION_STATUS';
   emailNotificationStatus = 'EMAIL_NOTIFICATION_STATUS';
   notifications = 'NOTIFICATIONS';
+  userData = 'USER_DATA';
 
   constructor(private storageService: StorageService) {}
 
@@ -36,11 +37,11 @@ export class UserData {
   }
 
   async getUserData(): Promise<UserModel> {
-    return await this.storageService.get(this.authToken);
+    return await this.storageService.get(this.userData);
   }
 
   async setUserData(userData: UserModel) {
-    return await this.storageService.set(this.isLoggedIn, userData);
+    return await this.storageService.set(this.userData, userData);
   }
 
   async getIsLoggedIn() {

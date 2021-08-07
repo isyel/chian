@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationModel } from '../models/NotificationModel';
+import { UserModel } from '../models/UserModel';
+import { NotificationsService } from '../services/notifications/notifications.service';
+import { UserData } from '../user-data';
+import { CommonMethods } from '../util/common';
 
 @Component({
   selector: 'app-notifications',
@@ -6,10 +11,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notifications.page.scss'],
 })
 export class NotificationsPage implements OnInit {
+  userProfileData: UserModel;
+  notifications: NotificationModel[];
 
-  constructor() { }
+  constructor(
+    private userData: UserData,
+    private commonMethods: CommonMethods,
+    private notificationsService: NotificationsService
+  ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.userProfileData = await this.userData.getUserData();
   }
 
+  async getOfflineNotifications() {
+    this.notifications = await this.userData.getNotifications();
+    this.getNotifications();
+  }
+
+  getNotifications() {
+    this.notificationsService.getAll(this.userProfileData?.id).subscribe(
+      (result) => {
+        console.log('result: ', result);
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast('Network or Server Error', false);
+      }
+    );
+  }
 }

@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class="ion-padding">
   <ion-header collapse="condense" class="ion-no-border">
     <app-header
       pageTitle="Items"
@@ -7,11 +7,11 @@
     ></app-header>
   </ion-header>
 
-  <div class="ion-padding buttonGroup">
+  <div class="buttonGroup">
     <span class="ion-padding buttonGroup__button active">Refill</span>
     <span class="ion-padding buttonGroup__button">Buy Accessories</span>
   </div>
-  <div class="ion-padding">
+  <div>
     <app-order-item (handleClick)="orderItem()"></app-order-item>
     <app-order-item (handleClick)="orderItem()"></app-order-item>
     <app-order-item (handleClick)="orderItem()"></app-order-item>

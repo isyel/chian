@@ -8,6 +8,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
 import { ComponentsModule } from '../components/components.module';
+import { UsersService } from '../services/users/users.service';
 
 @NgModule({
   imports: [
@@ -18,5 +19,6 @@ import { ComponentsModule } from '../components/components.module';
     ComponentsModule,
   ],
   declarations: [ProfilePage],
+  providers: [UsersService],
 })
 export class ProfilePageModule {}

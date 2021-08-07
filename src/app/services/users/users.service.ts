@@ -17,7 +17,7 @@ export class UsersService {
    * @returns UserModel
    * @memberof UsersService
    */
-  public getOne(userId: number) {
+  public getProfile(userId: number) {
     this.service.setActionUrl(this.actionUrl);
     return this.service.getById<UserModel>(userId);
   }
@@ -29,7 +29,7 @@ export class UsersService {
    * @returns UserModel
    * @memberof UsersService
    */
-  public getHistory(userId: number, payload: UserModel) {
+  public updateProfile(userId: number, payload: UserModel) {
     this.service.setActionUrl(this.actionUrl);
     return this.service.update<UserModel>(userId, payload);
   }

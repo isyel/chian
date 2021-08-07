@@ -54,8 +54,20 @@ export class OrdersService {
    * @memberof OrdersService
    */
   public getHistory(userId: number) {
-    this.service.setActionUrl(this.actionUrl, 'user/');
+    this.service.setActionUrl(this.actionUrl);
     return this.service.getById<ResultModel>(userId);
+  }
+
+  /**
+   * Get Pending Order
+   *
+   * @param userId
+   * @returns OrderModel
+   * @memberof OrdersService
+   */
+  public getPending(userId: number) {
+    this.service.setActionUrl(this.actionUrl, 'pending/');
+    return this.service.getById<OrderModel>(userId);
   }
 
   /**
