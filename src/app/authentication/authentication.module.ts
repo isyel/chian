@@ -9,6 +9,7 @@ import { AuthenticationPageRoutingModule } from './authentication-routing.module
 import { AuthenticationPage } from './authentication.page';
 import { ComponentsModule } from '../components/components.module';
 import { AuthenticationService } from '../services/authentication/authentication.service';
+import { CommonMethods } from '../util/common';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { AuthenticationService } from '../services/authentication/authentication
     ReactiveFormsModule,
   ],
   declarations: [AuthenticationPage],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, CommonMethods],
 })
 export class AuthenticationPageModule {}

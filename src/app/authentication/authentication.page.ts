@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginModel, RegisterModel } from '../models/AuthModel';
 import { AuthenticationService } from '../services/authentication/authentication.service';
+import { CommonMethods } from '../util/common';
 
 @Component({
   selector: 'app-authentication',
@@ -18,7 +20,9 @@ export class AuthenticationPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router,
+    public commonMethods: CommonMethods
   ) {
     this.signupForm = this.formBuilder.group({
       fullName: ['', Validators.required],
@@ -59,6 +63,7 @@ export class AuthenticationPage implements OnInit {
     this.authService.register(signupCredentials).subscribe(
       (result) => {
         console.log('result: ', result);
+        this.router.navigate(['/tabs']);
       },
       (error) => {
         console.error(error);
@@ -67,6 +72,7 @@ export class AuthenticationPage implements OnInit {
   }
 
   handleLogin() {
+    this.commonMethods.presentLoading();
     const loginCredentials: LoginModel = {
       'email/phone': this.loginForm.value.email,
       password: this.loginForm.value.password,
@@ -74,10 +80,15 @@ export class AuthenticationPage implements OnInit {
     this.authService.login(loginCredentials).subscribe(
       (result) => {
         console.log('result: ', result);
+        this.router.navigate(['/tabs']);
+        this.commonMethods.dismissLoader();
       },
       (error) => {
         console.error(error);
+        this.commonMethods.presentAlert('Could not login');
+        this.commonMethods.presentToast('Invalid User Name and password');
       }
     );
+    this.router.navigate(['/tabs']);
   }
 }

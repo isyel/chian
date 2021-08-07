@@ -160,3 +160,7 @@ ion-fab-button {
     box-shadow: none;
   }
 }
+
+.toastCss {
+  --border-radius: var(--ion-border-radius-round);
+}
