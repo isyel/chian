@@ -23,10 +23,10 @@ export class CommonMethods {
    * @returns any
    * @memberof Promise<void>
    */
-  async presentToast(message: string, type = 'success') {
+  async presentToast(message: string, success = true) {
     const toast = await this.toastController.create({
       message,
-      color: type === 'success' ? 'primary' : 'secondary',
+      color: success ? 'primary' : 'secondary',
       cssClass: 'toastCss',
       duration: 2000,
     });

@@ -85,8 +85,7 @@ export class AuthenticationPage implements OnInit {
       },
       (error) => {
         console.error(error);
-        this.commonMethods.presentAlert('Could not login');
-        this.commonMethods.presentToast('Invalid User Name and password');
+        this.commonMethods.presentToast('Network or Server Error', false);
       }
     );
     this.router.navigate(['/tabs']);
