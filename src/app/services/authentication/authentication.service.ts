@@ -17,25 +17,25 @@ export class AuthenticationService {
   /**
    * Register User
    *
-   * @param credentials
+   * @param payload
    * @returns UserModel
    * @memberof AuthenticationService
    */
-  public register(credentials: RegisterModel) {
+  public register(payload: RegisterModel) {
     this.service.setActionUrl(this.actionUrl, 'Register');
-    return this.service.post<any>(credentials);
+    return this.service.post<any>(payload);
   }
 
   /**
    * Login User
    *
-   * @param credentials
+   * @param payload
    * @returns UserModel
    * @memberof AuthenticationService
    */
-  public login(credentials: LoginModel) {
+  public login(payload: LoginModel) {
     this.service.setActionUrl(this.actionUrl, 'Login');
-    return this.service.post<any>(credentials);
+    return this.service.post<any>(payload);
   }
 
   /**
