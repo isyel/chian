@@ -25,4 +25,8 @@ export class HeaderComponent implements OnInit {
   goToNotifications() {
     this.navController.navigateForward('/notifications');
   }
+
+  goToProfile() {
+    this.navController.navigateRoot('/tabs/tab3');
+  }
 }

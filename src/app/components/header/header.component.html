@@ -12,10 +12,18 @@
       <ion-text color="primary" *ngIf="hasPageTitle">{{ pageTitle }}</ion-text>
     </ion-col>
     <ion-col class="header__avatar">
+      <ion-chip color="secondary" *ngIf="hasNotifications">
+        <ion-icon
+          name="notifications"
+          class="header__notificationIcon"
+          (click)="goToNotifications()"
+        ></ion-icon>
+        <ion-label class="header__notificationLabel">2</ion-label>
+      </ion-chip>
       <ion-avatar
         class="header__avatar__image"
-        *ngIf="hasNotifications"
-        (click)="goToNotifications()"
+        (click)="goToProfile()"
+        *ngIf="!hasNotifications"
         ><img
           src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
       /></ion-avatar>
