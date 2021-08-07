@@ -114,7 +114,7 @@ export class CommonMethods {
    */
   async presentLoading(message = 'Please wait...', backdropDismiss = false) {
     this.loading = await this.loadingController.create({
-      spinner: 'lines',
+      spinner: 'bubbles',
       cssClass: 'loadingCss',
       message,
       duration: 500,
