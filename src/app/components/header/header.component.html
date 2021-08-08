@@ -2,13 +2,18 @@
   <ion-row class="ion-align-items-center ion-justify-content-between">
     <ion-col class="ion-align-items-center">
       <ion-fab-button
-        *ngIf="hasBackButton"
+        *ngIf="hasBackButton && !showIcon"
         [color]="lightTheme ? 'light' : 'primary'"
         (click)="handleGoBack()"
         ><ion-icon [name]="icon"></ion-icon
       ></ion-fab-button>
+      <ion-img
+        *ngIf="showIcon"
+        src="assets/icon/chian_logo.png"
+        class="header__icon"
+      ></ion-img>
     </ion-col>
-    <ion-col class="ion-align-self-center header__title" col="auto">
+    <ion-col class="ion-align-self-center header__title" size="auto">
       <ion-text color="primary" *ngIf="hasPageTitle">{{ pageTitle }}</ion-text>
     </ion-col>
     <ion-col class="header__avatar">

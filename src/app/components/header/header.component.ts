@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   @Input() hasPageTitle = true;
   @Input() hasNotifications: boolean;
   @Input() lightTheme: boolean;
+  @Input() showIcon: boolean;
 
   constructor(private navController: NavController) {}
 
