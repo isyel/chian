@@ -6,4 +6,116 @@
       [lightTheme]="true"
     ></app-header>
   </ion-header>
+  <div class="ion-padding-horizontal">
+    <h1>Your Account</h1>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in
+      convallis leo.
+    </p>
+  </div>
+  <form [formGroup]="accountForm" (ngSubmit)="updateProfile()">
+    <div class="ion-padding-bottom">
+      <ion-item class="ion-margin-vertical" lines="none">
+        <ion-label class="ion-padding-horizontal" position="stacked"
+          >Your Full Name</ion-label
+        >
+        <ion-input
+          placeholder="Your Full Name"
+          formControlName="fullName"
+          name="fullName"
+        ></ion-input>
+      </ion-item>
+      <div
+        *ngIf="accountForm.controls.fullName.errors && !accountForm.controls.fullName.pristine"
+        class="ion-padding-horizontal"
+      >
+        <ion-text
+          *ngIf="accountForm.controls.fullName.errors.required"
+          color="danger"
+          padding-left
+        >
+          Name cannot be empty
+        </ion-text>
+      </div>
+
+      <ion-item class="ion-margin-vertical" lines="none">
+        <ion-label class="ion-padding-horizontal" position="stacked"
+          >Your Email Address</ion-label
+        >
+        <ion-input
+          placeholder="Your Email"
+          formControlName="email"
+          name="email"
+          type="email"
+        ></ion-input>
+      </ion-item>
+      <div
+        *ngIf="accountForm.controls.email.errors && !accountForm.controls.email.pristine"
+        class="ion-padding-horizontal"
+      >
+        <ion-text
+          *ngIf="accountForm.controls.email.errors.required"
+          color="danger"
+          padding-left
+        >
+          Email address cannot be empty
+        </ion-text>
+        <ion-text
+          *ngIf="accountForm.controls.email.invalid && !accountForm.controls.email.errors.required"
+          color="danger"
+          padding-left
+        >
+          Invalid email address format
+        </ion-text>
+      </div>
+
+      <ion-item class="ion-margin-vertical" lines="none">
+        <ion-label class="ion-padding-horizontal" position="stacked"
+          >Your Phone Number</ion-label
+        >
+        <ion-input
+          placeholder="Your Mobile Number"
+          formControlName="phoneNumber"
+          name="phoneNumber"
+          type="text"
+        ></ion-input>
+      </ion-item>
+      <div
+        *ngIf="accountForm.controls.phoneNumber.errors && !accountForm.controls.phoneNumber.pristine"
+        class="ion-padding-horizontal"
+      >
+        <ion-text
+          *ngIf="accountForm.controls.phoneNumber.errors.required"
+          color="danger"
+          padding-left
+        >
+          Phone number cannot be empty
+        </ion-text>
+        <ion-text
+          *ngIf="accountForm.controls.phoneNumber.errors.minlength"
+          color="danger"
+          padding-left
+        >
+          Phone number must be at least 11 characters.
+        </ion-text>
+      </div>
+      <ion-item class="ion-margin-vertical" lines="none">
+        <ion-label class="ion-padding-horizontal" position="stacked"
+          >Your Address</ion-label
+        >
+        <ion-textarea
+          placeholder="Home address (required for delivery)"
+          formControlName="address"
+          name="address"
+          type="text"
+        ></ion-textarea>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-button expand="block" type="submit" [disabled]="!accountForm.valid">
+        <span>Update account</span>
+      </ion-button>
+    </div>
+  </form>
 </ion-content>

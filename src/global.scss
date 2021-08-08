@@ -55,9 +55,10 @@ ion-toggle {
 // }
 
 ion-input,
+ion-textarea,
 input {
   border-radius: var(--ion-border-radius-round) !important;
-  border: 2px solid var(--ion-color-primary-tint);
+  border: 1px solid var(--ion-color-primary-tint);
   outline: none !important;
   padding: 0.4em 0.7em !important;
   font-size: 18px !important;
@@ -66,7 +67,7 @@ input {
   &:focus-within,
   &:hover {
     border-radius: var(--ion-border-radius-round);
-    border: 2px solid var(--ion-color-secondary);
+    border: 1px solid var(--ion-color-secondary);
   }
 }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserModel } from '../models/UserModel';
 import { UsersService } from '../services/users/users.service';
 import { UserData } from '../user-data';
@@ -11,12 +12,31 @@ import { CommonMethods } from '../util/common';
 })
 export class ProfilePage implements OnInit {
   userProfileData: UserModel;
+  accountForm: FormGroup;
+  passwordType = 'password';
+  passwordIcon = 'eye-off';
 
   constructor(
     private usersService: UsersService,
     private userData: UserData,
-    private commonMethods: CommonMethods
-  ) {}
+    private commonMethods: CommonMethods,
+    private formBuilder: FormBuilder
+  ) {
+    this.accountForm = this.formBuilder.group({
+      fullName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(11),
+          ,
+          Validators.maxLength(11),
+        ],
+      ],
+      address: [''],
+    });
+  }
 
   async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
