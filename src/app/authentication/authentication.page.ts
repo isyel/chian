@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { LoginModel, RegisterModel } from '../models/AuthModel';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { CommonMethods } from '../util/common';
@@ -21,8 +21,8 @@ export class AuthenticationPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router,
-    public commonMethods: CommonMethods
+    public commonMethods: CommonMethods,
+    private navController: NavController
   ) {
     this.signupForm = this.formBuilder.group({
       fullName: ['', Validators.required],
@@ -63,7 +63,7 @@ export class AuthenticationPage implements OnInit {
     this.authService.register(signupCredentials).subscribe(
       (result) => {
         console.log('result: ', result);
-        this.router.navigate(['/tabs']);
+        this.navController.navigateRoot('/tabs/tab1');
       },
       (error) => {
         console.error(error);
@@ -80,15 +80,15 @@ export class AuthenticationPage implements OnInit {
     this.authService.login(loginCredentials).subscribe(
       (result) => {
         console.log('result: ', result);
-        this.router.navigate(['/tabs']);
+        this.navController.navigateRoot('/tabs/tab1');
         this.commonMethods.dismissLoader();
       },
       (error) => {
         console.error(error);
         this.commonMethods.presentToast('Network or Server Error', false);
         this.commonMethods.dismissLoader();
+        this.navController.navigateRoot('/tabs/tab1');
       }
     );
-    this.router.navigate(['/tabs']);
   }
 }
