@@ -28,12 +28,11 @@
   <ion-grid class="ion-padding ion-margin-top">
     <ion-row>
       <ion-col>
-        <div class="ion-padding-top home__orderInfo">
-          <app-hero-card (click)="goToItemsPage()">
-            Last Order: <strong>15 days ago</strong>
-            <h5>Running out of Gas?</h5>
-            <p>Order Now and get <strong>15% off</strong></p>
-          </app-hero-card>
+        <div class="ion-margin-top home__orderInfo">
+          <ion-img
+            src="assets/images/new_user_banner.svg"
+            (click)="goToItemsPage()"
+          ></ion-img>
         </div>
       </ion-col>
     </ion-row>

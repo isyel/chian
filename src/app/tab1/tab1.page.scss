@@ -3,6 +3,11 @@
     position: relative;
   }
 
+  &__orderInfo {
+    border-radius: var(--ion-border-radius);
+    overflow: hidden;
+  }
+
   &__heroFixed {
     position: sticky;
   }
