@@ -8,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { Tab3PageRoutingModule } from './tab3-routing.module';
 import { ComponentsModule } from '../components/components.module';
+import { PhotoService } from '../services/photo/photo.service';
 
 @NgModule({
   imports: [
@@ -20,5 +21,6 @@ import { ComponentsModule } from '../components/components.module';
     ComponentsModule,
   ],
   declarations: [Tab3Page],
+  providers: [PhotoService],
 })
 export class Tab3PageModule {}

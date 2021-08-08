@@ -9,10 +9,13 @@
   </ion-header>
   <div class="profile__header ion-padding">
     <div class="profile__header__image">
-      <ion-img src="assets/images/avatar.svg"></ion-img>
+      <ion-img
+        [src]="photoService.photo ? photoService.photo.webviewPath : 'assets/images/avatar.svg'"
+      ></ion-img>
       <ion-fab-button
         class="small-fab no-shadow profile__header__image__edit"
         color="light"
+        (click)="changeProfilePics()"
         ><ion-icon name="pencil-outline"></ion-icon>
       </ion-fab-button>
     </div>

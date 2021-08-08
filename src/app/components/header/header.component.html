@@ -13,12 +13,12 @@
     </ion-col>
     <ion-col class="header__avatar">
       <ion-chip color="secondary" *ngIf="hasNotifications">
+        <ion-label class="header__notificationLabel">2</ion-label>
         <ion-icon
           name="notifications"
           class="header__notificationIcon"
           (click)="goToNotifications()"
         ></ion-icon>
-        <ion-label class="header__notificationLabel">2</ion-label>
       </ion-chip>
       <ion-avatar
         class="header__avatar__image"

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserModel } from '../models/UserModel';
+import { PhotoService } from '../services/photo/photo.service';
 import { UsersService } from '../services/users/users.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
@@ -17,7 +18,8 @@ export class Tab3Page implements OnInit {
     private router: Router,
     private usersService: UsersService,
     private userData: UserData,
-    private commonMethods: CommonMethods
+    private commonMethods: CommonMethods,
+    public photoService: PhotoService
   ) {}
 
   goToCards() {
@@ -35,6 +37,7 @@ export class Tab3Page implements OnInit {
   async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
     this.getUserProfile();
+    await this.photoService.loadSaved();
   }
 
   getUserProfile() {
@@ -47,5 +50,9 @@ export class Tab3Page implements OnInit {
         this.commonMethods.presentToast('Network or Server Error', false);
       }
     );
+  }
+
+  changeProfilePics() {
+    this.photoService.addNewPhoto();
   }
 }
