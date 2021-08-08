@@ -19,7 +19,9 @@
     </ion-col>
     <ion-col class="header__avatar ion-align-self-right">
       <ion-chip color="secondary" *ngIf="hasNotifications">
-        <ion-label class="header__notificationLabel">2</ion-label>
+        <ion-label class="header__notificationLabel">{{
+          pendingNotifications
+        }}</ion-label>
         <ion-icon
           name="notifications"
           class="header__notificationIcon"

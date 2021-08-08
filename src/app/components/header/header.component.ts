@@ -14,13 +14,20 @@ export class HeaderComponent implements OnInit {
   @Input() hasNotifications: boolean;
   @Input() lightTheme: boolean;
   @Input() showIcon: boolean;
+  pendingNotifications: number;
 
   constructor(private navController: NavController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getNotifications();
+  }
 
   handleGoBack() {
     this.navController.pop();
+  }
+
+  getNotifications() {
+    this.pendingNotifications = 1;
   }
 
   goToNotifications() {

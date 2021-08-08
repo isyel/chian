@@ -25,7 +25,6 @@ export class Tab1Page implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.commonMethods.dismissLoader();
     this.userProfileData = await this.userData.getUserData();
   }
 

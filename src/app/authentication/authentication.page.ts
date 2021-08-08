@@ -86,6 +86,7 @@ export class AuthenticationPage implements OnInit {
       (error) => {
         console.error(error);
         this.commonMethods.presentToast('Network or Server Error', false);
+        this.commonMethods.dismissLoader();
       }
     );
     this.router.navigate(['/tabs']);
