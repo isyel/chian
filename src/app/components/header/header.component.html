@@ -1,6 +1,6 @@
 <ion-grid class="header ion-margin-bottom">
   <ion-row class="ion-align-items-center ion-justify-content-between">
-    <ion-col class="ion-align-items-center">
+    <ion-col class="ion-align-self-left">
       <ion-fab-button
         *ngIf="hasBackButton && !showIcon"
         [color]="lightTheme ? 'light' : 'primary'"
@@ -9,14 +9,15 @@
       ></ion-fab-button>
       <ion-img
         *ngIf="showIcon"
-        src="assets/icon/chian_logo.png"
+        src="assets/icon/chian_logo_small.png"
         class="header__icon"
+        alt="Chian"
       ></ion-img>
     </ion-col>
     <ion-col class="ion-align-self-center header__title" size="auto">
       <ion-text color="primary" *ngIf="hasPageTitle">{{ pageTitle }}</ion-text>
     </ion-col>
-    <ion-col class="header__avatar">
+    <ion-col class="header__avatar ion-align-self-right">
       <ion-chip color="secondary" *ngIf="hasNotifications">
         <ion-label class="header__notificationLabel">2</ion-label>
         <ion-icon
