@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   @Input() pageTitle: string;
   @Input() hasPageTitle = true;
   @Input() hasNotifications: boolean;
+  @Input() showAvatar: boolean;
   @Input() lightTheme: boolean;
   @Input() showIcon: boolean;
   pendingNotifications: number;
