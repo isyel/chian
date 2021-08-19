@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { LoginModel, RegisterModel } from '../models/AuthModel';
 import { AuthenticationService } from '../services/authentication/authentication.service';
+import { NavparamService } from '../services/navparam/navparam.service';
 import { CommonMethods } from '../util/common';
 
 @Component({
@@ -17,12 +18,14 @@ export class AuthenticationPage implements OnInit {
   forgotPasswordForm: FormGroup;
   passwordType = 'password';
   passwordIcon = 'eye-off';
+  userType = 'User';
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     public commonMethods: CommonMethods,
-    private navController: NavController
+    private navController: NavController,
+    private navParamService: NavparamService
   ) {
     this.signupForm = this.formBuilder.group({
       fullName: ['', Validators.required],
@@ -41,7 +44,9 @@ export class AuthenticationPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userType = this.navParamService.navData;
+  }
 
   switchPage() {
     this.showLogin = !this.showLogin;
@@ -85,9 +90,8 @@ export class AuthenticationPage implements OnInit {
       },
       (error) => {
         console.error(error);
-        this.commonMethods.presentToast('Network or Server Error', false);
+        this.commonMethods.presentToast(error.message, false);
         this.commonMethods.dismissLoader();
-        this.navController.navigateRoot('/tabs/tab1');
       }
     );
   }

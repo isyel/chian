@@ -209,7 +209,7 @@
       </form>
     </div>
   </div>
-  <div [ngSwitch]="showLogin">
+  <div [ngSwitch]="showLogin" *ngIf="userType === 'User'">
     <div *ngSwitchCase="false" class="authForm__loginSwitch">
       <h5>Already have an account?</h5>
       <a (click)="switchPage()" class="ion-padding-vertical switchLink"

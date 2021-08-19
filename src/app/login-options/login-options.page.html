@@ -1,0 +1,17 @@
+<ion-content class="ion-padding loginOptions">
+  <div class="logo ion-margin-vertical">
+    <ion-img
+      src="assets/icon/chian_logo_dark.png"
+      class="header__icon"
+      alt="Chian"
+    ></ion-img>
+  </div>
+  <div class="ion-margin-vertical loginOptions__buttons">
+    <ion-button expand="block" color="primary" (click)="goToLogin('User')">
+      <span>Login As User</span>
+    </ion-button>
+    <ion-button expand="block" color="secondary" (click)="goToLogin('Agent')">
+      <span>Login As Delivery Agent</span>
+    </ion-button>
+  </div>
+</ion-content>

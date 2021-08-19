@@ -44,7 +44,7 @@ export class TutorialPage implements OnInit {
     if (isLoggedIn) {
       this.router.navigate(['/tabs']);
     } else {
-      this.router.navigate(['/authentication']);
+      this.router.navigate(['/login-options']);
     }
   }
 
