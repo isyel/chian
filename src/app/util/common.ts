@@ -117,7 +117,7 @@ export class CommonMethods {
       spinner: 'bubbles',
       cssClass: 'loadingCss',
       message,
-      duration: 500,
+      duration: 5000,
       backdropDismiss,
     });
     await this.loading.present();

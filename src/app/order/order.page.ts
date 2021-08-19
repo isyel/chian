@@ -1,9 +1,14 @@
+/* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
+import { OptionsModel } from '../models/OptionsModel';
 import { OrderModel } from '../models/OrderModel';
+import { UserModel } from '../models/UserModel';
+import { NavparamService } from '../services/navparam/navparam.service';
 import { OptionsService } from '../services/options/options.service';
+import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
 
 @Component({
@@ -12,12 +17,12 @@ import { CommonMethods } from '../util/common';
   styleUrls: ['./order.page.scss'],
 })
 export class OrderPage implements OnInit {
-  cylinders: string[] = ['3kg', '5kg', '7kg', '10kg', '12kg'];
+  userProfileData: UserModel;
+  cylinderOptions: OptionsModel[];
   statesData: any[];
   selectedState: any;
   selectedCity: any;
   selectedCylinder: any;
-  jsonStates = './../../assets/data/states.json';
   steps = {
     0: {
       image: 'assets/images/tutorial_illustration.svg',
@@ -37,12 +42,19 @@ export class OrderPage implements OnInit {
     private pickerController: PickerController,
     private router: Router,
     private optionsService: OptionsService,
-    private commonMethods: CommonMethods
+    private commonMethods: CommonMethods,
+    private navParamService: NavparamService,
+    private userData: UserData
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.userProfileData = await this.userData.getUserData();
+    const selectedOption = this.navParamService.navData;
+    this.selectedCylinder = {
+      cylinder: { text: selectedOption.name, value: selectedOption._id },
+    };
+    this.cylinderOptions = await this.userData.getOptions();
     this.getStates();
-    this.selectedCylinder = { cylinder: { text: '15kg' } };
   }
 
   getStates() {
@@ -52,19 +64,6 @@ export class OrderPage implements OnInit {
       },
       (error) => {
         console.error(error);
-      }
-    );
-  }
-
-  getOptions() {
-    this.optionsService.getAll().subscribe(
-      (result) => {
-        console.log('result: ', result);
-        this.cylinders = result;
-      },
-      (error) => {
-        console.error(error);
-        this.commonMethods.presentToast('Network or Server Error', false);
       }
     );
   }
@@ -79,7 +78,7 @@ export class OrderPage implements OnInit {
         {
           text: 'Ok',
           handler: (value: any) => {
-            this.selectedCylinder = value;
+            this.selectedCylinder = value.cylinder;
           },
         },
       ],
@@ -106,7 +105,7 @@ export class OrderPage implements OnInit {
         {
           text: 'Ok',
           handler: (value: any) => {
-            this.selectedState = value;
+            this.selectedState = value.state;
             this.selectedCity = null;
           },
         },
@@ -134,7 +133,7 @@ export class OrderPage implements OnInit {
         {
           text: 'Ok',
           handler: (value: any) => {
-            this.selectedCity = value;
+            this.selectedCity = value.city;
           },
         },
       ],
@@ -153,8 +152,12 @@ export class OrderPage implements OnInit {
 
   getCylinderOptions() {
     const options = [];
-    this.cylinders.forEach((x) => {
-      options.push({ text: x, value: x });
+    this.cylinderOptions.forEach((cylinder) => {
+      options.push({
+        text: cylinder.name,
+        value: cylinder._id,
+        object: cylinder,
+      });
     });
     return options;
   }
@@ -181,13 +184,29 @@ export class OrderPage implements OnInit {
   }
 
   goToPrevStep() {
-    if (this.quantity > 0) {
+    if (this.currentStep > 0) {
       this.currentStep--;
     }
   }
 
   goToNextStep() {
     if (this.currentStep === 1) {
+      const order = {
+        userId: this.userProfileData._id,
+        orderItems: [
+          {
+            options: this.cylinderOptions.find(
+              (option) => option._id === this.selectedCylinder.value
+            ),
+            quantity: this.quantity,
+          },
+        ],
+        state: this.selectedState.name,
+        city: this.selectedCity.name,
+        street: '',
+        deliveryPrice: 1500,
+      };
+      this.navParamService.navData = order;
       this.router.navigate(['/checkout']);
     } else {
       this.currentStep++;

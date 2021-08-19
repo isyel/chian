@@ -13,11 +13,12 @@
   </div>
   <div>
     <app-order-item
-      (handleClick)="orderItem()"
+      (handleClick)="orderItem(option)"
       *ngFor="let option of options"
       [name]="option.name"
       [size]="option.size"
       [price]="option.price"
+      [itemId]="option._id"
     ></app-order-item>
   </div>
 </ion-content>
