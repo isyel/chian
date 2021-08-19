@@ -8,7 +8,7 @@ import { BaseServiceService } from '../base-service.service';
   providedIn: 'root',
 })
 export class OptionsService {
-  actionUrl = 'options/';
+  actionUrl = 'api/orders/options/';
 
   constructor(
     public service: BaseServiceService,

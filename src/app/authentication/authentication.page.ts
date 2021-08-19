@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { LoginModel, RegisterModel } from '../models/AuthModel';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { NavparamService } from '../services/navparam/navparam.service';
+import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
 
 @Component({
@@ -25,7 +26,8 @@ export class AuthenticationPage implements OnInit {
     private authService: AuthenticationService,
     public commonMethods: CommonMethods,
     private navController: NavController,
-    private navParamService: NavparamService
+    private navParamService: NavparamService,
+    private userData: UserData
   ) {
     this.signupForm = this.formBuilder.group({
       fullName: ['', Validators.required],
@@ -67,8 +69,14 @@ export class AuthenticationPage implements OnInit {
     };
     this.authService.register(signupCredentials).subscribe(
       (result) => {
-        console.log('result: ', result);
-        this.navController.navigateRoot('/tabs/tab1');
+        if (result.status) {
+          console.log('result: ', result);
+
+          // this.userData.setUserData(result.data.userDetails);
+          // this.navController.navigateRoot('/tabs/tab1');
+        } else {
+          this.commonMethods.presentAlert(result.err.message, result.message);
+        }
       },
       (error) => {
         console.error(error);
@@ -84,9 +92,9 @@ export class AuthenticationPage implements OnInit {
     };
     this.authService.login(loginCredentials).subscribe(
       (result) => {
-        console.log('result: ', result);
-        this.navController.navigateRoot('/tabs/tab1');
+        this.userData.setUserData(result.data.userDetails);
         this.commonMethods.dismissLoader();
+        this.navController.navigateRoot('/tabs/tab1');
       },
       (error) => {
         console.error(error);

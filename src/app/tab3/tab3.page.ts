@@ -12,7 +12,7 @@ import { CommonMethods } from '../util/common';
   styleUrls: ['tab3.page.scss'],
 })
 export class Tab3Page implements OnInit {
-  userProfileData: UserModel;
+  userProfileData: UserModel | any;
 
   constructor(
     private router: Router,

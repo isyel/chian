@@ -13,10 +13,10 @@
     </ion-col>
     <ion-col class="ion-align-self-center order-item__description">
       <ion-text color="primary" class="order-item__description__name"
-        ><strong>6kg Cylinder</strong>
+        ><strong>{{ name || "3kg Cylinder" }}</strong>
       </ion-text>
       <ion-text color="secondary" class="order-item__description__price"
-        ><strong>₦2500</strong></ion-text
+        ><strong>₦{{ price || 2000 }}</strong></ion-text
       >
     </ion-col>
     <ion-col size="1">

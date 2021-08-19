@@ -12,10 +12,12 @@
     <span class="ion-padding buttonGroup__button">Buy Accessories</span>
   </div>
   <div>
-    <app-order-item (handleClick)="orderItem()"></app-order-item>
-    <app-order-item (handleClick)="orderItem()"></app-order-item>
-    <app-order-item (handleClick)="orderItem()"></app-order-item>
-    <app-order-item (handleClick)="orderItem()"></app-order-item>
-    <app-order-item (handleClick)="orderItem()"></app-order-item>
+    <app-order-item
+      (handleClick)="orderItem()"
+      *ngFor="let option of options"
+      [name]="option.name"
+      [size]="option.size"
+      [price]="option.price"
+    ></app-order-item>
   </div>
 </ion-content>

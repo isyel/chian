@@ -7,7 +7,7 @@ import { BaseServiceService } from '../base-service.service';
   providedIn: 'root',
 })
 export class NotificationsService {
-  actionUrl = 'notifications/';
+  actionUrl = 'api/notifications/';
 
   constructor(public service: BaseServiceService) {}
 

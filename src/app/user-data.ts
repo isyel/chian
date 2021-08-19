@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NotificationModel } from './models/NotificationModel';
+import { OptionsModel } from './models/OptionsModel';
 import { OrderModel } from './models/OrderModel';
 import { UserModel } from './models/UserModel';
 import { StorageService } from './services/storage.service';
@@ -17,6 +18,7 @@ export class UserData {
   emailNotificationStatus = 'EMAIL_NOTIFICATION_STATUS';
   notifications = 'NOTIFICATIONS';
   userData = 'USER_DATA';
+  options = 'OPTIONS';
 
   constructor(private storageService: StorageService) {}
 
@@ -41,15 +43,24 @@ export class UserData {
   }
 
   async setUserData(userData: UserModel) {
+    this.setisLoggedIn(true);
     return await this.storageService.set(this.userData, userData);
   }
 
-  async getIsLoggedIn() {
+  async getIsLoggedIn(): Promise<boolean> {
     return await this.storageService.get(this.isLoggedIn);
   }
 
-  async setisLoggedIn(loginStatus: UserModel) {
+  async setisLoggedIn(loginStatus: boolean) {
     return await this.storageService.set(this.authToken, loginStatus);
+  }
+
+  async getOptions(): Promise<OptionsModel[]> {
+    return await this.storageService.get(this.options);
+  }
+
+  async setOptions(options: OptionsModel[]) {
+    return await this.storageService.set(this.options, options);
   }
 
   async getOrderHistory(): Promise<OrderModel[]> {

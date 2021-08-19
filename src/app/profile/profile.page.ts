@@ -11,7 +11,7 @@ import { CommonMethods } from '../util/common';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  userProfileData: UserModel;
+  userProfileData: UserModel | any;
   accountForm: FormGroup;
   passwordType = 'password';
   passwordIcon = 'eye-off';
@@ -40,6 +40,9 @@ export class ProfilePage implements OnInit {
 
   async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
+    this.accountForm.value.fullName = this.userProfileData.name;
+    this.accountForm.value.email = this.userProfileData.email;
+    this.accountForm.value.phoneNumber = this.userProfileData['Phone Number'];
   }
 
   updateProfile() {
@@ -48,6 +51,7 @@ export class ProfilePage implements OnInit {
       .subscribe(
         (result) => {
           console.log('result: ', result);
+          this.userData.setUserData(result);
         },
         (error) => {
           console.error(error);
