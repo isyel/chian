@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrderModel } from '../models/OrderModel';
+import { NavparamService } from '../services/navparam/navparam.service';
 
 @Component({
   selector: 'app-checkout',
@@ -7,9 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./checkout.page.scss'],
 })
 export class CheckoutPage implements OnInit {
-  constructor(private router: Router) {}
+  order: OrderModel;
+  constructor(
+    private router: Router,
+    private navParamService: NavparamService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.order = this.navParamService.navData;
+  }
 
   goToCheckout() {
     this.router.navigate(['/payment']);

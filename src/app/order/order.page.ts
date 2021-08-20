@@ -51,7 +51,8 @@ export class OrderPage implements OnInit {
     this.userProfileData = await this.userData.getUserData();
     const selectedOption = this.navParamService.navData;
     this.selectedCylinder = {
-      cylinder: { text: selectedOption.name, value: selectedOption._id },
+      text: selectedOption.name,
+      value: selectedOption._id,
     };
     this.cylinderOptions = await this.userData.getOptions();
     this.getStates();

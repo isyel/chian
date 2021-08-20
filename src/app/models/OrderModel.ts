@@ -1,10 +1,12 @@
 import { BaseModel } from './BaseModel';
-import { OptionsModel } from './OptionsModel';
 
 export type OrderModel = {
   userId: string;
-  options: OptionsModel[];
-  deliveryAddress: [];
+  orderItems: any;
+  street: string;
+  city: string;
+  state: string;
   deliveryPrice: number;
-  totalPrice: number;
+  paymentMethod?: string;
+  paymentStatus?: string;
 } & BaseModel;
