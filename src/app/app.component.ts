@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
+import { StorageService } from './services/storage.service';
 import { UserData } from './user-data';
 
 @Component({
@@ -12,16 +13,19 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private userData: UserData,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) {
-    this.platform.ready().then(async () => {
-      const hasSeenTutorial = await this.userData.checkHasSeenTutorial();
-      console.log('hasSeenTutorial: ', hasSeenTutorial);
-
-      if (hasSeenTutorial) {
-        this.router.navigate(['/tabs']);
-      } else {
-        this.router.navigate(['/tutorial']);
+    this.storageService.storageReady.subscribe((result) => {
+      if (result) {
+        this.platform.ready().then(async () => {
+          const hasSeenTutorial = await this.userData.checkHasSeenTutorial();
+          if (hasSeenTutorial) {
+            this.router.navigate(['/tabs']);
+          } else {
+            this.router.navigate(['/tutorial']);
+          }
+        });
       }
     });
   }
