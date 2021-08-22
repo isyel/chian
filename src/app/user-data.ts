@@ -52,7 +52,11 @@ export class UserData {
   }
 
   async setisLoggedIn(loginStatus: boolean) {
-    return await this.storageService.set(this.authToken, loginStatus);
+    if (!loginStatus) {
+      this.storageService.clearStorage();
+      this.setHasSeenTutorial();
+    }
+    return await this.storageService.set(this.isLoggedIn, loginStatus);
   }
 
   async getOptions(): Promise<OptionsModel[]> {

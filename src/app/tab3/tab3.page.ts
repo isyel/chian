@@ -22,22 +22,27 @@ export class Tab3Page implements OnInit {
     public photoService: PhotoService
   ) {}
 
+  ngOnInit() {
+    this.initPage();
+  }
+
+  async initPage() {
+    this.userProfileData = await this.userData.getUserData();
+    this.getUserProfile();
+    await this.photoService.loadSaved();
+  }
+
   goToCards() {
     this.router.navigate(['/cards']);
   }
 
   handleLogout() {
-    this.router.navigate(['/authentication']);
+    this.userData.setisLoggedIn(false);
+    this.router.navigate(['/login-options']);
   }
 
   goToUpdateProfile() {
     this.router.navigate(['/profile']);
-  }
-
-  async ngOnInit() {
-    this.userProfileData = await this.userData.getUserData();
-    this.getUserProfile();
-    await this.photoService.loadSaved();
   }
 
   getUserProfile() {

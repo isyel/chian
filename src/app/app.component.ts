@@ -21,12 +21,21 @@ export class AppComponent {
         this.platform.ready().then(async () => {
           const hasSeenTutorial = await this.userData.checkHasSeenTutorial();
           if (hasSeenTutorial) {
-            this.router.navigate(['/tabs']);
+            this.checkAuthentication();
           } else {
             this.router.navigate(['/tutorial']);
           }
         });
       }
     });
+  }
+
+  async checkAuthentication() {
+    const isLoggedIn = await this.userData.getIsLoggedIn();
+    if (isLoggedIn) {
+      this.router.navigate(['/tabs']);
+    } else {
+      this.router.navigate(['/login-options']);
+    }
   }
 }
