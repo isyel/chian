@@ -15,18 +15,52 @@
     animated
   ></ion-searchbar>
 
-  <div class="ion-padding-vertical buttonGroup">
-    <span class="ion-padding buttonGroup__button active">Refill</span>
-    <span class="ion-padding buttonGroup__button">Buy Accessories</span>
+  <div class="ion-padding buttonGroup">
+    <span
+      class="ion-padding buttonGroup__button {{activeTab === 0 ? 'active' : ''}}"
+      (click)="switchTab(0)"
+      >Refill</span
+    >
+    <span
+      class="ion-padding buttonGroup__button {{activeTab === 1 ? 'active' : ''}}"
+      (click)="switchTab(1)"
+      >Buy Accessories</span
+    >
   </div>
 
-  <div>
-    <h6><strong>Today</strong></h6>
-    <app-order-item (handleClick)="viewDetails()"></app-order-item>
-    <app-order-item (handleClick)="viewDetails()"></app-order-item>
-    <h6><strong>Last month</strong></h6>
-    <app-order-item (handleClick)="viewDetails()"></app-order-item>
-    <app-order-item (handleClick)="viewDetails()"></app-order-item>
-    <app-order-item (handleClick)="viewDetails()"></app-order-item>
+  <div [ngSwitch]="activeTab">
+    <div *ngSwitchCase="0" class="ion-padding">
+      <div *ngIf="todayOrders?.length > 0">
+        <h6><strong>Today</strong></h6>
+        <app-order-item
+          (handleClick)="viewDetails()"
+          *ngFor="let order of todayOrders"
+          [name]="order.orderItems[0].options.name"
+          [price]="order.orderItems[0].options.price"
+          [itemId]="order.orderItems[0].options._id"
+          [size]="order.orderItems[0].options.size"
+        ></app-order-item>
+      </div>
+      <div *ngIf="ordersHistory?.length > 0">
+        <h6><strong>Last month</strong></h6>
+        <app-order-item
+          (handleClick)="viewDetails()"
+          *ngFor="let order of ordersHistory"
+          [name]="order.orderItems[0].options.name"
+          [price]="order.orderItems[0].options.price"
+          [itemId]="order.orderItems[0].options._id"
+          [size]="order.orderItems[0].options.size"
+        ></app-order-item>
+      </div>
+
+      <div *ngIf="!todayOrders && !ordersHistory">
+        <app-not-found message="No orders made yet"></app-not-found>
+      </div>
+    </div>
+    <div *ngSwitchCase="1" class="ion-padding">
+      <app-not-found
+        message="Accessories not available. Coming soon"
+      ></app-not-found>
+    </div>
   </div>
 </ion-content>

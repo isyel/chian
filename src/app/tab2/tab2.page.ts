@@ -12,8 +12,10 @@ import { CommonMethods } from '../util/common';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page implements OnInit {
-  ordersHistory: OrderModel[];
+  activeTab = 0;
   userProfileData: UserModel;
+  todayOrders: OrderModel[];
+  ordersHistory: OrderModel[];
 
   constructor(
     private router: Router,
@@ -25,6 +27,10 @@ export class Tab2Page implements OnInit {
   async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
     this.getOfflineOrderHistory();
+  }
+
+  switchTab(tab) {
+    this.activeTab = tab;
   }
 
   async getOfflineOrderHistory() {

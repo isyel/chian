@@ -26,13 +26,10 @@ export class Tab3Page implements OnInit {
     this.initPage();
   }
 
-  initPage() {
-    this.userData
-      .getUserData()
-      .then((userData) => (this.userProfileData = userData))
-      .catch((error) => console.error('Error getting offline data: ', error));
+  async initPage() {
+    this.userProfileData = await this.userData.getUserData();
     this.getUserProfile();
-    this.photoService.loadSaved().then((result) => result);
+    await this.photoService.loadSaved();
   }
 
   goToCards() {

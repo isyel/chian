@@ -5,6 +5,7 @@ export type ResultModel = {
   totalPages: number;
   indexFrom: number;
   items: any[];
+  allOrders: any[];
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 };
