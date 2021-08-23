@@ -21,8 +21,10 @@ export class AppComponent {
         this.platform.ready().then(async () => {
           const hasSeenTutorial = await this.userData.checkHasSeenTutorial();
           if (hasSeenTutorial) {
+            console.log('hasSeenTutorial: ', hasSeenTutorial);
             this.checkAuthentication();
           } else {
+            console.log('hasSeenTutorial: ', hasSeenTutorial);
             this.router.navigate(['/tutorial']);
           }
         });

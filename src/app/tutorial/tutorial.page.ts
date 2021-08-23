@@ -40,6 +40,7 @@ export class TutorialPage implements OnInit {
   }
 
   async completeTutorial() {
+    await this.userData.setHasSeenTutorial();
     const isLoggedIn = await this.userData.getIsLoggedIn();
     if (isLoggedIn) {
       this.router.navigate(['/tabs']);
