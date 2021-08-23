@@ -15,6 +15,7 @@ import { CommonMethods } from '../util/common';
 export class Tab1Page implements OnInit {
   recentOrders: OrderModel[];
   userProfileData: UserModel;
+  pendingOrder: OrderModel;
 
   constructor(
     public modalController: ModalController,
@@ -26,6 +27,12 @@ export class Tab1Page implements OnInit {
 
   async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
+    this.getOfflineOrderHistory();
+    this.getPendingOrder();
+  }
+
+  async getPendingOrder() {
+    this.pendingOrder = await this.userData.getPendingOrder();
   }
 
   goToItemsPage() {

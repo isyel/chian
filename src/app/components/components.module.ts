@@ -9,6 +9,7 @@ import { DebitCardComponent } from './debit-card/debit-card.component';
 import { HeaderComponent } from './header/header.component';
 import { HeroCardComponent } from './hero-card/hero-card.component';
 import { LocationModalComponent } from './location-modal/location-modal.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 import { OrderItemComponent } from './order-item/order-item.component';
 import { SlideScreenComponent } from './slide-screen/slide-screen.component';
 
@@ -23,6 +24,7 @@ import { SlideScreenComponent } from './slide-screen/slide-screen.component';
     SlideScreenComponent,
     CartItemComponent,
     DebitCardComponent,
+    NotFoundComponent,
   ],
   declarations: [
     HeaderComponent,
@@ -33,6 +35,7 @@ import { SlideScreenComponent } from './slide-screen/slide-screen.component';
     SlideScreenComponent,
     CartItemComponent,
     DebitCardComponent,
+    NotFoundComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

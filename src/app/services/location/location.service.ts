@@ -133,7 +133,6 @@ export class LocationService {
               speed: this.userCoordinates.speed,
             };
             this.userCoordinates = coordinates;
-            console.log('this.userCoordinates: ', this.userCoordinates);
           });
         })
         .catch((error: any) => console.log('error in cordova: ', error));
@@ -154,7 +153,6 @@ export class LocationService {
               speed: this.userCoordinates.speed,
             };
             this.userCoordinates = coordinates;
-            console.log('this.userCoordinates: ', this.userCoordinates);
           });
         } else {
           alert('Error - ' + results + ' & Status - ' + status);

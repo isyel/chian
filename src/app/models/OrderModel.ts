@@ -1,8 +1,9 @@
 import { BaseModel } from './BaseModel';
+import { OptionsModel } from './OptionsModel';
 
 export type OrderModel = {
   userId: string;
-  orderItems: any[];
+  orderItems: [{ options: OptionsModel; quantity: number }];
   street: string;
   city: string;
   state: string;
