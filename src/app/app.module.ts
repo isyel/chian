@@ -13,6 +13,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { AppConfig } from './services/app-config';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { BaseServiceService } from './services/base-service.service';
 
 @NgModule({
@@ -37,6 +38,7 @@ import { BaseServiceService } from './services/base-service.service';
     AppConfig,
     BaseServiceService,
     Geolocation,
+    NativeGeocoder,
   ],
   bootstrap: [AppComponent],
 })

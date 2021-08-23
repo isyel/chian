@@ -68,7 +68,11 @@
       </div>
       <div class="order__container ion-padding">
         <span>Use your current location</span>
-        <ion-toggle color="tertiary"></ion-toggle>
+        <ion-toggle
+          color="tertiary"
+          (ionChange)="useCurrentLocation()"
+          [checked]="useLocation"
+        ></ion-toggle>
       </div>
       <div class="order__container ion-padding">
         <span (click)="goToPrevStep()">Back</span>

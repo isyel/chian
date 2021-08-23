@@ -36,6 +36,7 @@
     "@ionic/angular": "^5.5.2",
     "@ionic/pwa-elements": "^3.0.2",
     "@ionic/storage-angular": "^3.0.6",
+    "@types/googlemaps": "^3.43.3",
     "angular-svg-round-progressbar": "^7.0.0",
     "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-nativegeocoder": "^3.4.1",

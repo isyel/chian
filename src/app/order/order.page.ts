@@ -6,6 +6,7 @@ import { PickerOptions } from '@ionic/core';
 import { OptionsModel } from '../models/OptionsModel';
 import { OrderModel } from '../models/OrderModel';
 import { UserModel } from '../models/UserModel';
+import { LocationService } from '../services/location/location.service';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { OptionsService } from '../services/options/options.service';
 import { UserData } from '../user-data';
@@ -36,6 +37,9 @@ export class OrderPage implements OnInit {
   currentStep = 0;
   quantity = 1;
   order: OrderModel;
+  userCoordinates: any;
+  useLocation = false;
+  selectedOption: OptionsModel;
 
   constructor(
     public modalController: ModalController,
@@ -44,18 +48,24 @@ export class OrderPage implements OnInit {
     private optionsService: OptionsService,
     private commonMethods: CommonMethods,
     private navParamService: NavparamService,
-    private userData: UserData
+    private userData: UserData,
+    private locationService: LocationService
   ) {}
 
   async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
-    const selectedOption = this.navParamService.navData;
+    this.selectedOption = this.navParamService.navData;
     this.selectedCylinder = {
-      text: selectedOption.name,
-      value: selectedOption._id,
+      text: this.selectedOption.name,
+      value: this.selectedOption._id,
     };
     this.cylinderOptions = await this.userData.getOptions();
     this.getStates();
+  }
+
+  useCurrentLocation() {
+    this.useLocation = true;
+    this.locationService.getUserCoordinates();
   }
 
   getStates() {
@@ -175,7 +185,7 @@ export class OrderPage implements OnInit {
     const options = [];
     if (this.selectedState !== undefined) {
       const selectedItem = this.statesData.find(
-        (item) => item.state.id === this.selectedState.state.value
+        (item) => item.state.id === this.selectedState.value
       );
       selectedItem.state.locals.forEach((local) => {
         options.push({ text: local.name, value: local.id });
@@ -193,17 +203,15 @@ export class OrderPage implements OnInit {
   goToNextStep() {
     if (this.currentStep === 1) {
       const order = {
-        userId: this.userProfileData._id,
+        userId: this.userProfileData?._id,
         orderItems: [
           {
-            options: this.cylinderOptions.find(
-              (option) => option._id === this.selectedCylinder.value
-            ),
+            options: this.selectedOption,
             quantity: this.quantity,
           },
         ],
-        state: this.selectedState.name,
-        city: this.selectedCity.name,
+        state: this.selectedState?.name || '',
+        city: this.selectedCity?.name || '',
         street: '',
         deliveryPrice: 1500,
       };

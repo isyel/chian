@@ -2,11 +2,12 @@ import { BaseModel } from './BaseModel';
 
 export type OrderModel = {
   userId: string;
-  orderItems: any;
+  orderItems: any[];
   street: string;
   city: string;
   state: string;
   deliveryPrice: number;
   paymentMethod?: string;
   paymentStatus?: string;
+  coordinates?: any;
 } & BaseModel;

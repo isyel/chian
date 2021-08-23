@@ -8,9 +8,25 @@
   </ion-header>
   <div class="ion-padding-horizontal ion-padding-bottom">
     <h5>Address:</h5>
-    <div class="checkout__address">
-      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-      <ion-text color="secondary">Edit</ion-text>
+    <div class="checkout__address" *ngIf="!addressEditMode">
+      <span>{{locationService.fullAddress}}</span>
+      <ion-text color="secondary" (click)="handleEditAddress()">Edit</ion-text>
+    </div>
+    <div class="checkout__address__edit" *ngIf="addressEditMode">
+      <ion-textarea
+        placeholder="Enter Address"
+        name="address"
+        #address
+        [(ngModel)]="locationService.fullAddress"
+      ></ion-textarea>
+      <div class="checkout__address__buttons ion-margin-top">
+        <ion-button expand="block" fill="outline" (click)="handleEditAddress()">
+          <span>Cancel</span>
+        </ion-button>
+        <ion-button expand="block" (click)="updateAddress()">
+          <span>Update</span>
+        </ion-button>
+      </div>
     </div>
   </div>
   <div class="ion-padding-horizontal">
@@ -22,8 +38,10 @@
   </div>
 
   <app-cart-item
-    [quantity]="2"
+    [quantity]="item.quantity"
+    [item]="item.options"
     (handleRemove)="removeFromCart()"
+    *ngFor="let item of order.orderItems"
   ></app-cart-item>
 </ion-content>
 <ion-footer>
@@ -34,7 +52,7 @@
           <ion-text>Sub Total</ion-text>
         </ion-col>
         <ion-col class="ion-text-end">
-          <ion-text color="primary"><strong>₦3000</strong></ion-text>
+          <ion-text color="primary"><strong>₦{{subTotal}}</strong></ion-text>
         </ion-col>
       </ion-row>
       <ion-row
@@ -47,7 +65,9 @@
           <ion-text>Shipping</ion-text>
         </ion-col>
         <ion-col class="ion-text-end">
-          <ion-text color="primary"><strong>₦1000</strong></ion-text>
+          <ion-text color="primary"
+            ><strong>₦{{deliveryPrice}}</strong></ion-text
+          >
         </ion-col>
       </ion-row>
       <ion-row
@@ -62,7 +82,7 @@
           <ion-text><strong>Total</strong></ion-text>
         </ion-col>
         <ion-col class="ion-text-end">
-          <ion-text color="primary"><strong>₦4000</strong></ion-text>
+          <ion-text color="primary"><strong>₦{{totalPrice}}</strong></ion-text>
         </ion-col>
       </ion-row>
 
