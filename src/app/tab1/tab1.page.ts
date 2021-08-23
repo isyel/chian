@@ -56,6 +56,7 @@ export class Tab1Page implements OnInit {
     this.ordersService.getHistory(this.userProfileData?.id).subscribe(
       (result) => {
         console.log('result: ', result);
+        this.recentOrders = result.allOrders;
       },
       (error) => {
         console.error(error);

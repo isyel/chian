@@ -4,6 +4,7 @@ import { OrderModel } from '../models/OrderModel';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { NavController } from '@ionic/angular';
 import { LocationService } from '../services/location/location.service';
+import { UserData } from '../user-data';
 
 @Component({
   selector: 'app-checkout',
@@ -21,13 +22,12 @@ export class CheckoutPage implements OnInit {
     private router: Router,
     private navParamService: NavparamService,
     public locationService: LocationService,
+    private userData: UserData,
     private navController: NavController
   ) {}
 
   ngOnInit() {
     this.order = this.navParamService.navData;
-    console.log('this.order: ', this.order);
-
     if (this.locationService.userCoordinates) {
       this.locationService.reverseGeocode();
     }
@@ -50,10 +50,6 @@ export class CheckoutPage implements OnInit {
     this.locationService.forwardGeocode();
   }
 
-  goToCheckout() {
-    this.router.navigate(['/payment']);
-  }
-
   removeFromCart() {
     if (this.order?.orderItems[0]?.quantity > 1) {
       --this.order.orderItems[0].quantity;
@@ -70,5 +66,26 @@ export class CheckoutPage implements OnInit {
       this.totalPrice &&
       this.order?.orderItems.length > 0
     );
+  }
+
+  goToCheckout() {
+    this.order = {
+      ...this.order,
+      deliveryAddress: this.locationService.fullAddress,
+      latitude: this.locationService.userCoordinates?.latitude || 0,
+      longitude: this.locationService.userCoordinates?.longitude || 0,
+      state:
+        this.locationService.userLocationFromLatLng?.administrativeArea || '',
+      city:
+        this.locationService.userLocationFromLatLng?.subAdministrativeArea ||
+        '',
+      postalCode: this.locationService.userLocationFromLatLng?.postalCode || '',
+      deliveryPrice: this.deliveryPrice,
+    };
+    console.log('this.order in checkout: ', this.order);
+
+    this.userData.setPendingOrder(this.order);
+    this.navParamService.navData = this.order;
+    this.router.navigate(['/payment']);
   }
 }

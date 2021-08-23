@@ -13,7 +13,11 @@
       convallis leo.
     </p>
   </div>
-  <form [formGroup]="accountForm" (ngSubmit)="updateProfile()">
+  <form
+    [formGroup]="accountForm"
+    (ngSubmit)="updateProfile()"
+    *ngIf="accountForm"
+  >
     <div class="ion-padding-bottom">
       <ion-item class="ion-margin-vertical" lines="none">
         <ion-label class="ion-padding-horizontal" position="stacked"

@@ -15,12 +15,16 @@
       expand="block"
       color="primary"
       class="ion-margin-vertical"
-      (click)="completePayment()"
+      (click)="placeOrder('payWithCard')"
     >
       <span>Pay with card</span>
     </ion-button>
 
-    <ion-button expand="block" color="primary" (click)="completePayment()">
+    <ion-button
+      expand="block"
+      color="primary"
+      (click)="placeOrder('payOnDelivery')"
+    >
       <span>Pay on delivery</span>
     </ion-button>
   </div>

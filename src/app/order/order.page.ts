@@ -46,7 +46,6 @@ export class OrderPage implements OnInit {
     private pickerController: PickerController,
     private router: Router,
     private optionsService: OptionsService,
-    private commonMethods: CommonMethods,
     private navParamService: NavparamService,
     private userData: UserData,
     private locationService: LocationService
@@ -215,6 +214,7 @@ export class OrderPage implements OnInit {
         street: '',
         deliveryPrice: 1500,
       };
+
       this.navParamService.navData = order;
       this.router.navigate(['/checkout']);
     } else {

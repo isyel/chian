@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { UserModel } from '../models/UserModel';
 import { UsersService } from '../services/users/users.service';
 import { UserData } from '../user-data';
@@ -19,30 +24,34 @@ export class ProfilePage implements OnInit {
   constructor(
     private usersService: UsersService,
     private userData: UserData,
-    private commonMethods: CommonMethods,
-    private formBuilder: FormBuilder
-  ) {
-    this.accountForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(11),
-          ,
-          Validators.maxLength(11),
-        ],
-      ],
-      address: [''],
-    });
-  }
+    private commonMethods: CommonMethods
+  ) {}
 
-  async ngOnInit() {
-    this.userProfileData = await this.userData.getUserData();
-    this.accountForm.value.fullName = this.userProfileData.name;
-    this.accountForm.value.email = this.userProfileData.email;
-    this.accountForm.value.phoneNumber = this.userProfileData['Phone Number'];
+  ngOnInit() {
+    this.userData.getUserData().then((userData) => {
+      this.userProfileData = userData;
+      this.accountForm = new FormGroup({
+        fullName: new FormControl(
+          this.userProfileData.fullName || this.userProfileData.Name,
+          Validators.required
+        ),
+        email: new FormControl(
+          this.userProfileData.email || this.userProfileData.Email,
+          [Validators.required, Validators.email]
+        ),
+        phoneNumber: new FormControl(
+          this.userProfileData.phoneNumber ||
+            this.userProfileData['Phone Number'],
+          [
+            Validators.required,
+            Validators.minLength(11),
+            ,
+            Validators.maxLength(11),
+          ]
+        ),
+        address: new FormControl(this.userProfileData.address),
+      });
+    });
   }
 
   updateProfile() {
