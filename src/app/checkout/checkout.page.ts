@@ -71,15 +71,28 @@ export class CheckoutPage implements OnInit {
   goToCheckout() {
     this.order = {
       ...this.order,
-      deliveryAddress: this.locationService.fullAddress,
-      latitude: this.locationService.userCoordinates?.latitude || 0,
-      longitude: this.locationService.userCoordinates?.longitude || 0,
+      deliveryAddress:
+        this.locationService.fullAddress || this.order.deliveryAddress || '',
+      latitude:
+        this.locationService.userCoordinates?.latitude ||
+        this.order.latitude ||
+        0,
+      longitude:
+        this.locationService.userCoordinates?.longitude ||
+        this.order.longitude ||
+        0,
       state:
-        this.locationService.userLocationFromLatLng?.administrativeArea || '',
+        this.locationService.userLocationFromLatLng?.administrativeArea ||
+        this.order.state ||
+        '',
       city:
         this.locationService.userLocationFromLatLng?.subAdministrativeArea ||
+        this.order.city ||
         '',
-      postalCode: this.locationService.userLocationFromLatLng?.postalCode || '',
+      postalCode:
+        this.locationService.userLocationFromLatLng?.postalCode ||
+        this.order.postalCode ||
+        '',
       deliveryPrice: this.deliveryPrice,
     };
     console.log('this.order in checkout: ', this.order);

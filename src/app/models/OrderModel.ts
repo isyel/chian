@@ -13,5 +13,4 @@ export type OrderModel = {
   deliveryPrice: number;
   paymentMethod?: string;
   paymentStatus?: string;
-  coordinates?: any;
 } & BaseModel;

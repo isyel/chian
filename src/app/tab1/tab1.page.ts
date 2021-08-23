@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { OrderModel } from '../models/OrderModel';
 import { UserModel } from '../models/UserModel';
+import { NavparamService } from '../services/navparam/navparam.service';
 import { OrdersService } from '../services/orders/orders.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
@@ -22,7 +23,8 @@ export class Tab1Page implements OnInit {
     private router: Router,
     public commonMethods: CommonMethods,
     private ordersService: OrdersService,
-    private userData: UserData
+    private userData: UserData,
+    private navParamService: NavparamService
   ) {}
 
   async ngOnInit() {
@@ -40,7 +42,8 @@ export class Tab1Page implements OnInit {
   }
 
   goToCartPage() {
-    this.router.navigate(['/cart']);
+    this.navParamService.navData = this.pendingOrder;
+    this.router.navigate(['/checkout']);
   }
 
   viewDetails() {

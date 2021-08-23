@@ -98,7 +98,7 @@ export class AuthenticationPage implements OnInit {
       },
       (error) => {
         console.error(error);
-        this.commonMethods.presentToast(error.message, false);
+        this.commonMethods.presentAlert(error.message, 'Authentication Error');
         this.commonMethods.dismissLoader();
       }
     );

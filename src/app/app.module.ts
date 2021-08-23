@@ -15,6 +15,7 @@ import { AppConfig } from './services/app-config';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { BaseServiceService } from './services/base-service.service';
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,12 @@ import { BaseServiceService } from './services/base-service.service';
     RoundProgressModule,
     IonicStorageModule.forRoot({
       name: 'Chian',
-      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
+      driverOrder: [
+        // eslint-disable-next-line no-underscore-dangle
+        CordovaSQLiteDriver._driver,
+        Drivers.IndexedDB,
+        Drivers.LocalStorage,
+      ],
     }),
     HttpClientModule,
   ],

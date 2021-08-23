@@ -6,7 +6,7 @@
       [lightTheme]="true"
     ></app-header>
   </ion-header>
-  <div>
+  <div *ngIf="notifications && notifications?.length > 0">
     <h6 class="ion-padding-horizontal"><strong>Today</strong></h6>
     <ion-item>
       <ion-icon name="notifications-outline" slot="start"></ion-icon>
@@ -34,5 +34,11 @@
         <ion-text color="medium">2 hours ago</ion-text>
       </div>
     </ion-item>
+  </div>
+  <div
+    *ngIf="!notifications || notifications?.length === 0"
+    class="ion-margin-vertical ion-padding-vertical"
+  >
+    <app-not-found message="No notifications"></app-not-found>
   </div>
 </ion-content>

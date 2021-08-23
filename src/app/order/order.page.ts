@@ -211,7 +211,6 @@ export class OrderPage implements OnInit {
         ],
         state: this.selectedState?.name || '',
         city: this.selectedCity?.name || '',
-        street: '',
         deliveryPrice: 1500,
       };
 
