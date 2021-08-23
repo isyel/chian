@@ -23,7 +23,7 @@ export class LocationService {
   userCity: any;
   latLngResult: any;
   userCoordinates: Coordinates;
-  fullAddress = '';
+  fullAddress = null;
 
   constructor(
     private nativeGeocoder: NativeGeocoder,
@@ -69,11 +69,11 @@ export class LocationService {
         .then((result: NativeGeocoderResult[]) => {
           console.log('result: ', result);
           this.userLocationFromLatLng = result[0];
-          this.fullAddress = `${this.userLocationFromLatLng.areasOfInterest[0]}, 
-            ${this.userLocationFromLatLng.thoroughfare}, 
-            ${this.userLocationFromLatLng.subAdministrativeArea}, 
-            ${this.userLocationFromLatLng.administrativeArea}.
-            ${this.userLocationFromLatLng.postalCode}`;
+          this.fullAddress = `${this.userLocationFromLatLng.areasOfInterest[0]},\ 
+           ${this.userLocationFromLatLng.thoroughfare},\ 
+           ${this.userLocationFromLatLng.subAdministrativeArea},\
+            ${this.userLocationFromLatLng.administrativeArea}.\
+             ${this.userLocationFromLatLng.postalCode}`;
         })
         .catch((error: any) => {
           console.log('error: ', error);
@@ -123,13 +123,17 @@ export class LocationService {
         .forwardGeocode(this.fullAddress, options)
         .then((result: NativeGeocoderResult[]) => {
           this.zone.run(() => {
-            this.userCoordinates.latitude = +result[0].latitude;
-            this.userCoordinates.longitude = +result[0].longitude;
-
-            console.log(
-              '(cordova) Coordinates from address: ',
-              this.userCoordinates
-            );
+            const coordinates = {
+              latitude: +result[0].latitude,
+              longitude: +result[0].longitude,
+              altitude: this.userCoordinates.altitude,
+              altitudeAccuracy: this.userCoordinates.altitudeAccuracy,
+              heading: this.userCoordinates.heading,
+              accuracy: this.userCoordinates.accuracy,
+              speed: this.userCoordinates.speed,
+            };
+            this.userCoordinates = coordinates;
+            console.log('this.userCoordinates: ', this.userCoordinates);
           });
         })
         .catch((error: any) => console.log('error in cordova: ', error));
@@ -140,7 +144,17 @@ export class LocationService {
           this.zone.run(() => {
             this.userCoordinates.latitude = results[0].geometry.location.lat();
             this.userCoordinates.longitude = results[0].geometry.location.lng();
-            console.log('Coordinates from address: ', this.userCoordinates);
+            const coordinates = {
+              latitude: results[0].geometry.location.lat(),
+              longitude: results[0].geometry.location.lng(),
+              altitude: this.userCoordinates.altitude,
+              altitudeAccuracy: this.userCoordinates.altitudeAccuracy,
+              heading: this.userCoordinates.heading,
+              accuracy: this.userCoordinates.accuracy,
+              speed: this.userCoordinates.speed,
+            };
+            this.userCoordinates = coordinates;
+            console.log('this.userCoordinates: ', this.userCoordinates);
           });
         } else {
           alert('Error - ' + results + ' & Status - ' + status);

@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderModel } from '../models/OrderModel';
 import { NavparamService } from '../services/navparam/navparam.service';
-import { NavController, Platform } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { LocationService } from '../services/location/location.service';
 
 @Component({
