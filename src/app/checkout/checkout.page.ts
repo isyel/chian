@@ -36,8 +36,8 @@ export class CheckoutPage implements OnInit {
 
   calculateTotalPrice() {
     this.subTotal =
-      this.order.orderItems[0].options.price *
-      this.order.orderItems[0].quantity;
+      this.order?.orderItems[0]?.options?.price *
+      this.order?.orderItems[0]?.quantity;
     this.totalPrice = this.deliveryPrice + this.subTotal;
   }
 
@@ -55,11 +55,20 @@ export class CheckoutPage implements OnInit {
   }
 
   removeFromCart() {
-    if (this.order.orderItems[0].quantity > 1) {
+    if (this.order?.orderItems[0]?.quantity > 1) {
       --this.order.orderItems[0].quantity;
     } else {
       this.navController.navigateRoot('/tabs/tab1');
     }
     this.calculateTotalPrice();
+  }
+
+  canPlaceOrder() {
+    return (
+      this.locationService.fullAddress &&
+      this.locationService.fullAddress !== '' &&
+      this.totalPrice &&
+      this.order?.orderItems.length > 0
+    );
   }
 }

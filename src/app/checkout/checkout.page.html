@@ -38,10 +38,10 @@
   </div>
 
   <app-cart-item
-    [quantity]="item.quantity"
-    [item]="item.options"
+    [quantity]="item?.quantity"
+    [item]="item?.options"
     (handleRemove)="removeFromCart()"
-    *ngFor="let item of order.orderItems"
+    *ngFor="let item of order?.orderItems"
   ></app-cart-item>
 </ion-content>
 <ion-footer>
@@ -86,7 +86,12 @@
         </ion-col>
       </ion-row>
 
-      <ion-button expand="block" color="primary" (click)="goToCheckout()">
+      <ion-button
+        expand="block"
+        color="primary"
+        (click)="goToCheckout()"
+        [disabled]="!canPlaceOrder()"
+      >
         <span>Place order</span>
       </ion-button>
     </ion-grid>

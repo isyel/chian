@@ -8,17 +8,32 @@
   </ion-header>
 
   <div class="buttonGroup">
-    <span class="ion-padding buttonGroup__button active">Refill</span>
-    <span class="ion-padding buttonGroup__button">Buy Accessories</span>
+    <span
+      class="ion-padding buttonGroup__button {{activeTab === 0 ? 'active' : ''}}"
+      (click)="switchTab(0)"
+      >Refill</span
+    >
+    <span
+      class="ion-padding buttonGroup__button {{activeTab === 1 ? 'active' : ''}}"
+      (click)="switchTab(1)"
+      >Buy Accessories</span
+    >
   </div>
-  <div>
-    <app-order-item
-      (handleClick)="orderItem(option)"
-      *ngFor="let option of options"
-      [name]="option.name"
-      [size]="option.size"
-      [price]="option.price"
-      [itemId]="option._id"
-    ></app-order-item>
+  <div [ngSwitch]="activeTab">
+    <div *ngSwitchCase="0">
+      <app-order-item
+        (handleClick)="orderItem(option)"
+        *ngFor="let option of options"
+        [name]="option.name"
+        [size]="option.size"
+        [price]="option.price"
+        [itemId]="option._id"
+      ></app-order-item>
+    </div>
+    <div *ngSwitchCase="1" class="ion-margin-vertical ion-padding-vertical">
+      <app-not-found
+        message="Accessories not available. Coming soon"
+      ></app-not-found>
+    </div>
   </div>
 </ion-content>

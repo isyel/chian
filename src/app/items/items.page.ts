@@ -13,6 +13,7 @@ import { CommonMethods } from '../util/common';
 })
 export class ItemsPage implements OnInit {
   options: OptionsModel[];
+  activeTab = 0;
 
   constructor(
     private router: Router,
@@ -30,6 +31,10 @@ export class ItemsPage implements OnInit {
   orderItem(option) {
     this.navParamService.navData = option;
     this.router.navigate(['/order']);
+  }
+
+  switchTab(tab) {
+    this.activeTab = tab;
   }
 
   getLiveOptions() {
