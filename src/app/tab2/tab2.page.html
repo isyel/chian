@@ -15,7 +15,7 @@
     animated
   ></ion-searchbar>
 
-  <div class="ion-padding buttonGroup">
+  <div class="ion-padding-vertical buttonGroup">
     <span
       class="ion-padding buttonGroup__button {{activeTab === 0 ? 'active' : ''}}"
       (click)="switchTab(0)"
@@ -28,8 +28,8 @@
     >
   </div>
 
-  <div [ngSwitch]="activeTab">
-    <div *ngSwitchCase="0" class="ion-padding">
+  <div [ngSwitch]="activeTab" class="ion-padding-vertical">
+    <div *ngSwitchCase="0">
       <div *ngIf="todayOrders?.length > 0">
         <h6><strong>Today</strong></h6>
         <app-order-item
@@ -57,7 +57,7 @@
         <app-not-found message="No orders made yet"></app-not-found>
       </div>
     </div>
-    <div *ngSwitchCase="1" class="ion-padding">
+    <div *ngSwitchCase="1">
       <app-not-found
         message="Accessories not available. Coming soon"
       ></app-not-found>

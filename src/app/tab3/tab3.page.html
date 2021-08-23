@@ -30,7 +30,7 @@
       ><ion-icon name="create-outline"></ion-icon>
     </ion-fab-button>
   </div>
-  <div class="ion-padding">
+  <div class="ion-padding-vertical">
     <ion-item lines="none">
       <ion-label
         >{{userProfileData ? userProfileData['Phone Number'] ||
@@ -45,7 +45,7 @@
       <ion-icon name="mail-outline" slot="start"></ion-icon>
     </ion-item>
   </div>
-  <div class="profile__orderSummary ion-padding">
+  <div class="profile__orderSummary ion-padding-vertical">
     <div
       class="ion-text-center ion-padding-vertical profile__orderSummary__item"
     >
@@ -62,7 +62,7 @@
       <ion-text>Referral ID</ion-text>
     </div>
   </div>
-  <div class="ion-padding">
+  <div class="ion-padding-vertical">
     <ion-item lines="none" (click)="goToCards()">
       <ion-label> Saved cards </ion-label>
       <ion-icon name="card" slot="start" color="secondary"></ion-icon>
