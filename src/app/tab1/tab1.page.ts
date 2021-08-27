@@ -37,15 +37,17 @@ export class Tab1Page implements OnInit {
   }
 
   getUserProfile() {
-    this.usersService.getProfile(this.authData?.userId).subscribe(
-      (result) => {
-        console.log('result: ', result);
-      },
-      (error) => {
-        console.error(error);
-        this.commonMethods.presentToast('Network or Server Error', false);
-      }
-    );
+    this.usersService
+      .getProfile(this.authData?.userId || this.authData?.useId)
+      .subscribe(
+        (result) => {
+          console.log('result: ', result);
+        },
+        (error) => {
+          console.error(error);
+          this.commonMethods.presentToast('Network or Server Error', false);
+        }
+      );
   }
 
   async getPendingOrder() {
@@ -72,15 +74,17 @@ export class Tab1Page implements OnInit {
 
   getRecentOrders() {
     // eslint-disable-next-line no-underscore-dangle
-    this.ordersService.getHistory(this.userProfileData?._id).subscribe(
-      (result) => {
-        console.log('result: ', result);
-        this.recentOrders = result.allOrders;
-      },
-      (error) => {
-        console.error(error);
-        this.commonMethods.presentToast('Network or Server Error', false);
-      }
-    );
+    this.ordersService
+      .getHistory(this.authData?.userId || this.authData?.useId)
+      .subscribe(
+        (result) => {
+          console.log('result: ', result);
+          this.recentOrders = result.allOrders;
+        },
+        (error) => {
+          console.error(error);
+          this.commonMethods.presentToast('Network or Server Error', false);
+        }
+      );
   }
 }

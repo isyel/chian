@@ -15,13 +15,8 @@ export class LoginOptionsPage implements OnInit {
 
   ngOnInit() {}
 
-  goToLogin(userType) {
-    if (userType === 'User') {
-      this.navParamService.navData = 'User';
-      this.router.navigate(['/authentication']);
-    } else {
-      this.navParamService.navData = 'Agents';
-      this.router.navigate(['/authentication']);
-    }
+  goToLogin(userType: string) {
+    this.navParamService.navData = userType;
+    this.router.navigate(['/authentication']);
   }
 }

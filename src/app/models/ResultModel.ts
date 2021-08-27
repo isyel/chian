@@ -1,3 +1,5 @@
+import { UserModel } from './UserModel';
+
 export type ResultModel = {
   pageIndex: number;
   pageSize: number;
@@ -6,6 +8,7 @@ export type ResultModel = {
   indexFrom: number;
   items: any[];
   allOrders: any[];
+  data: UserModel;
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 };

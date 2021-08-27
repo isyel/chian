@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ResultModel } from 'src/app/models/ResultModel';
 import { UserModel } from 'src/app/models/UserModel';
 import { BaseServiceService } from '../base-service.service';
 
@@ -6,7 +7,7 @@ import { BaseServiceService } from '../base-service.service';
   providedIn: 'root',
 })
 export class UsersService {
-  actionUrl = 'users/';
+  actionUrl = 'user/';
 
   constructor(public service: BaseServiceService) {}
 
@@ -19,7 +20,7 @@ export class UsersService {
    */
   public getProfile(userId: string) {
     this.service.setActionUrl(this.actionUrl);
-    return this.service.getById<UserModel>(userId);
+    return this.service.getById<ResultModel>(userId);
   }
 
   /**

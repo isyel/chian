@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { UserModel } from '../models/UserModel';
+import { AuthDataModel, UserModel } from '../models/UserModel';
 import { PhotoService } from '../services/photo/photo.service';
 import { UsersService } from '../services/users/users.service';
 import { UserData } from '../user-data';
@@ -14,6 +14,7 @@ import { CommonMethods } from '../util/common';
 })
 export class Tab3Page implements OnInit {
   userProfileData: UserModel | any;
+  authData: AuthDataModel;
 
   constructor(
     private router: Router,
@@ -24,12 +25,11 @@ export class Tab3Page implements OnInit {
     public photoService: PhotoService
   ) {}
 
-  ngOnInit() {
-    this.initPage();
-  }
-
-  async initPage() {
+  async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
+    this.authData = await this.userData.getAuthorizationData();
+    console.log('this.authData: ', this.authData);
+
     this.getUserProfile();
     await this.photoService.loadSaved();
   }
@@ -48,15 +48,18 @@ export class Tab3Page implements OnInit {
   }
 
   getUserProfile() {
-    this.usersService.getProfile(this.userProfileData?.id).subscribe(
-      (result) => {
-        console.log('result: ', result);
-      },
-      (error) => {
-        console.error(error);
-        this.commonMethods.presentToast('Network or Server Error', false);
-      }
-    );
+    this.usersService
+      .getProfile(this.authData?.userId || this.authData?.useId)
+      .subscribe(
+        (result) => {
+          console.log('result: ', result);
+          this.userData.setUserData(result.data);
+        },
+        (error) => {
+          console.error(error);
+          this.commonMethods.presentToast('Network or Server Error', false);
+        }
+      );
   }
 
   changeProfilePics() {

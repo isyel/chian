@@ -66,12 +66,13 @@ export class AuthenticationPage implements OnInit {
       phoneNumber: this.signupForm.value.phoneNumber,
       password: this.signupForm.value.password,
       referralId: this.signupForm.value.password || '',
+      userType: this.userType,
     };
     this.authService.register(signupCredentials).subscribe(
       (result) => {
         if (result.status) {
           console.log('result: ', result);
-          this.userData.setAuthorizationData(result.data.userDetails);
+          this.userData.setAuthorizationData(result.data);
           this.navController.navigateRoot('/tabs/tab1');
         } else {
           this.commonMethods.presentAlert(result.err.message, result.message);

@@ -6,6 +6,7 @@ export type RegisterModel = {
   password: string;
   email: string;
   referralId?: string;
+  userType: string;
 } & BaseModel;
 
 export type LoginModel = {

@@ -35,6 +35,7 @@ export class UserData {
   }
 
   async setAuthorizationData(data: AuthDataModel): Promise<any> {
+    this.setisLoggedIn(true);
     return await this.storageService.set(this.authData, data);
   }
 

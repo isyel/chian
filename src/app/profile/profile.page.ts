@@ -16,7 +16,7 @@ import { CommonMethods } from '../util/common';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  userProfileData: UserModel | any;
+  userProfileData: UserModel;
   accountForm: FormGroup;
   passwordType = 'password';
   passwordIcon = 'eye-off';
@@ -30,25 +30,23 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.userData.getUserData().then((userData) => {
       this.userProfileData = userData;
+      console.log('this.userProfileData: ', this.userProfileData);
+
       this.accountForm = new FormGroup({
         fullName: new FormControl(
-          this.userProfileData.fullName || this.userProfileData.Name,
+          this.userProfileData.fullName,
           Validators.required
         ),
-        email: new FormControl(
-          this.userProfileData.email || this.userProfileData.Email,
-          [Validators.required, Validators.email]
-        ),
-        phoneNumber: new FormControl(
-          this.userProfileData.phoneNumber ||
-            this.userProfileData['Phone Number'],
-          [
-            Validators.required,
-            Validators.minLength(11),
-            ,
-            Validators.maxLength(11),
-          ]
-        ),
+        email: new FormControl(this.userProfileData.email, [
+          Validators.required,
+          Validators.email,
+        ]),
+        phoneNumber: new FormControl(this.userProfileData.phoneNumber, [
+          Validators.required,
+          Validators.minLength(11),
+          ,
+          Validators.maxLength(11),
+        ]),
         address: new FormControl(this.userProfileData.address),
       });
     });
@@ -56,7 +54,8 @@ export class ProfilePage implements OnInit {
 
   updateProfile() {
     this.usersService
-      .updateProfile(this.userProfileData?.id, this.userProfileData)
+      // eslint-disable-next-line no-underscore-dangle
+      .updateProfile(this.userProfileData?._id, this.userProfileData)
       .subscribe(
         (result) => {
           console.log('result: ', result);
