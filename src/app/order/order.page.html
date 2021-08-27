@@ -55,13 +55,13 @@
       <div class="order__container ion-padding-horizontal ion-padding-bottom">
         <div (click)="showStatePicker()">
           <h5>Select State</h5>
-          <ion-text color="medium"
+          <ion-text color="secondary"
             >{{selectedState?.text || "No state selected"}}</ion-text
           >
         </div>
         <div (click)="this.selectedState !== undefined && showCityPicker()">
           <h5>Select Area</h5>
-          <ion-text color="medium"
+          <ion-text color="secondary"
             >{{selectedCity?.text || "Select a state"}}</ion-text
           >
         </div>
@@ -69,7 +69,7 @@
       <div class="order__container ion-padding">
         <span>Use your current location</span>
         <ion-toggle
-          color="tertiary"
+          color="secondary"
           (ionChange)="useCurrentLocation()"
           [checked]="useLocation"
         ></ion-toggle>

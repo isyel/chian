@@ -36,7 +36,6 @@ export class PaymentPage implements OnInit {
     this.order = {
       ...this.order,
       paymentMethod,
-      paymentStatus: 'pending',
     };
     this.commonMethods.presentLoading();
     this.ordersService.create(this.order).subscribe(

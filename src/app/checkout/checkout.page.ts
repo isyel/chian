@@ -30,6 +30,12 @@ export class CheckoutPage implements OnInit {
     this.order = this.navParamService.navData;
     if (this.locationService.userCoordinates) {
       this.locationService.reverseGeocode();
+    } else {
+      this.locationService.fullAddress = this.order.deliveryAddress;
+
+      if (this.order.latitude === 0 || this.order.longitude === 0) {
+        this.locationService.forwardGeocode();
+      }
     }
     this.calculateTotalPrice();
   }

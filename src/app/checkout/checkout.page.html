@@ -9,7 +9,7 @@
   <div class="ion-padding-horizontal ion-padding-bottom">
     <h5>Address:</h5>
     <div class="checkout__address" *ngIf="!addressEditMode">
-      <span>{{locationService.fullAddress}}</span>
+      <span>{{order?.deliveryAddress || locationService.fullAddress}}</span>
       <ion-text color="secondary" (click)="handleEditAddress()">Edit</ion-text>
     </div>
     <div class="checkout__address__edit" *ngIf="addressEditMode">
