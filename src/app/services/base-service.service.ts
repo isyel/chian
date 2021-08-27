@@ -33,7 +33,7 @@ export class BaseServiceService {
       .pipe(retry(3), catchError(this.handleError));
   }
 
-  public getById<T>(id: number): Observable<T> {
+  public getById<T>(id: string): Observable<T> {
     return this.http
       .get<T>(`${this.baseUrl}${this.actionUrl}${id}/`)
       .pipe(retry(3), catchError(this.handleError));
@@ -45,7 +45,7 @@ export class BaseServiceService {
       .post<T>(`${this.baseUrl}${this.actionUrl}${parameters}`, input)
       .pipe(catchError(this.handleError));
   }
-  public update<T>(id: number, data: any): Observable<T> {
+  public update<T>(id: string, data: any): Observable<T> {
     // const data = JSON.stringify(itemToUpdate);
 
     return this.http
@@ -59,7 +59,7 @@ export class BaseServiceService {
       .pipe(catchError(this.handleError));
   }
 
-  public delete<T>(id: number): Observable<T> {
+  public delete<T>(id: string): Observable<T> {
     return this.http
       .delete<T>(`${this.baseUrl}${this.actionUrl}${id}`)
       .pipe(catchError(this.handleError));

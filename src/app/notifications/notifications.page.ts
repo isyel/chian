@@ -30,7 +30,8 @@ export class NotificationsPage implements OnInit {
   }
 
   getNotifications() {
-    this.notificationsService.getAll(this.userProfileData?.id).subscribe(
+    // eslint-disable-next-line no-underscore-dangle
+    this.notificationsService.getAll(this.userProfileData?._id).subscribe(
       (result) => {
         console.log('result: ', result);
       },

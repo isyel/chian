@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { UserModel } from '../models/UserModel';
 import { PhotoService } from '../services/photo/photo.service';
 import { UsersService } from '../services/users/users.service';
@@ -16,6 +17,7 @@ export class Tab3Page implements OnInit {
 
   constructor(
     private router: Router,
+    private navController: NavController,
     private usersService: UsersService,
     private userData: UserData,
     private commonMethods: CommonMethods,
@@ -38,7 +40,7 @@ export class Tab3Page implements OnInit {
 
   handleLogout() {
     this.userData.setisLoggedIn(false);
-    this.router.navigate(['/login-options']);
+    this.navController.navigateRoot('/login-options');
   }
 
   goToUpdateProfile() {

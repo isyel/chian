@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { NotificationModel } from './models/NotificationModel';
 import { OptionsModel } from './models/OptionsModel';
 import { OrderModel } from './models/OrderModel';
-import { UserModel } from './models/UserModel';
+import { AuthDataModel, UserModel } from './models/UserModel';
 import { StorageService } from './services/storage.service';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { StorageService } from './services/storage.service';
 })
 export class UserData {
   hasSeenTutorial = 'HAS_SEEN_TUTORIAL';
-  authToken = 'AUTH_TOKEN';
+  authData = 'AUTH_DATA';
   isLoggedIn = 'IS_LOGGED_IN';
   orderHistory = 'ORDER_HISTORY';
   pendingOrder = 'PENDING_ORDER';
@@ -30,12 +30,12 @@ export class UserData {
     return await this.storageService.set(this.hasSeenTutorial, true);
   }
 
-  async getAuthorizationToken(): Promise<string> {
-    return await this.storageService.get(this.authToken);
+  async getAuthorizationData(): Promise<AuthDataModel> {
+    return await this.storageService.get(this.authData);
   }
 
-  async setAuthorizationToken(token: string): Promise<string> {
-    return await this.storageService.set(this.authToken, token);
+  async setAuthorizationData(data: AuthDataModel): Promise<any> {
+    return await this.storageService.set(this.authData, data);
   }
 
   async getUserData(): Promise<UserModel> {

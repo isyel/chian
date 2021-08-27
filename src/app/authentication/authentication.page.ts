@@ -71,9 +71,8 @@ export class AuthenticationPage implements OnInit {
       (result) => {
         if (result.status) {
           console.log('result: ', result);
-
-          // this.userData.setUserData(result.data.userDetails);
-          // this.navController.navigateRoot('/tabs/tab1');
+          this.userData.setAuthorizationData(result.data.userDetails);
+          this.navController.navigateRoot('/tabs/tab1');
         } else {
           this.commonMethods.presentAlert(result.err.message, result.message);
         }
@@ -92,7 +91,7 @@ export class AuthenticationPage implements OnInit {
     };
     this.authService.login(loginCredentials).subscribe(
       (result) => {
-        this.userData.setUserData(result.data.userDetails);
+        this.userData.setAuthorizationData(result.data.userDetails);
         this.commonMethods.dismissLoader();
         this.navController.navigateRoot('/tabs/tab1');
       },

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { OrderModel } from '../models/OrderModel';
-import { UserModel } from '../models/UserModel';
+import { AuthDataModel, UserModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { OrdersService } from '../services/orders/orders.service';
+import { UsersService } from '../services/users/users.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
 
@@ -16,6 +17,7 @@ import { CommonMethods } from '../util/common';
 export class Tab1Page implements OnInit {
   recentOrders: OrderModel[];
   userProfileData: UserModel;
+  authData: AuthDataModel;
   pendingOrder: OrderModel;
 
   constructor(
@@ -23,14 +25,27 @@ export class Tab1Page implements OnInit {
     private router: Router,
     public commonMethods: CommonMethods,
     private ordersService: OrdersService,
+    private usersService: UsersService,
     private userData: UserData,
     private navParamService: NavparamService
   ) {}
 
   async ngOnInit() {
-    this.userProfileData = await this.userData.getUserData();
+    this.authData = await this.userData.getAuthorizationData();
     this.getOfflineOrderHistory();
     this.getPendingOrder();
+  }
+
+  getUserProfile() {
+    this.usersService.getProfile(this.authData?.userId).subscribe(
+      (result) => {
+        console.log('result: ', result);
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast('Network or Server Error', false);
+      }
+    );
   }
 
   async getPendingOrder() {
@@ -56,7 +71,8 @@ export class Tab1Page implements OnInit {
   }
 
   getRecentOrders() {
-    this.ordersService.getHistory(this.userProfileData?.id).subscribe(
+    // eslint-disable-next-line no-underscore-dangle
+    this.ordersService.getHistory(this.userProfileData?._id).subscribe(
       (result) => {
         console.log('result: ', result);
         this.recentOrders = result.allOrders;

@@ -41,7 +41,7 @@ export class OrdersService {
    * @returns OrderModel
    * @memberof OrdersService
    */
-  public getOne(orderId: number) {
+  public getOne(orderId: string) {
     this.service.setActionUrl(this.actionUrl);
     return this.service.getById<OrderModel>(orderId);
   }
@@ -53,7 +53,7 @@ export class OrdersService {
    * @returns ResultModel
    * @memberof OrdersService
    */
-  public getHistory(userId: number) {
+  public getHistory(userId: string) {
     this.service.setActionUrl(this.actionUrl);
     return this.service.getById<ResultModel>(userId);
   }
@@ -65,7 +65,7 @@ export class OrdersService {
    * @returns OrderModel
    * @memberof OrdersService
    */
-  public getPending(userId: number) {
+  public getPending(userId: string) {
     this.service.setActionUrl(this.actionUrl, 'pending/');
     return this.service.getById<OrderModel>(userId);
   }
@@ -77,7 +77,7 @@ export class OrdersService {
    * @returns any
    * @memberof OrdersService
    */
-  public delete(orderId: number) {
+  public delete(orderId: string) {
     this.service.setActionUrl(this.actionUrl);
     return this.service.delete<any>(orderId);
   }

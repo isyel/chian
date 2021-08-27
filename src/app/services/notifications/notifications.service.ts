@@ -18,7 +18,7 @@ export class NotificationsService {
    * @returns UserModel
    * @memberof NotificationsService
    */
-  public getAll(userId: number) {
+  public getAll(userId: string) {
     this.service.setActionUrl(this.actionUrl);
     return this.service.getById<ResultModel>(userId);
   }
@@ -30,7 +30,7 @@ export class NotificationsService {
    * @returns NotificationModel
    * @memberof NotificationsService
    */
-  public markSeen(notificationId: number) {
+  public markSeen(notificationId: string) {
     this.service.setActionUrl(this.actionUrl);
     return this.service.getById<NotificationModel>(notificationId);
   }
@@ -42,7 +42,7 @@ export class NotificationsService {
    * @returns NotificationModel
    * @memberof NotificationsService
    */
-  public delete(notificationId: number) {
+  public delete(notificationId: string) {
     this.service.setActionUrl(this.actionUrl);
     return this.service.delete<NotificationModel>(notificationId);
   }

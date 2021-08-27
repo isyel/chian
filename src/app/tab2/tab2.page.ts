@@ -39,7 +39,8 @@ export class Tab2Page implements OnInit {
   }
 
   getOrderHistory() {
-    this.ordersService.getHistory(this.userProfileData?.id).subscribe(
+    // eslint-disable-next-line no-underscore-dangle
+    this.ordersService.getHistory(this.userProfileData?._id).subscribe(
       (result) => {
         console.log('result: ', result);
       },
