@@ -48,18 +48,16 @@ export class Tab3Page implements OnInit {
   }
 
   getUserProfile() {
-    this.usersService
-      .getProfile(this.authData?.userId || this.authData?.useId)
-      .subscribe(
-        (result) => {
-          console.log('result: ', result);
-          this.userData.setUserData(result.data);
-        },
-        (error) => {
-          console.error(error);
-          this.commonMethods.presentToast('Network or Server Error', false);
-        }
-      );
+    this.usersService.getProfile(this.authData?.userDetails.userId).subscribe(
+      (result) => {
+        console.log('result: ', result);
+        this.userData.setUserData(result.data);
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast('Network or Server Error', false);
+      }
+    );
   }
 
   changeProfilePics() {

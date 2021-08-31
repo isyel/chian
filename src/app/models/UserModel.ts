@@ -12,10 +12,15 @@ export type UserModel = {
 } & BaseModel;
 
 export type AuthDataModel = {
-  userId: string;
-  useId: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  verificationStatus: boolean;
+  session: string;
+  isAuthenticated: boolean;
+  userDetails: {
+    userId: string;
+    name: string;
+    email: string;
+    phoneNumber: string;
+    verificationStatus: boolean;
+    userName: string;
+    roles: [];
+  };
 };

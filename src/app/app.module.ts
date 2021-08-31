@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
@@ -16,6 +16,8 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { BaseServiceService } from './services/base-service.service';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
+import { TokenInterceptor } from './services/token-interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,10 +43,12 @@ import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     AppConfig,
     BaseServiceService,
     Geolocation,
     NativeGeocoder,
+    CookieService,
   ],
   bootstrap: [AppComponent],
 })

@@ -19,7 +19,6 @@ export class AuthenticationPage implements OnInit {
   forgotPasswordForm: FormGroup;
   passwordType = 'password';
   passwordIcon = 'eye-off';
-  userType = 'User';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,9 +45,7 @@ export class AuthenticationPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.userType = this.navParamService.navData;
-  }
+  ngOnInit() {}
 
   switchPage() {
     this.showLogin = !this.showLogin;
@@ -66,12 +63,11 @@ export class AuthenticationPage implements OnInit {
       phoneNumber: this.signupForm.value.phoneNumber,
       password: this.signupForm.value.password,
       referralId: this.signupForm.value.password || '',
-      userType: this.userType,
+      userType: this.navParamService.navData || 'User',
     };
     this.authService.register(signupCredentials).subscribe(
       (result) => {
         if (result.status) {
-          console.log('result: ', result);
           this.userData.setAuthorizationData(result.data);
           this.navController.navigateRoot('/tabs/tab1');
         } else {
@@ -89,17 +85,18 @@ export class AuthenticationPage implements OnInit {
     const loginCredentials: LoginModel = {
       'email/phone': this.loginForm.value.email,
       password: this.loginForm.value.password,
+      userType: this.navParamService.navData || 'User',
     };
     this.authService.login(loginCredentials).subscribe(
       (result) => {
-        this.userData.setAuthorizationData(result.data.userDetails);
+        this.userData.setAuthorizationData(result.data);
         this.commonMethods.dismissLoader();
         this.navController.navigateRoot('/tabs/tab1');
       },
       (error) => {
+        this.commonMethods.dismissLoader();
         console.error(error);
         this.commonMethods.presentAlert(error.message, 'Authentication Error');
-        this.commonMethods.dismissLoader();
       }
     );
   }

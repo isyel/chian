@@ -12,6 +12,7 @@ export type RegisterModel = {
 export type LoginModel = {
   password: string;
   'email/phone': string;
+  userType: string;
 };
 
 export type ReissueTokenModel = {

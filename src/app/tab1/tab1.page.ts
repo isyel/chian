@@ -32,22 +32,20 @@ export class Tab1Page implements OnInit {
 
   async ngOnInit() {
     this.authData = await this.userData.getAuthorizationData();
-    this.getOfflineOrderHistory();
-    this.getPendingOrder();
+    // this.getOfflineOrderHistory();
+    // this.getPendingOrder();
   }
 
   getUserProfile() {
-    this.usersService
-      .getProfile(this.authData?.userId || this.authData?.useId)
-      .subscribe(
-        (result) => {
-          console.log('result: ', result);
-        },
-        (error) => {
-          console.error(error);
-          this.commonMethods.presentToast('Network or Server Error', false);
-        }
-      );
+    this.usersService.getProfile(this.authData.userDetails?.userId).subscribe(
+      (result) => {
+        console.log('result: ', result);
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast('Network or Server Error', false);
+      }
+    );
   }
 
   async getPendingOrder() {
@@ -74,17 +72,15 @@ export class Tab1Page implements OnInit {
 
   getRecentOrders() {
     // eslint-disable-next-line no-underscore-dangle
-    this.ordersService
-      .getHistory(this.authData?.userId || this.authData?.useId)
-      .subscribe(
-        (result) => {
-          console.log('result: ', result);
-          this.recentOrders = result.allOrders;
-        },
-        (error) => {
-          console.error(error);
-          this.commonMethods.presentToast('Network or Server Error', false);
-        }
-      );
+    this.ordersService.getHistory(this.authData?.userDetails.userId).subscribe(
+      (result) => {
+        console.log('result: ', result);
+        this.recentOrders = result.allOrders;
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast('Network or Server Error', false);
+      }
+    );
   }
 }
