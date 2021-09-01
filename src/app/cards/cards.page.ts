@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CardsPage implements OnInit {
   addCardMode = false;
   addCardForm: FormGroup;
+  cards = [];
 
   constructor(private formBuilder: FormBuilder) {
     this.addCardForm = this.formBuilder.group({

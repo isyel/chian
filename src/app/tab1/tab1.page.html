@@ -65,10 +65,10 @@
         <ion-text><strong>Recent Orders</strong></ion-text
         ><br />
         <app-order-item
-          (handleClick)="viewDetails()"
+          (handleClick)="viewDetails(order)"
           *ngFor="let order of recentOrders"
           [name]="order.orderItems[0].options.name"
-          [price]="order.orderItems[0].options.price"
+          [price]="order.totalPrice"
           [itemId]="order.orderItems[0].options._id"
           [size]="order.orderItems[0].options.size"
         ></app-order-item>

@@ -8,6 +8,9 @@
     justify-content: space-between;
     align-items: center;
     border-top: 1px dashed var(--ion-color-light-shade);
+    &__text {
+      text-transform: capitalize;
+    }
   }
 
   &__invoice {

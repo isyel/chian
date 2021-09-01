@@ -4,7 +4,7 @@ import { OptionsModel } from './OptionsModel';
 export type OrderModel = {
   userId: string;
   orderItems: [{ options: OptionsModel; quantity: number }];
-  deliveryAddress: string;
+  deliveryAddress: { city: string; state: string; address: string };
   latitude: number;
   longitude: number;
   city: string;
@@ -13,4 +13,7 @@ export type OrderModel = {
   deliveryPrice: number;
   paymentMethod?: string;
   paymentStatus?: string;
+  paymentType?: string;
+  totalPrice: number;
+  orderStatus: string;
 } & BaseModel;

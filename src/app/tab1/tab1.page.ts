@@ -46,7 +46,8 @@ export class Tab1Page implements OnInit {
     this.router.navigate(['/checkout']);
   }
 
-  viewDetails() {
+  viewDetails(order: OrderModel) {
+    this.navParamService.navData = order;
     this.router.navigate(['/order-details']);
   }
 

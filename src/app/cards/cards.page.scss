@@ -1,12 +1,12 @@
 .cards {
   &__addCard {
     display: flex;
-    flex-direction: column;
+    gap: 1em;
     height: 150px;
     align-items: center;
     justify-content: center;
     border: 1px dashed var(--ion-color-medium);
-    max-width: 200px;
+    max-width: 70vw;
     border-radius: var(--ion-border-radius);
     margin: auto;
 

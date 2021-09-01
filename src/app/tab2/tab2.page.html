@@ -36,7 +36,7 @@
           (handleClick)="viewDetails()"
           *ngFor="let order of todayOrders"
           [name]="order.orderItems[0].options.name"
-          [price]="order.orderItems[0].options.price"
+          [price]="order.totalPrice"
           [itemId]="order.orderItems[0].options._id"
           [size]="order.orderItems[0].options.size"
         ></app-order-item>
@@ -47,7 +47,7 @@
           (handleClick)="viewDetails()"
           *ngFor="let order of ordersHistory"
           [name]="order.orderItems[0].options.name"
-          [price]="order.orderItems[0].options.price"
+          [price]="order.totalPrice"
           [itemId]="order.orderItems[0].options._id"
           [size]="order.orderItems[0].options.size"
         ></app-order-item>

@@ -7,9 +7,13 @@
     ></app-header>
   </ion-header>
   <div class="ion-margin-vertical ion-padding-vertical">
-    <app-debit-card></app-debit-card>
+    <app-debit-card *ngIf="cards.length > 0"></app-debit-card>
+    <div class="ion-margin cards__addCard" *ngIf="cards.length === 0">
+      <ion-icon class="cards__addCard__icon" name="card-outline"></ion-icon>
+      <ion-text>No Saved Cards</ion-text>
+    </div>
     <br />
-    <div class="ion-text-center">
+    <div class="ion-text-center ion-margin-vertical">
       <ion-text color="medium"
         >Note: Click and hold on a card to delete</ion-text
       >
