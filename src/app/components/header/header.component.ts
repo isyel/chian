@@ -24,6 +24,8 @@ export class HeaderComponent implements OnInit {
   }
 
   handleGoBack() {
+    console.log('Go back');
+
     this.navController.pop();
   }
 

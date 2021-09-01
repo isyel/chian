@@ -23,4 +23,11 @@ export type AuthDataModel = {
     userName: string;
     roles: [];
   };
+  userId: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  verificationStatus: boolean;
+  userName: string;
+  roles: [];
 };

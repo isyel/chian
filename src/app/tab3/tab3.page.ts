@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AuthDataModel, UserModel } from '../models/UserModel';
+import { AuthenticationService } from '../services/authentication/authentication.service';
 import { PhotoService } from '../services/photo/photo.service';
 import { UsersService } from '../services/users/users.service';
 import { UserData } from '../user-data';
@@ -20,18 +21,25 @@ export class Tab3Page implements OnInit {
     private router: Router,
     private navController: NavController,
     private usersService: UsersService,
+    private authService: AuthenticationService,
     private userData: UserData,
     private commonMethods: CommonMethods,
     public photoService: PhotoService
   ) {}
 
   async ngOnInit() {
-    this.userProfileData = await this.userData.getUserData();
     this.authData = await this.userData.getAuthorizationData();
-    console.log('this.authData: ', this.authData);
-
     this.getUserProfile();
     await this.photoService.loadSaved();
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
+
+    this.userData.getUserData().then((userData) => {
+      this.userProfileData = userData;
+      console.log('this.userProfileData: ', this.userProfileData);
+    });
   }
 
   goToCards() {
@@ -39,8 +47,17 @@ export class Tab3Page implements OnInit {
   }
 
   handleLogout() {
-    this.userData.setisLoggedIn(false);
-    this.navController.navigateRoot('/login-options');
+    this.authService.logout().subscribe(
+      (result) => {
+        console.log('Logout result: ', result);
+        this.userData.setisLoggedIn(false);
+        this.navController.navigateRoot('/login-options');
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast('Network or Server Error', false);
+      }
+    );
   }
 
   goToUpdateProfile() {
@@ -48,16 +65,19 @@ export class Tab3Page implements OnInit {
   }
 
   getUserProfile() {
-    this.usersService.getProfile(this.authData?.userDetails.userId).subscribe(
-      (result) => {
-        console.log('result: ', result);
-        this.userData.setUserData(result.data);
-      },
-      (error) => {
-        console.error(error);
-        this.commonMethods.presentToast('Network or Server Error', false);
-      }
-    );
+    this.usersService
+      .getProfile(this.authData?.userDetails?.userId || this.authData?.userId)
+      .subscribe(
+        (result) => {
+          console.log('result: ', result);
+          this.userData.setUserData(result.data);
+          this.userProfileData = result.data;
+        },
+        (error) => {
+          console.error(error);
+          this.commonMethods.presentToast('Network or Server Error', false);
+        }
+      );
   }
 
   changeProfilePics() {

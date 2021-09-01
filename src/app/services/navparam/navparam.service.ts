@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class NavparamService {
   navDataValue: any;
+  referralId: string;
 
   constructor() {}
 

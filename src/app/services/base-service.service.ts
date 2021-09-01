@@ -68,13 +68,16 @@ export class BaseServiceService {
     // const data = JSON.stringify(itemToUpdate);
 
     return this.http
-      .put<T>(`${this.baseUrl}${this.actionUrl}${id}`, data)
+      .patch<T>(`${this.baseUrl}${this.actionUrl}${id}`, data)
       .pipe(catchError(this.handleError));
   }
 
   public updateWithQueryString<T>(data: any): Observable<T> {
     return this.http
-      .put<T>(`${this.baseUrl}${this.actionUrl}${this.actionUrl}${data}`, data)
+      .patch<T>(
+        `${this.baseUrl}${this.actionUrl}${this.actionUrl}${data}`,
+        data
+      )
       .pipe(catchError(this.handleError));
   }
 

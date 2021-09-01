@@ -68,8 +68,8 @@ export class AuthenticationService {
    * @returns any
    * @memberof AuthenticationService
    */
-  public logout(token: string) {
-    this.service.setActionUrl(this.actionUrl, 'Logout');
-    return this.service.authPost<any>(token);
+  public logout() {
+    this.service.setActionUrl(this.actionUrl, 'logout');
+    return this.service.getAll<any>();
   }
 }

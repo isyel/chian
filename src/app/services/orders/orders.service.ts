@@ -54,7 +54,7 @@ export class OrdersService {
    * @memberof OrdersService
    */
   public getHistory(userId: string) {
-    this.service.setActionUrl(this.actionUrl);
+    this.service.setActionUrl(this.actionUrl, 'user/');
     return this.service.getById<ResultModel>(userId);
   }
 

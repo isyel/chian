@@ -12,7 +12,7 @@
         </ion-header>
         <div class="ion-padding home__welcomeText">
           <ion-text color="light"
-            >Hello {{this.userProfileData?.Name}},</ion-text
+            >Hello {{authData?.userDetails?.name || authData?.name}},</ion-text
           ><br />
           <ion-text color="light">Welcome to ease with Chian</ion-text>
         </div>

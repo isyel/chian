@@ -19,6 +19,8 @@ export class AuthenticationPage implements OnInit {
   forgotPasswordForm: FormGroup;
   passwordType = 'password';
   passwordIcon = 'eye-off';
+  userType: string;
+  referralId: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,7 +47,10 @@ export class AuthenticationPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userType = this.navParamService.navData || 'User';
+    this.referralId = this.navParamService.referralId || '';
+  }
 
   switchPage() {
     this.showLogin = !this.showLogin;
@@ -62,8 +67,8 @@ export class AuthenticationPage implements OnInit {
       email: this.signupForm.value.email,
       phoneNumber: this.signupForm.value.phoneNumber,
       password: this.signupForm.value.password,
-      referralId: this.signupForm.value.password || '',
-      userType: this.navParamService.navData || 'User',
+      referralId: this.referralId || '',
+      userType: this.userType,
     };
     this.authService.register(signupCredentials).subscribe(
       (result) => {
@@ -85,7 +90,7 @@ export class AuthenticationPage implements OnInit {
     const loginCredentials: LoginModel = {
       'email/phone': this.loginForm.value.email,
       password: this.loginForm.value.password,
-      userType: this.navParamService.navData || 'User',
+      userType: this.userType,
     };
     this.authService.login(loginCredentials).subscribe(
       (result) => {

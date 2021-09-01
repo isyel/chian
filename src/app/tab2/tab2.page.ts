@@ -43,6 +43,8 @@ export class Tab2Page implements OnInit {
     this.ordersService.getHistory(this.userProfileData?._id).subscribe(
       (result) => {
         console.log('result: ', result);
+        this.ordersHistory = result.order;
+        this.userData.setOrderHistory(this.ordersHistory);
       },
       (error) => {
         console.error(error);

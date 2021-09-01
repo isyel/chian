@@ -5,7 +5,6 @@ import { OrderModel } from '../models/OrderModel';
 import { AuthDataModel, UserModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { OrdersService } from '../services/orders/orders.service';
-import { UsersService } from '../services/users/users.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
 
@@ -16,7 +15,6 @@ import { CommonMethods } from '../util/common';
 })
 export class Tab1Page implements OnInit {
   recentOrders: OrderModel[];
-  userProfileData: UserModel;
   authData: AuthDataModel;
   pendingOrder: OrderModel;
 
@@ -25,27 +23,14 @@ export class Tab1Page implements OnInit {
     private router: Router,
     public commonMethods: CommonMethods,
     private ordersService: OrdersService,
-    private usersService: UsersService,
     private userData: UserData,
     private navParamService: NavparamService
   ) {}
 
   async ngOnInit() {
     this.authData = await this.userData.getAuthorizationData();
-    // this.getOfflineOrderHistory();
-    // this.getPendingOrder();
-  }
-
-  getUserProfile() {
-    this.usersService.getProfile(this.authData.userDetails?.userId).subscribe(
-      (result) => {
-        console.log('result: ', result);
-      },
-      (error) => {
-        console.error(error);
-        this.commonMethods.presentToast('Network or Server Error', false);
-      }
-    );
+    this.getOfflineOrderHistory();
+    this.getPendingOrder();
   }
 
   async getPendingOrder() {
@@ -72,15 +57,18 @@ export class Tab1Page implements OnInit {
 
   getRecentOrders() {
     // eslint-disable-next-line no-underscore-dangle
-    this.ordersService.getHistory(this.authData?.userDetails.userId).subscribe(
-      (result) => {
-        console.log('result: ', result);
-        this.recentOrders = result.allOrders;
-      },
-      (error) => {
-        console.error(error);
-        this.commonMethods.presentToast('Network or Server Error', false);
-      }
-    );
+    this.ordersService
+      .getHistory(this.authData?.userDetails.userId || this.authData?.userId)
+      .subscribe(
+        (result) => {
+          console.log('result: ', result);
+          this.recentOrders = result.order;
+          this.userData.setOrderHistory(this.recentOrders);
+        },
+        (error) => {
+          console.error(error);
+          this.commonMethods.presentToast('Network or Server Error', false);
+        }
+      );
   }
 }

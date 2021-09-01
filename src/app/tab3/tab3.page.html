@@ -22,7 +22,8 @@
     <div class="profile__header__name">
       Full name: <br />
       <ion-text class="profile__header__fullName"
-        >{{userProfileData?.fullName || authData?.name}}</ion-text
+        >{{userProfileData?.fullName || authData?.userDetails?.name ||
+        authData?.phoneNumber}}</ion-text
       >
     </div>
 
@@ -32,11 +33,17 @@
   </div>
   <div class="ion-padding-vertical">
     <ion-item lines="none">
-      <ion-label>{{userProfileData?.phone || authData?.phoneNumber}}</ion-label>
+      <ion-label
+        >{{userProfileData?.phoneNumber || authData?.userDetails?.phoneNumber ||
+        authData?.phoneNumber}}</ion-label
+      >
       <ion-icon name="call-outline" slot="start"></ion-icon>
     </ion-item>
     <ion-item lines="none">
-      <ion-label> {{userProfileData?.email || authData?.email}} </ion-label>
+      <ion-label>
+        {{userProfileData?.email || authData?.userDetails?.email ||
+        authData?.phoneNumber}}
+      </ion-label>
       <ion-icon name="mail-outline" slot="start"></ion-icon>
     </ion-item>
   </div>

@@ -42,7 +42,7 @@
         ></app-order-item>
       </div>
       <div *ngIf="ordersHistory?.length > 0">
-        <h6><strong>Last month</strong></h6>
+        <h6><strong>Recent Orders</strong></h6>
         <app-order-item
           (handleClick)="viewDetails()"
           *ngFor="let order of ordersHistory"

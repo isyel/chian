@@ -30,8 +30,8 @@ export class UsersService {
    * @returns UserModel
    * @memberof UsersService
    */
-  public updateProfile(userId: string, payload: UserModel) {
+  public updateProfile(userId: string, payload: any) {
     this.service.setActionUrl(this.actionUrl);
-    return this.service.update<UserModel>(userId, payload);
+    return this.service.update<ResultModel>(userId, payload);
   }
 }

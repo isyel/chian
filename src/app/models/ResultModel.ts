@@ -9,6 +9,7 @@ export type ResultModel = {
   items: any[];
   allOrders: any[];
   data: UserModel;
+  order: any[];
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 };

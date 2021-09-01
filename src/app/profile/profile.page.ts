@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { NavController } from '@ionic/angular';
 import { UserModel } from '../models/UserModel';
 import { UsersService } from '../services/users/users.service';
 import { UserData } from '../user-data';
@@ -24,14 +25,13 @@ export class ProfilePage implements OnInit {
   constructor(
     private usersService: UsersService,
     private userData: UserData,
-    private commonMethods: CommonMethods
+    private commonMethods: CommonMethods,
+    private navController: NavController
   ) {}
 
   ngOnInit() {
     this.userData.getUserData().then((userData) => {
       this.userProfileData = userData;
-      console.log('this.userProfileData: ', this.userProfileData);
-
       this.accountForm = new FormGroup({
         fullName: new FormControl(
           this.userProfileData.fullName,
@@ -53,17 +53,27 @@ export class ProfilePage implements OnInit {
   }
 
   updateProfile() {
+    this.commonMethods.presentLoading('Updating Profile');
+    const updatedProfileData = {
+      fullName: this.accountForm.value.fullName,
+      email: this.accountForm.value.email,
+      phoneNumber: this.accountForm.value.phoneNumber,
+      address: this.accountForm.value.address,
+    };
     this.usersService
       // eslint-disable-next-line no-underscore-dangle
-      .updateProfile(this.userProfileData?._id, this.userProfileData)
+      .updateProfile(this.userProfileData?._id, updatedProfileData)
       .subscribe(
-        (result) => {
+        async (result) => {
           console.log('result: ', result);
-          this.userData.setUserData(result);
+          await this.userData.setUserData(result.data);
+          this.commonMethods.dismissLoader();
+          this.navController.pop();
         },
         (error) => {
           console.error(error);
           this.commonMethods.presentToast('Network or Server Error', false);
+          this.commonMethods.dismissLoader();
         }
       );
   }
