@@ -9,7 +9,7 @@
   <div class="ion-padding-horizontal ion-padding-bottom">
     <h5>Address:</h5>
     <div class="checkout__address" *ngIf="!addressEditMode">
-      <span>{{order?.deliveryAddress || locationService.fullAddress}}</span>
+      <span>{{order?.street || locationService.fullAddress}}</span>
       <ion-text color="secondary" (click)="handleEditAddress()">Edit</ion-text>
     </div>
     <div class="checkout__address__edit" *ngIf="addressEditMode">
@@ -52,7 +52,11 @@
           <ion-text>Sub Total</ion-text>
         </ion-col>
         <ion-col class="ion-text-end">
-          <ion-text color="primary"><strong>₦{{subTotal}}</strong></ion-text>
+          <ion-text color="primary"
+            ><strong
+              >{{subTotal | currency: "₦":"symbol-narrow":"1.0-0"}}</strong
+            ></ion-text
+          >
         </ion-col>
       </ion-row>
       <ion-row
@@ -66,7 +70,9 @@
         </ion-col>
         <ion-col class="ion-text-end">
           <ion-text color="primary"
-            ><strong>₦{{deliveryPrice}}</strong></ion-text
+            ><strong
+              >{{deliveryPrice | currency: "₦":"symbol-narrow":"1.0-0"}}</strong
+            ></ion-text
           >
         </ion-col>
       </ion-row>
@@ -82,7 +88,11 @@
           <ion-text><strong>Total</strong></ion-text>
         </ion-col>
         <ion-col class="ion-text-end">
-          <ion-text color="primary"><strong>₦{{totalPrice}}</strong></ion-text>
+          <ion-text color="primary"
+            ><strong
+              >{{totalPrice | currency: "₦":"symbol-narrow":"1.0-0"}}</strong
+            ></ion-text
+          >
         </ion-col>
       </ion-row>
 

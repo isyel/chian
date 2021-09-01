@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NotificationModel } from './models/NotificationModel';
 import { OptionsModel } from './models/OptionsModel';
-import { OrderModel } from './models/OrderModel';
+import { OrderModel, OrderModelPayload } from './models/OrderModel';
 import { AuthDataModel, UserModel } from './models/UserModel';
 import { StorageService } from './services/storage.service';
 
@@ -80,7 +80,7 @@ export class UserData {
     return await this.storageService.get(this.pendingOrder);
   }
 
-  async setPendingOrder(pendingOrder: OrderModel) {
+  async setPendingOrder(pendingOrder: OrderModelPayload) {
     return await this.storageService.set(this.pendingOrder, pendingOrder);
   }
 

@@ -40,7 +40,6 @@ export class PaymentPage implements OnInit {
     this.commonMethods.presentLoading();
     this.ordersService.create(this.order).subscribe(
       (result) => {
-        this.userData.setPendingOrder(result);
         this.commonMethods.dismissLoader();
         this.commonMethods.presentToast('Order Placed, Continue to payment');
         this.completePayment();

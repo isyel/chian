@@ -29,6 +29,9 @@ export class Tab1Page implements OnInit {
 
   async ngOnInit() {
     this.authData = await this.userData.getAuthorizationData();
+  }
+
+  ionViewDidEnter() {
     this.getOfflineOrderHistory();
     this.getPendingOrder();
   }

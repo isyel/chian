@@ -16,7 +16,9 @@
         ><strong>{{ name || "3kg Cylinder" }}</strong>
       </ion-text>
       <ion-text color="secondary" class="order-item__description__price"
-        ><strong>₦{{ price || 2000 }}</strong></ion-text
+        ><strong>{{
+          price || 2000 | currency: "₦":"symbol-narrow":"1.0-0"
+        }}</strong></ion-text
       >
     </ion-col>
     <ion-col size="1">

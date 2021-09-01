@@ -209,8 +209,8 @@ export class OrderPage implements OnInit {
             quantity: this.quantity,
           },
         ],
-        state: this.selectedState?.name || '',
-        city: this.selectedCity?.name || '',
+        state: this.selectedState?.text || '',
+        city: this.selectedCity?.text || '',
         deliveryPrice: 1500,
       };
 

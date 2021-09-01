@@ -13,6 +13,7 @@
     </div>
     <p>
       {{orderDetails?.orderItems[0].options.name}} at
+      {{orderDetails?.deliveryAddress.street}}
       {{orderDetails?.deliveryAddress.city}},
       {{orderDetails?.deliveryAddress.state}}
     </p>
@@ -40,7 +41,10 @@
         ></ion-text
       >
       <ion-text color="secondary"
-        ><strong>₦ {{orderDetails?.totalPrice}}</strong></ion-text
+        ><strong
+          >{{orderDetails?.totalPrice | currency:
+          "₦":"symbol-narrow":"1.0-0"}}</strong
+        ></ion-text
       >
     </div>
   </div>

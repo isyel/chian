@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderModel } from '../models/OrderModel';
+import { OrderModelPayload } from '../models/OrderModel';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { NavController } from '@ionic/angular';
 import { LocationService } from '../services/location/location.service';
@@ -12,7 +12,7 @@ import { UserData } from '../user-data';
   styleUrls: ['./checkout.page.scss'],
 })
 export class CheckoutPage implements OnInit {
-  order: OrderModel;
+  order: OrderModelPayload;
   addressEditMode = false;
   deliveryPrice = 2000;
   totalPrice: number;
@@ -28,10 +28,12 @@ export class CheckoutPage implements OnInit {
 
   ngOnInit() {
     this.order = this.navParamService.navData;
+    console.log('this.order at checkout: ', this.order);
+
     if (this.locationService.userCoordinates) {
       this.locationService.reverseGeocode();
     } else {
-      this.locationService.fullAddress = this.order.deliveryAddress;
+      this.locationService.fullAddress = this.order.street;
 
       if (this.order.latitude === 0 || this.order.longitude === 0) {
         this.locationService.forwardGeocode();
@@ -75,10 +77,14 @@ export class CheckoutPage implements OnInit {
   }
 
   goToCheckout() {
+    console.log(
+      'this.locationService.userLocationFromLatLng: ',
+      this.locationService.userLocationFromLatLng
+    );
+
     this.order = {
       ...this.order,
-      deliveryAddress:
-        this.locationService.fullAddress || this.order.deliveryAddress || '',
+      street: this.locationService.fullAddress || this.order.street || '',
       latitude:
         this.locationService.userCoordinates?.latitude ||
         this.order.latitude ||
