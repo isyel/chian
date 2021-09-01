@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NavController } from '@ionic/angular';
-import { UserModel } from '../models/UserModel';
+import { AuthDataModel, UserModel } from '../models/UserModel';
 import { UsersService } from '../services/users/users.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
@@ -19,6 +19,7 @@ import { CommonMethods } from '../util/common';
 export class ProfilePage implements OnInit {
   userProfileData: UserModel;
   accountForm: FormGroup;
+  authData: AuthDataModel;
   passwordType = 'password';
   passwordIcon = 'eye-off';
 
@@ -30,8 +31,11 @@ export class ProfilePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userData.getUserData().then((userData) => {
+    this.userData.getUserData().then(async (userData) => {
       this.userProfileData = userData;
+      if (!this.userProfileData) {
+        this.authData = await this.userData.getAuthorizationData();
+      }
       this.accountForm = new FormGroup({
         fullName: new FormControl(
           this.userProfileData.fullName,

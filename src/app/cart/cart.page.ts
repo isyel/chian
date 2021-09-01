@@ -1,7 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderModel } from '../models/OrderModel';
-import { UserModel } from '../models/UserModel';
+import { AuthDataModel, UserModel } from '../models/UserModel';
 import { OrdersService } from '../services/orders/orders.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
@@ -13,6 +14,7 @@ import { CommonMethods } from '../util/common';
 })
 export class CartPage implements OnInit {
   userProfileData: UserModel;
+  authData: AuthDataModel;
   pendingOrder: OrderModel;
 
   constructor(
@@ -24,6 +26,9 @@ export class CartPage implements OnInit {
 
   async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
+    if (!this.userProfileData) {
+      this.authData = await this.userData.getAuthorizationData();
+    }
   }
 
   async getOfflinePendingOrder() {
@@ -33,15 +38,21 @@ export class CartPage implements OnInit {
 
   getPendingOrder() {
     // eslint-disable-next-line no-underscore-dangle
-    this.ordersService.getPending(this.userProfileData?._id).subscribe(
-      (result) => {
-        console.log('result: ', result);
-      },
-      (error) => {
-        console.error(error);
-        this.commonMethods.presentToast('Network or Server Error', false);
-      }
-    );
+    this.ordersService
+      .getPending(
+        this.userProfileData?._id ||
+          this.authData.userId ||
+          this.authData.userDetails.userId
+      )
+      .subscribe(
+        (result) => {
+          console.log('result: ', result);
+        },
+        (error) => {
+          console.error(error);
+          this.commonMethods.presentToast('Network or Server Error', false);
+        }
+      );
   }
 
   goToCheckout() {

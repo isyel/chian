@@ -5,7 +5,7 @@ import { ModalController, PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { OptionsModel } from '../models/OptionsModel';
 import { OrderModel } from '../models/OrderModel';
-import { UserModel } from '../models/UserModel';
+import { AuthDataModel, UserModel } from '../models/UserModel';
 import { LocationService } from '../services/location/location.service';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { OptionsService } from '../services/options/options.service';
@@ -40,6 +40,7 @@ export class OrderPage implements OnInit {
   userCoordinates: any;
   useLocation = false;
   selectedOption: OptionsModel;
+  authData: AuthDataModel;
 
   constructor(
     public modalController: ModalController,
@@ -53,6 +54,9 @@ export class OrderPage implements OnInit {
 
   async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
+    if (!this.userProfileData) {
+      this.authData = await this.userData.getAuthorizationData();
+    }
     this.selectedOption = this.navParamService.navData;
     this.selectedCylinder = {
       text: this.selectedOption.name,
@@ -202,7 +206,10 @@ export class OrderPage implements OnInit {
   goToNextStep() {
     if (this.currentStep === 1) {
       const order = {
-        userId: this.userProfileData?._id,
+        userId:
+          this.userProfileData?._id ||
+          this.authData.userId ||
+          this.authData.userDetails.userId,
         orderItems: [
           {
             options: this.selectedOption,
