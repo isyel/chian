@@ -34,11 +34,14 @@ export class Tab2Page implements OnInit {
       console.log('No user data');
       this.authData = await this.userData.getAuthorizationData();
     }
-    this.getOfflineOrderHistory();
   }
 
   switchTab(tab) {
     this.activeTab = tab;
+  }
+
+  ionViewDidEnter() {
+    this.getOfflineOrderHistory();
   }
 
   async getOfflineOrderHistory() {

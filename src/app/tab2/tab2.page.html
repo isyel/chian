@@ -53,7 +53,9 @@
         ></app-order-item>
       </div>
 
-      <div *ngIf="!todayOrders && !ordersHistory">
+      <div
+        *ngIf="!todayOrders && (!ordersHistory || ordersHistory.length === 0)"
+      >
         <app-not-found message="No orders made yet"></app-not-found>
       </div>
     </div>

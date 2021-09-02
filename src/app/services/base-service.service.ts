@@ -49,18 +49,7 @@ export class BaseServiceService {
     console.log('URL: ', `${this.baseUrl}${this.actionUrl}${parameters}`);
 
     return this.http
-      .post<T>(`${this.baseUrl}${this.actionUrl}${parameters}`, input, {
-        withCredentials: true,
-      })
-      .pipe(catchError(this.handleError));
-  }
-
-  public authPost<T>(input: any, parameters = ''): Observable<T> {
-    console.log('URL: ', `${this.baseUrl}${this.actionUrl}${parameters}`);
-    return this.http
-      .post<T>(`${this.baseUrl}${this.actionUrl}${parameters}`, input, {
-        withCredentials: true,
-      })
+      .post<T>(`${this.baseUrl}${this.actionUrl}${parameters}`, input)
       .pipe(catchError(this.handleError));
   }
 

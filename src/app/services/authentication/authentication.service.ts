@@ -23,7 +23,7 @@ export class AuthenticationService {
    */
   public register(payload: RegisterModel) {
     this.service.setActionUrl(this.actionUrl, 'Register');
-    return this.service.authPost<any>(payload);
+    return this.service.post<any>(payload);
   }
 
   /**
@@ -35,7 +35,7 @@ export class AuthenticationService {
    */
   public login(payload: LoginModel) {
     this.service.setActionUrl(this.actionUrl, 'Login');
-    return this.service.authPost<any>(payload);
+    return this.service.post<any>(payload);
   }
 
   /**
@@ -47,7 +47,7 @@ export class AuthenticationService {
    */
   public refreshToken(refreshToken: ReissueTokenModel) {
     this.service.setActionUrl(this.actionUrl, 'RefreshToken');
-    return this.service.authPost<any>(refreshToken);
+    return this.service.post<any>(refreshToken);
   }
 
   /**
