@@ -62,6 +62,7 @@ export class AuthenticationPage implements OnInit {
   }
 
   handleSignup() {
+    this.commonMethods.presentLoading();
     const signupCredentials: RegisterModel = {
       fullName: this.signupForm.value.fullName,
       email: this.signupForm.value.email,
@@ -72,6 +73,7 @@ export class AuthenticationPage implements OnInit {
     };
     this.authService.register(signupCredentials).subscribe(
       (result) => {
+        this.commonMethods.dismissLoader();
         if (result.status) {
           this.userData.setAuthorizationData(result.data);
           this.navController.navigateRoot('/tabs/tab1');
@@ -81,6 +83,12 @@ export class AuthenticationPage implements OnInit {
       },
       (error) => {
         console.error(error);
+        this.commonMethods.dismissLoader();
+        console.error(error);
+        this.commonMethods.presentAlert(
+          this.commonMethods.hasErrorProperties(error),
+          'Authentication Error'
+        );
       }
     );
   }
@@ -101,7 +109,10 @@ export class AuthenticationPage implements OnInit {
       (error) => {
         this.commonMethods.dismissLoader();
         console.error(error);
-        this.commonMethods.presentAlert(error.message, 'Authentication Error');
+        this.commonMethods.presentAlert(
+          this.commonMethods.hasErrorProperties(error),
+          'Authentication Error'
+        );
       }
     );
   }
