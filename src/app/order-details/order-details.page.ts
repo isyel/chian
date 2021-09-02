@@ -24,4 +24,30 @@ export class OrderDetailsPage implements OnInit {
       ? 'icon-outline'
       : 'icon-disabled';
   }
+
+  showOrderStatus() {
+    switch (this.orderDetails.orderStatus) {
+      case 'pending':
+        return 'In Transit';
+      case 'placed':
+        return 'Order Placed';
+      case 'received':
+        return 'Order Received';
+      case 'delivered':
+        return 'Delivered';
+      default:
+        break;
+    }
+  }
+
+  showPaymentMethod() {
+    switch (this.orderDetails.paymentType) {
+      case 'payOnDelivery':
+        return 'Pay On Delivery';
+      case 'payWithCard':
+        return 'Pay With Card';
+      default:
+        break;
+    }
+  }
 }

@@ -18,13 +18,13 @@
       {{orderDetails?.deliveryAddress.state}}
     </p>
     <div class="ion-padding-bottom">
-      <strong>Payment Method: </strong> {{orderDetails?.paymentType}}
+      <strong>Payment Method: </strong> {{showPaymentMethod()}}
     </div>
     <div class="order-details__status ion-padding-vertical">
       <div>
         <ion-text>Status:</ion-text><br />
         <ion-text class="order-details__status__text"
-          >{{orderDetails?.orderStatus}}</ion-text
+          >{{showOrderStatus()}}</ion-text
         >
       </div>
       <div class="order-details__status__time ion-text-right">
