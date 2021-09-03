@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderModel } from '../models/OrderModel';
 import { AuthDataModel, UserModel } from '../models/UserModel';
+import { NavparamService } from '../services/navparam/navparam.service';
 import { OrdersService } from '../services/orders/orders.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
@@ -23,7 +24,8 @@ export class Tab2Page implements OnInit {
     private router: Router,
     public commonMethods: CommonMethods,
     private ordersService: OrdersService,
-    private userData: UserData
+    private userData: UserData,
+    private navParamService: NavparamService
   ) {}
 
   async ngOnInit() {
@@ -70,7 +72,8 @@ export class Tab2Page implements OnInit {
       );
   }
 
-  viewDetails() {
+  viewDetails(order: OrderModel) {
+    this.navParamService.navData = order;
     this.router.navigate(['/order-details']);
   }
 

@@ -56,6 +56,7 @@ export class Tab1Page implements OnInit {
 
   async getOfflineOrderHistory() {
     this.recentOrders = await this.userData.getOrderHistory();
+    this.recentOrders = this.recentOrders?.slice(0, 3);
     this.getRecentOrders();
   }
 
@@ -66,7 +67,7 @@ export class Tab1Page implements OnInit {
       .subscribe(
         (result) => {
           this.recentOrders = result.order?.slice(0, 3);
-          this.userData.setOrderHistory(this.recentOrders);
+          this.userData.setOrderHistory(result.order);
         },
         (error) => {
           console.error(error);

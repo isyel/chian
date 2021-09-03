@@ -12,6 +12,18 @@ export class OrdersService {
   constructor(public service: BaseServiceService) {}
 
   /**
+   * Create Order
+   *
+   * @param payload
+   * @returns OrderModel
+   * @memberof OrdersService
+   */
+  public create(payload: OrderModelPayload) {
+    this.service.setActionUrl(this.actionUrl);
+    return this.service.post<any>(payload);
+  }
+
+  /**
    * Update Order
    *
    * @param orderId
@@ -22,18 +34,6 @@ export class OrdersService {
   public update(orderId: string, payload: OrderModelPayload) {
     this.service.setActionUrl(this.actionUrl);
     return this.service.update<any>(orderId, payload);
-  }
-
-  /**
-   * Create Order
-   *
-   * @param payload
-   * @returns OrderModel
-   * @memberof OrdersService
-   */
-  public create(payload: OrderModelPayload) {
-    this.service.setActionUrl(this.actionUrl);
-    return this.service.post<any>(payload);
   }
 
   /**

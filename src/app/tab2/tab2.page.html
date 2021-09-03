@@ -33,7 +33,7 @@
       <div *ngIf="todayOrders?.length > 0">
         <h6><strong>Today</strong></h6>
         <app-order-item
-          (handleClick)="viewDetails()"
+          (handleClick)="viewDetails(order)"
           *ngFor="let order of todayOrders"
           [name]="order.orderItems[0].options.name"
           [price]="order.totalPrice"
@@ -44,7 +44,7 @@
       <div *ngIf="ordersHistory?.length > 0">
         <h6><strong>Recent Orders</strong></h6>
         <app-order-item
-          (handleClick)="viewDetails()"
+          (handleClick)="viewDetails(order)"
           *ngFor="let order of ordersHistory"
           [name]="order.orderItems[0].options.name"
           [price]="order.totalPrice"

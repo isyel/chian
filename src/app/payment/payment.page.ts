@@ -3,11 +3,20 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaystackOptions } from 'angular4-paystack';
 import { OrderModel } from '../models/OrderModel';
+import { PaymentModel } from '../models/PaymentModel';
 import { UserModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { OrdersService } from '../services/orders/orders.service';
+import { PaymentService } from '../services/payment/payment.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
+
+type PaystackRefModel = {
+  status: string;
+  message: string;
+  reference: any;
+  transaction: any;
+};
 
 @Component({
   selector: 'app-payment',
@@ -19,13 +28,15 @@ export class PaymentPage implements OnInit {
   userDetails: UserModel;
   publicKey = 'pk_test_99174bdc94618967e07f45a39877eb33e54c6545';
   options: PaystackOptions;
+  payment: PaymentModel;
 
   constructor(
     private router: Router,
     private userData: UserData,
     private ordersService: OrdersService,
     public commonMethods: CommonMethods,
-    private navParamService: NavparamService
+    private navParamService: NavparamService,
+    private paymentService: PaymentService
   ) {}
 
   async ngOnInit() {
@@ -53,11 +64,43 @@ export class PaymentPage implements OnInit {
     );
   }
 
-  paymentDone(result) {
+  paymentDone(result: PaystackRefModel | any) {
     console.log('Payment result: ', result);
     if (result.status === 'success' && result.message === 'Approved') {
-      // updateOrder('payWithCard')
+      this.payment = {
+        userId: this.userDetails._id,
+        orderId: this.order._id,
+        reference: result.reference,
+        transactionId: result.transaction,
+        amount: this.order.totalPrice,
+        paymentChannel: 'Paystack',
+        paymentMethod: 'card',
+        fromAdmin: false,
+      };
+      this.userData.setPendingOrder(null);
+      this.makePayment();
     }
+  }
+
+  makePayment() {
+    this.commonMethods.presentLoading();
+    this.paymentService.create(this.payment).subscribe(
+      (result) => {
+        console.log('Payment result: ', result);
+        if (result.status) {
+          this.completePayment();
+        }
+        this.commonMethods.dismissLoader();
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast(
+          error.message || 'Network or Server Error',
+          false
+        );
+        this.commonMethods.dismissLoader();
+      }
+    );
   }
 
   completePayment() {
@@ -65,19 +108,17 @@ export class PaymentPage implements OnInit {
     this.router.navigate(['/success']);
   }
 
-  updateOrder(paymentMethod: string) {
+  updateOrder(paymentType: string) {
     this.order = {
       ...this.order,
-      paymentMethod,
+      paymentType,
     };
-    this.commonMethods.presentLoading();
+
     this.ordersService.update(this.order._id, this.order).subscribe(
       (result) => {
-        this.commonMethods.dismissLoader();
         this.order = result.data;
-        console.log('Updated order: ', this.order);
-
-        if (paymentMethod === 'payOnDelivery') {
+        if (paymentType === 'payOnDelivery') {
+          this.userData.setPendingOrder(null);
           this.completePayment();
         }
       },
@@ -87,7 +128,6 @@ export class PaymentPage implements OnInit {
           error.message || 'Network or Server Error',
           false
         );
-        this.commonMethods.dismissLoader();
       }
     );
   }

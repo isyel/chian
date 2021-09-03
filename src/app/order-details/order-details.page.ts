@@ -45,7 +45,7 @@ export class OrderDetailsPage implements OnInit {
       case 'payOnDelivery':
         return 'Pay On Delivery';
       case 'payWithCard':
-        return 'Pay With Card';
+        return 'Card Payment';
       default:
         break;
     }
