@@ -57,6 +57,14 @@ export class BaseServiceService {
     // const data = JSON.stringify(itemToUpdate);
 
     return this.http
+      .put<T>(`${this.baseUrl}${this.actionUrl}${id}`, data)
+      .pipe(catchError(this.handleError));
+  }
+
+  public patchUpdate<T>(id: string, data: any): Observable<T> {
+    // const data = JSON.stringify(itemToUpdate);
+
+    return this.http
       .patch<T>(`${this.baseUrl}${this.actionUrl}${id}`, data)
       .pipe(catchError(this.handleError));
   }

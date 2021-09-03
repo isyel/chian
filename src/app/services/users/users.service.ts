@@ -32,6 +32,6 @@ export class UsersService {
    */
   public updateProfile(userId: string, payload: any) {
     this.service.setActionUrl(this.actionUrl);
-    return this.service.update<ResultModel>(userId, payload);
+    return this.service.patchUpdate<ResultModel>(userId, payload);
   }
 }

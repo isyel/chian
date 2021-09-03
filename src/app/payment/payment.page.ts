@@ -75,6 +75,8 @@ export class PaymentPage implements OnInit {
       (result) => {
         this.commonMethods.dismissLoader();
         this.order = result.data;
+        console.log('Updated order: ', this.order);
+
         if (paymentMethod === 'payOnDelivery') {
           this.completePayment();
         }
