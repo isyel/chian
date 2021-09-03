@@ -92,6 +92,10 @@ const routes: Routes = [
         (m) => m.LoginOptionsPageModule
       ),
   },
+  {
+    path: 'addresses',
+    loadChildren: () => import('./addresses/addresses.module').then( m => m.AddressesPageModule)
+  },
 ];
 @NgModule({
   imports: [

@@ -8,7 +8,7 @@ export type ResultModel = {
   indexFrom: number;
   items: any[];
   allOrders: any[];
-  data: UserModel;
+  data: UserModel | any;
   order: any[];
   hasPreviousPage: boolean;
   hasNextPage: boolean;

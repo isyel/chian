@@ -1,0 +1,19 @@
+<ion-content class="ion-padding">
+  <ion-header collapse="condense" class="ion-no-border">
+    <app-header
+      pageTitle="Saved Addresses"
+      [hasNotifications]="false"
+      [lightTheme]="true"
+    ></app-header>
+  </ion-header>
+
+  <div
+    class="ion-margin cards__addCard"
+    *ngFor="let address of addresses"
+    (click)="deleteAddress(address)"
+  >
+    <div>Street: <ion-text>{{address.street}}</ion-text></div>
+    <div>City: <ion-text>{{address.city}}</ion-text></div>
+    <div>State: <ion-text>{{address.state}}</ion-text></div>
+  </div>
+</ion-content>

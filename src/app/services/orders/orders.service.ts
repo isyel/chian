@@ -84,7 +84,7 @@ export class OrdersService {
   }
 
   /**
-   * Get User Order History
+   * Delete Order
    *
    * @param orderId
    * @returns any

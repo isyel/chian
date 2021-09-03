@@ -53,6 +53,10 @@ export class Tab3Page implements OnInit {
     this.router.navigate(['/cards']);
   }
 
+  goToShippingAddresses() {
+    this.router.navigate(['/addresses']);
+  }
+
   handleLogout() {
     this.authService.logout().subscribe(
       (result) => {

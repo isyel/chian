@@ -16,6 +16,7 @@ import { CommonMethods } from '../util/common';
 export class Tab1Page implements OnInit {
   recentOrders: OrderModel[];
   authData: AuthDataModel;
+  userDetails: UserModel;
   pendingOrder: OrderModel;
 
   constructor(
@@ -31,7 +32,8 @@ export class Tab1Page implements OnInit {
     this.authData = await this.userData.getAuthorizationData();
   }
 
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
+    this.userDetails = await this.userData.getUserData();
     this.getOfflineOrderHistory();
     this.getPendingOrder();
   }
