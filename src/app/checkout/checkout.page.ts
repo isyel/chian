@@ -5,6 +5,8 @@ import { NavparamService } from '../services/navparam/navparam.service';
 import { NavController } from '@ionic/angular';
 import { LocationService } from '../services/location/location.service';
 import { UserData } from '../user-data';
+import { OrdersService } from '../services/orders/orders.service';
+import { CommonMethods } from '../util/common';
 
 @Component({
   selector: 'app-checkout',
@@ -23,12 +25,13 @@ export class CheckoutPage implements OnInit {
     private navParamService: NavparamService,
     public locationService: LocationService,
     private userData: UserData,
-    private navController: NavController
+    private navController: NavController,
+    private ordersService: OrdersService,
+    public commonMethods: CommonMethods
   ) {}
 
   ngOnInit() {
     this.order = this.navParamService.navData;
-    console.log('this.order at checkout: ', this.order);
 
     if (this.locationService.userCoordinates) {
       this.locationService.reverseGeocode();
@@ -77,11 +80,6 @@ export class CheckoutPage implements OnInit {
   }
 
   goToCheckout() {
-    console.log(
-      'this.locationService.userLocationFromLatLng: ',
-      this.locationService.userLocationFromLatLng
-    );
-
     this.order = {
       ...this.order,
       street: this.locationService.fullAddress || this.order.street || '',
@@ -108,9 +106,27 @@ export class CheckoutPage implements OnInit {
       deliveryPrice: this.deliveryPrice,
     };
     console.log('this.order in checkout: ', this.order);
+    this.placeOrder();
+  }
 
-    this.userData.setPendingOrder(this.order);
-    this.navParamService.navData = this.order;
-    this.router.navigate(['/payment']);
+  placeOrder() {
+    this.commonMethods.presentLoading();
+    this.ordersService.create(this.order).subscribe(
+      (result) => {
+        this.commonMethods.dismissLoader();
+        this.commonMethods.presentToast('Order Placed, Continue to payment');
+        this.userData.setPendingOrder(result.data);
+        this.navParamService.navData = result.data;
+        this.router.navigate(['/payment']);
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast(
+          error.message || 'Network or Server Error',
+          false
+        );
+        this.commonMethods.dismissLoader();
+      }
+    );
   }
 }

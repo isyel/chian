@@ -1,6 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PaystackOptions } from 'angular4-paystack';
 import { OrderModel } from '../models/OrderModel';
+import { UserModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { OrdersService } from '../services/orders/orders.service';
 import { UserData } from '../user-data';
@@ -13,6 +16,9 @@ import { CommonMethods } from '../util/common';
 })
 export class PaymentPage implements OnInit {
   order: OrderModel;
+  userDetails: UserModel;
+  publicKey = 'pk_test_99174bdc94618967e07f45a39877eb33e54c6545';
+  options: PaystackOptions;
 
   constructor(
     private router: Router,
@@ -22,9 +28,36 @@ export class PaymentPage implements OnInit {
     private navParamService: NavparamService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.userDetails = await this.userData.getUserData();
+  }
+
+  ionViewDidEnter() {
     this.order = this.navParamService.navData;
     console.log('this.order at payment: ', this.order);
+    this.options = {
+      amount: this.order.totalPrice * 100,
+      email: this.userDetails.email,
+      ref: `${Math.ceil(Math.random() * 10e10)}`,
+    };
+  }
+
+  paymentInit() {
+    console.log('payment initialized');
+    this.updateOrder('payWithCard');
+  }
+
+  paymentCancel() {
+    this.commonMethods.presentToast(
+      'Payment Cancelled, continue payment to complete order'
+    );
+  }
+
+  paymentDone(result) {
+    console.log('Payment result: ', result);
+    if (result.status === 'success' && result.message === 'Approved') {
+      // updateOrder('payWithCard')
+    }
   }
 
   completePayment() {
@@ -32,17 +65,19 @@ export class PaymentPage implements OnInit {
     this.router.navigate(['/success']);
   }
 
-  placeOrder(paymentMethod: string) {
+  updateOrder(paymentMethod: string) {
     this.order = {
       ...this.order,
       paymentMethod,
     };
     this.commonMethods.presentLoading();
-    this.ordersService.create(this.order).subscribe(
+    this.ordersService.update(this.order._id, this.order).subscribe(
       (result) => {
         this.commonMethods.dismissLoader();
-        this.commonMethods.presentToast('Order Placed, Continue to payment');
-        this.completePayment();
+        this.order = result.data;
+        if (paymentMethod === 'payOnDelivery') {
+          this.completePayment();
+        }
       },
       (error) => {
         console.error(error);

@@ -15,7 +15,11 @@
       expand="block"
       color="primary"
       class="ion-margin-vertical"
-      (click)="placeOrder('payWithCard')"
+      angular4-paystack
+      [paystackOptions]="options"
+      (paymentInit)="paymentInit()"
+      (onClose)="paymentCancel()"
+      (callback)="paymentDone($event)"
     >
       <span>Pay with card</span>
     </ion-button>
@@ -23,7 +27,7 @@
     <ion-button
       expand="block"
       color="primary"
-      (click)="placeOrder('payOnDelivery')"
+      (click)="updateOrder('payOnDelivery')"
     >
       <span>Pay on delivery</span>
     </ion-button>

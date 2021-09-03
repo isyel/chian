@@ -40,7 +40,7 @@
     </ion-row>
     <ion-row *ngIf="this.pendingOrder">
       <ion-col>
-        <app-hero-card (click)="goToCartPage()">
+        <app-hero-card (click)="goToPaymentPage()">
           <div class="home__cartItems ion-padding-horizontal">
             <div>
               <ion-text class="home__cartItems__number" color="secondary"
@@ -72,20 +72,27 @@
           [itemId]="order.orderItems[0].options._id"
           [size]="order.orderItems[0].options.size"
         ></app-order-item>
-        <div class="home__noHistory">
-          <app-not-found
-            *ngIf="!recentOrders || recentOrders.length < 1"
-            message="No orders made yet"
-          ></app-not-found>
+        <div
+          class="home__noHistory"
+          *ngIf="!recentOrders || recentOrders.length < 1"
+        >
+          <app-not-found message="No orders made yet"></app-not-found>
           <ion-button color="primary" (click)="goToItemsPage()">
-            <span
-              >{{!recentOrders || recentOrders.length < 1 ? 'Make your first\
-              order' : 'Make an order'}}</span
-            >
+            <span>Make your first order</span>
           </ion-button>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    (click)="goToItemsPage()"
+  >
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 <ion-footer> </ion-footer>

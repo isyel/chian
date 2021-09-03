@@ -44,9 +44,9 @@ export class Tab1Page implements OnInit {
     this.router.navigate(['/items']);
   }
 
-  goToCartPage() {
+  goToPaymentPage() {
     this.navParamService.navData = this.pendingOrder;
-    this.router.navigate(['/checkout']);
+    this.router.navigate(['/payment']);
   }
 
   viewDetails(order: OrderModel) {
@@ -65,8 +65,7 @@ export class Tab1Page implements OnInit {
       .getHistory(this.authData?.userDetails.userId || this.authData?.userId)
       .subscribe(
         (result) => {
-          console.log('result: ', result);
-          this.recentOrders = result.order;
+          this.recentOrders = result.order?.slice(0, 3);
           this.userData.setOrderHistory(this.recentOrders);
         },
         (error) => {

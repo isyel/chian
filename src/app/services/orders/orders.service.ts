@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OrderModel } from 'src/app/models/OrderModel';
+import { OrderModel, OrderModelPayload } from 'src/app/models/OrderModel';
 import { ResultModel } from 'src/app/models/ResultModel';
 import { BaseServiceService } from '../base-service.service';
 
@@ -12,13 +12,26 @@ export class OrdersService {
   constructor(public service: BaseServiceService) {}
 
   /**
+   * Update Order
+   *
+   * @param orderId
+   * @param payload
+   * @returns OrderModel
+   * @memberof OrdersService
+   */
+  public update(orderId: string, payload: OrderModelPayload) {
+    this.service.setActionUrl(this.actionUrl);
+    return this.service.update<any>(orderId, payload);
+  }
+
+  /**
    * Create Order
    *
    * @param payload
    * @returns OrderModel
    * @memberof OrdersService
    */
-  public create(payload: OrderModel) {
+  public create(payload: OrderModelPayload) {
     this.service.setActionUrl(this.actionUrl);
     return this.service.post<any>(payload);
   }
