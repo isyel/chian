@@ -30,8 +30,6 @@ export class Tab2Page implements OnInit {
 
   async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
-    console.log('this.userProfileData: ', this.userProfileData);
-
     if (!this.userProfileData) {
       console.log('No user data');
       this.authData = await this.userData.getAuthorizationData();
@@ -48,6 +46,8 @@ export class Tab2Page implements OnInit {
 
   async getOfflineOrderHistory() {
     this.ordersHistory = await this.userData.getOrderHistory();
+
+    console.log('this.ordersHistory: ', this.ordersHistory);
     this.getOrderHistory();
   }
 

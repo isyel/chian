@@ -39,6 +39,7 @@
           [price]="order.totalPrice"
           [itemId]="order.orderItems[0].options._id"
           [size]="order.orderItems[0].options.size"
+          [quantity]="order.orderItems[0].quantity"
         ></app-order-item>
       </div>
       <div *ngIf="ordersHistory?.length > 0">
@@ -50,6 +51,7 @@
           [price]="order.totalPrice"
           [itemId]="order.orderItems[0].options._id"
           [size]="order.orderItems[0].options.size"
+          [quantity]="order.orderItems[0].quantity"
         ></app-order-item>
       </div>
 

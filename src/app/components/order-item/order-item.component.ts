@@ -10,6 +10,7 @@ export class OrderItemComponent implements OnInit {
   @Input() name: string;
   @Input() price: number;
   @Input() size: number;
+  @Input() quantity: number;
   @Input() itemId: string;
   @Output() handleClick: EventEmitter<string> = new EventEmitter<string>();
 
