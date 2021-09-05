@@ -24,6 +24,8 @@
           debounce="500"
           animated
           class="home__searchBar"
+          [(ngModel)]="searchFilter"
+          (keyup.enter)="filterOrders()"
         ></ion-searchbar>
       </div>
     </app-hero-card>
@@ -83,6 +85,13 @@
             <span>Make your first order</span>
           </ion-button>
         </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center">
+      <ion-col>
+        <ion-button color="primary" (click)="goToOrders()">
+          <span>See order history</span>
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

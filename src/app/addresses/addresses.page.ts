@@ -23,6 +23,7 @@ export class AddressesPage implements OnInit {
 
   async ngOnInit() {
     this.userDetails = await this.userData.getUserData();
+    this.getAddresses();
   }
 
   getAddresses() {

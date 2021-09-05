@@ -18,7 +18,9 @@ export class Tab2Page implements OnInit {
   userProfileData: UserModel;
   todayOrders: OrderModel[];
   ordersHistory: OrderModel[];
+  rawOrdersHistory: OrderModel[];
   authData: AuthDataModel;
+  searchFilter = null;
 
   constructor(
     private router: Router,
@@ -45,9 +47,13 @@ export class Tab2Page implements OnInit {
   }
 
   async getOfflineOrderHistory() {
-    this.ordersHistory = await this.userData.getOrderHistory();
-
-    console.log('this.ordersHistory: ', this.ordersHistory);
+    this.ordersHistory = this.rawOrdersHistory =
+      await this.userData.getOrderHistory();
+    if (typeof this.navParamService.navData === 'string') {
+      this.searchFilter = this.navParamService.navData;
+      console.log('this.searchFilter: ', this.searchFilter);
+      this.filterOrders();
+    }
     this.getOrderHistory();
   }
 
@@ -62,14 +68,25 @@ export class Tab2Page implements OnInit {
       .subscribe(
         (result) => {
           console.log('result: ', result);
-          this.ordersHistory = result.order;
+          this.ordersHistory = this.rawOrdersHistory = result.order;
           this.userData.setOrderHistory(this.ordersHistory);
+          if (typeof this.navParamService.navData === 'string') {
+            this.searchFilter = this.navParamService.navData;
+            console.log('this.searchFilter: ', this.searchFilter);
+            this.filterOrders();
+          }
         },
         (error) => {
           console.error(error);
           this.commonMethods.presentToast('Network or Server Error', false);
         }
       );
+  }
+
+  filterOrders() {
+    this.ordersHistory = this.rawOrdersHistory.filter((order) =>
+      order.orderItems[0].options.name.includes(this.searchFilter)
+    );
   }
 
   viewDetails(order: OrderModel) {

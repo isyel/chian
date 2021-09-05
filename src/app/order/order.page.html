@@ -79,5 +79,8 @@
         <span (click)="goToNextStep()">Next</span>
       </div>
     </app-hero-card>
+    <div class="ion-text-center ion-padding" *ngIf="errorMessage">
+      <ion-text color="danger">{{errorMessage}}</ion-text>
+    </div>
   </div>
 </ion-content>

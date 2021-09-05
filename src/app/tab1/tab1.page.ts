@@ -18,6 +18,7 @@ export class Tab1Page implements OnInit {
   authData: AuthDataModel;
   userDetails: UserModel;
   pendingOrder: OrderModel;
+  searchFilter = null;
 
   constructor(
     public modalController: ModalController,
@@ -44,6 +45,16 @@ export class Tab1Page implements OnInit {
 
   goToItemsPage() {
     this.router.navigate(['/items']);
+  }
+
+  goToOrders() {
+    this.router.navigate(['/tabs/tab2']);
+  }
+
+  filterOrders() {
+    this.navParamService.navData = this.searchFilter;
+    this.searchFilter = null;
+    this.router.navigate(['/tabs/tab2']);
   }
 
   goToPaymentPage() {

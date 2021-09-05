@@ -79,6 +79,8 @@ export class PaymentPage implements OnInit {
       };
       this.userData.setPendingOrder(null);
       this.makePayment();
+    } else {
+      console.log('payment failed:', result);
     }
   }
 

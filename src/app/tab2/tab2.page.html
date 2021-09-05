@@ -13,6 +13,8 @@
     color="light"
     debounce="500"
     animated
+    [(ngModel)]="searchFilter"
+    (ngModelChange)="filterOrders()"
   ></ion-searchbar>
 
   <div class="ion-padding-vertical buttonGroup">

@@ -41,6 +41,7 @@ export class OrderPage implements OnInit {
   useLocation = false;
   selectedOption: OptionsModel;
   authData: AuthDataModel;
+  errorMessage: string;
 
   constructor(
     public modalController: ModalController,
@@ -204,7 +205,17 @@ export class OrderPage implements OnInit {
   }
 
   goToNextStep() {
+    if (
+      this.currentStep === 1 &&
+      (!this.selectedState?.text || !this.selectedCity?.text) &&
+      !this.locationService.userCoordinates
+    ) {
+      this.errorMessage =
+        'You must either choose a state and area or use current location';
+      return;
+    }
     if (this.currentStep === 1) {
+      this.errorMessage = null;
       const order = {
         userId:
           this.userProfileData?._id ||
