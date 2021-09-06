@@ -1,15 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonTabs } from '@ionic/angular';
+import { UserModel } from '../models/UserModel';
+import { UserData } from '../user-data';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss'],
 })
-export class TabsPage {
+export class TabsPage implements OnInit {
+  userDetails: UserModel;
+  userType: string;
   private activeTab?: HTMLElement;
 
-  constructor() {}
+  constructor(private userData: UserData) {}
+
+  async ngOnInit() {
+    this.userDetails = await this.userData.getUserData();
+    console.log('this.userDetails: ', this.userDetails);
+  }
 
   tabChange(tabsRef: IonTabs) {
     this.activeTab = tabsRef.outlet.activatedView.element;

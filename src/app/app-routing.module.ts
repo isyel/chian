@@ -94,7 +94,8 @@ const routes: Routes = [
   },
   {
     path: 'addresses',
-    loadChildren: () => import('./addresses/addresses.module').then( m => m.AddressesPageModule)
+    loadChildren: () =>
+      import('./addresses/addresses.module').then((m) => m.AddressesPageModule),
   },
 ];
 @NgModule({

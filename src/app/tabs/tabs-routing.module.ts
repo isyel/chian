@@ -8,6 +8,13 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: 'delivery-agents-home',
+        loadChildren: () =>
+          import('../delivery-agents-home/delivery-agents-home.module').then(
+            (m) => m.DeliveryAgentsHomePageModule
+          ),
+      },
+      {
         path: 'tab1',
         loadChildren: () =>
           import('../tab1/tab1.module').then((m) => m.Tab1PageModule),

@@ -9,6 +9,7 @@ export type UserModel = {
   email: string;
   referralId: string;
   address: string;
+  roles: [string];
 } & BaseModel;
 
 export type AuthDataModel = {
