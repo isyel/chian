@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { StorageService } from './services/storage.service';
 import { UserData } from './user-data';
 
@@ -13,8 +13,8 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private userData: UserData,
-    private router: Router,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private navController: NavController
   ) {
     this.storageService.storageReady.subscribe((result) => {
       if (result) {
@@ -25,7 +25,7 @@ export class AppComponent {
             this.checkAuthentication();
           } else {
             console.log('hasSeenTutorial: ', hasSeenTutorial);
-            this.router.navigate(['/tutorial']);
+            this.navController.navigateRoot(['/tutorial']);
           }
         });
       }
@@ -35,9 +35,14 @@ export class AppComponent {
   async checkAuthentication() {
     const isLoggedIn = await this.userData.getIsLoggedIn();
     if (isLoggedIn) {
-      this.router.navigate(['/tabs']);
+      const authData = await this.userData.getAuthorizationData();
+      if (authData.userDetails.roles[0] === 'User') {
+        this.navController.navigateRoot('/tabs/tab1');
+      } else {
+        this.navController.navigateRoot('/tabs/delivery-agents-home');
+      }
     } else {
-      this.router.navigate(['/login-options']);
+      this.navController.navigateRoot(['/login-options']);
     }
   }
 }

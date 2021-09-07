@@ -16,7 +16,6 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { BaseServiceService } from './services/base-service.service';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
-import { TokenInterceptor } from './services/token-interceptor';
 import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({

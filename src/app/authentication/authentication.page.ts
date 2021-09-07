@@ -76,7 +76,11 @@ export class AuthenticationPage implements OnInit {
         this.commonMethods.dismissLoader();
         if (result.status) {
           this.userData.setAuthorizationData(result.data);
-          this.navController.navigateRoot('/tabs/tab1');
+          if (this.userType === 'User') {
+            this.navController.navigateRoot('/tabs/tab1');
+          } else {
+            this.navController.navigateRoot('/tabs/delivery-agents-home');
+          }
         } else {
           this.commonMethods.presentAlert(result.err.message, result.message);
         }
@@ -104,7 +108,11 @@ export class AuthenticationPage implements OnInit {
       (result) => {
         this.userData.setAuthorizationData(result.data);
         this.commonMethods.dismissLoader();
-        this.navController.navigateRoot('/tabs/tab1');
+        if (this.userType === 'User') {
+          this.navController.navigateRoot('/tabs/tab1');
+        } else {
+          this.navController.navigateRoot('/tabs/delivery-agents-home');
+        }
       },
       (error) => {
         this.commonMethods.dismissLoader();

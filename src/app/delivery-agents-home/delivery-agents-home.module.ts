@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { DeliveryAgentsHomePageRoutingModule } from './delivery-agents-home-routing.module';
 
 import { DeliveryAgentsHomePage } from './delivery-agents-home.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DeliveryAgentsHomePageRoutingModule
+    DeliveryAgentsHomePageRoutingModule,
+    ComponentsModule,
   ],
-  declarations: [DeliveryAgentsHomePage]
+  declarations: [DeliveryAgentsHomePage],
 })
 export class DeliveryAgentsHomePageModule {}

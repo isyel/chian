@@ -62,8 +62,8 @@ export class Tab2Page implements OnInit {
     this.ordersService
       .getHistory(
         this.userProfileData?._id ||
-          this.authData.userId ||
-          this.authData.userDetails.userId
+          this.authData?.userId ||
+          this.authData?.userDetails?.userId
       )
       .subscribe(
         (result) => {

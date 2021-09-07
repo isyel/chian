@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonTabs } from '@ionic/angular';
-import { UserModel } from '../models/UserModel';
+import { AuthDataModel, UserModel } from '../models/UserModel';
 import { UserData } from '../user-data';
 
 @Component({
@@ -9,15 +9,15 @@ import { UserData } from '../user-data';
   styleUrls: ['tabs.page.scss'],
 })
 export class TabsPage implements OnInit {
-  userDetails: UserModel;
+  authUserDetails: AuthDataModel;
   userType: string;
   private activeTab?: HTMLElement;
 
   constructor(private userData: UserData) {}
 
   async ngOnInit() {
-    this.userDetails = await this.userData.getUserData();
-    console.log('this.userDetails: ', this.userDetails);
+    this.authUserDetails = await this.userData.getAuthorizationData();
+    console.log('this.authUserDetails: ', this.authUserDetails);
   }
 
   tabChange(tabsRef: IonTabs) {

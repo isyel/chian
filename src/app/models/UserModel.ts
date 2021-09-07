@@ -22,7 +22,7 @@ export type AuthDataModel = {
     phoneNumber: string;
     verificationStatus: boolean;
     userName: string;
-    roles: [];
+    roles: [string];
   };
   userId: string;
   name: string;
@@ -30,5 +30,5 @@ export type AuthDataModel = {
   phoneNumber: string;
   verificationStatus: boolean;
   userName: string;
-  roles: [];
+  roles: [string];
 };
