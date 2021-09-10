@@ -53,11 +53,16 @@
     >
       <ion-text
         ><strong
-          >{{userProfileData?.noOfOrders === 0 ? orderHistory?.length :
-          userProfileData?.noOfOrders}}</strong
+          >{{userProfileData?.roles[0] === 'User' ? userProfileData?.noOfOrders
+          === 0 ? orderHistory?.length : userProfileData?.noOfOrders :
+          0}}</strong
         ></ion-text
-      ><br />
-      <ion-text>Refills</ion-text>
+      >
+      <br />
+      <ion-text
+        >{{userProfileData?.roles[0] === 'User' ? 'Refills' :
+        'Deliveries'}}</ion-text
+      >
     </div>
     <div
       class="ion-text-center ion-padding-vertical profile__orderSummary__item"
@@ -69,12 +74,28 @@
     </div>
   </div>
   <div class="ion-padding-vertical">
-    <ion-item lines="none" (click)="goToShippingAddresses()">
+    <ion-item
+      lines="none"
+      (click)="goToShippingAddresses()"
+      *ngIf="userProfileData?.roles[0] === 'User'"
+    >
       <ion-label> Shipping Addresses </ion-label>
       <ion-icon name="home" slot="start" color="secondary"></ion-icon>
     </ion-item>
-    <ion-item lines="none" (click)="goToCards()">
+    <ion-item
+      lines="none"
+      (click)="goToCards()"
+      *ngIf="userProfileData?.roles[0] === 'User'"
+    >
       <ion-label> Saved cards </ion-label>
+      <ion-icon name="card" slot="start" color="secondary"></ion-icon>
+    </ion-item>
+    <ion-item
+      lines="none"
+      (click)="goToEarnings()"
+      *ngIf="userProfileData?.roles[0] === 'Delivery Agent'"
+    >
+      <ion-label> Earnings </ion-label>
       <ion-icon name="card" slot="start" color="secondary"></ion-icon>
     </ion-item>
     <ion-item lines="none" (click)="handleLogout()">

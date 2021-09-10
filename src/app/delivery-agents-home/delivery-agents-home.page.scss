@@ -12,9 +12,10 @@
 .orderRequest {
   display: flex;
   justify-content: center;
-  position: absolute;
-  bottom: 7%;
+  position: fixed;
+  bottom: 2vh;
   width: 100vw;
+  z-index: 99;
 
   &__container {
     position: relative;

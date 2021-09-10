@@ -97,6 +97,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('./addresses/addresses.module').then((m) => m.AddressesPageModule),
   },
+  {
+    path: 'earnings',
+    loadChildren: () => import('./earnings/earnings.module').then( m => m.EarningsPageModule)
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
 ];
 @NgModule({
   imports: [
