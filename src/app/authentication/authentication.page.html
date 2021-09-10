@@ -1,4 +1,11 @@
 <ion-content>
+  <!-- <div class="logo ion-margin-vertical">
+    <ion-img
+      src="assets/icon/chian_logo_dark.png"
+      class="header__icon"
+      alt="Chian"
+    ></ion-img>
+  </div> -->
   <div [ngSwitch]="showLogin" class="ion-padding ion-margin-top">
     <div class="authForm" *ngSwitchCase="false">
       <div class="ion-padding-horizontal">
@@ -183,6 +190,12 @@
               clearOnEdit="false"
             ></ion-input>
           </ion-item>
+          <div
+            class="authForm__forgotPassword ion-margin-horizontal"
+            (click)="goToForgotPassword()"
+          >
+            <ion-text color="tertiary">Forgot Password</ion-text>
+          </div>
           <div
             *ngIf="loginForm.controls.password.errors && !loginForm.controls.password.pristine"
             class="ion-padding-horizontal"

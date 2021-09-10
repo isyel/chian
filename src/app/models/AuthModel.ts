@@ -15,6 +15,16 @@ export type LoginModel = {
   userType: string;
 };
 
+export type ForgotPasswordModel = {
+  email: string;
+};
+
+export type PasswordUpdateModel = {
+  email: string;
+  token: string;
+  password: string;
+};
+
 export type ReissueTokenModel = {
   token: string;
   refreshToken: string;

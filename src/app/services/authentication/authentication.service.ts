@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
+  ForgotPasswordModel,
   LoginModel,
+  PasswordUpdateModel,
   RegisterModel,
   ReissueTokenModel,
 } from 'src/app/models/AuthModel';
@@ -35,6 +37,30 @@ export class AuthenticationService {
    */
   public login(payload: LoginModel) {
     this.service.setActionUrl(this.actionUrl, 'Login');
+    return this.service.post<any>(payload);
+  }
+
+  /**
+   * Forgot Password
+   *
+   * @param payload
+   * @returns any
+   * @memberof AuthenticationService
+   */
+  public forgotPassword(payload: ForgotPasswordModel) {
+    this.service.setActionUrl(this.actionUrl, 'forgot-password');
+    return this.service.post<any>(payload);
+  }
+
+  /**
+   * Reset Password
+   *
+   * @param payload
+   * @returns any
+   * @memberof AuthenticationService
+   */
+  public resetPassword(payload: PasswordUpdateModel) {
+    this.service.setActionUrl(this.actionUrl, 'password-reset');
     return this.service.post<any>(payload);
   }
 

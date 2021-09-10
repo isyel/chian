@@ -69,9 +69,9 @@ export class CommonMethods {
    */
   hasErrorProperties(error: any) {
     if (
-      error.error !== null &&
-      error.error.hasOwnProperty('message') &&
-      error.error.hasOwnProperty('status')
+      error?.error !== null &&
+      error?.error?.hasOwnProperty('message') &&
+      error?.error?.hasOwnProperty('status')
     ) {
       console.log(
         'In hasErrorProperties(message and status from error.error): ',
@@ -81,8 +81,8 @@ export class CommonMethods {
       return error.error.message;
     } else if (
       error !== null &&
-      error.hasOwnProperty('message') &&
-      error.hasOwnProperty('status')
+      error?.hasOwnProperty('message') &&
+      error?.hasOwnProperty('status')
     ) {
       console.log(
         'In hasErrorProperties(message and status from error): ',
@@ -90,9 +90,9 @@ export class CommonMethods {
       );
       return 'Network error, check connection';
     } else if (
-      error.error !== null &&
-      !error.error.hasOwnProperty('status') &&
-      error.error.hasOwnProperty('message')
+      error?.error !== null &&
+      !error?.error?.hasOwnProperty('status') &&
+      error?.error?.hasOwnProperty('message')
     ) {
       console.log(
         'In hasErrorProperties(message and no status from error.error): ',
@@ -116,6 +116,7 @@ export class CommonMethods {
     this.loading = await this.loadingController.create({
       spinner: 'bubbles',
       cssClass: 'loadingCss',
+      duration: 10000,
       message,
       backdropDismiss,
     });

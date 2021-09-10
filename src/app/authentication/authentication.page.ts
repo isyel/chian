@@ -41,10 +41,6 @@ export class AuthenticationPage implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-
-    this.forgotPasswordForm = this.formBuilder.group({
-      emailOrPhonenumber: ['', Validators.required],
-    });
   }
 
   ngOnInit() {
@@ -59,6 +55,10 @@ export class AuthenticationPage implements OnInit {
   hideShowPassword() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
+  }
+
+  goToForgotPassword() {
+    this.navController.navigateForward(['/forgot-password']);
   }
 
   handleSignup() {

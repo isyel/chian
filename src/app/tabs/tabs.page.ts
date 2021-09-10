@@ -17,7 +17,6 @@ export class TabsPage implements OnInit {
 
   async ngOnInit() {
     this.authUserDetails = await this.userData.getAuthorizationData();
-    console.log('this.authUserDetails: ', this.authUserDetails);
   }
 
   tabChange(tabsRef: IonTabs) {
