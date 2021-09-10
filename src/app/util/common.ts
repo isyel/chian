@@ -116,7 +116,6 @@ export class CommonMethods {
     this.loading = await this.loadingController.create({
       spinner: 'bubbles',
       cssClass: 'loadingCss',
-      duration: 10000,
       message,
       backdropDismiss,
     });
