@@ -38,7 +38,6 @@ export class LocationService {
       .then((resp) => {
         // resp.coords.latitude
         // resp.coords.longitude
-        console.log('getCurrentPosition response', resp);
         this.userCoordinates = resp.coords;
         console.log('this.userCoordinates', this.userCoordinates);
       })
