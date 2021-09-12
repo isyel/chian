@@ -9,14 +9,14 @@ import { UserData } from '../user-data';
   styleUrls: ['tabs.page.scss'],
 })
 export class TabsPage implements OnInit {
-  authUserDetails: AuthDataModel;
+  authUserData: AuthDataModel;
   userType: string;
   private activeTab?: HTMLElement;
 
   constructor(private userData: UserData) {}
 
   async ngOnInit() {
-    this.authUserDetails = await this.userData.getAuthorizationData();
+    this.authUserData = await this.userData.getAuthorizationData();
   }
 
   tabChange(tabsRef: IonTabs) {

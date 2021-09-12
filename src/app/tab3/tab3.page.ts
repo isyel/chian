@@ -36,8 +36,6 @@ export class Tab3Page implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
-
     this.userData.getUserData().then((userData) => {
       this.userProfileData = userData;
       console.log('this.userProfileData: ', this.userProfileData);

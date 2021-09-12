@@ -2,14 +2,14 @@
   <ion-tab-bar slot="bottom">
     <ion-tab-button
       tab="delivery-agents-home"
-      *ngIf="authUserDetails?.userDetails.roles[0] === 'Delivery Agent'"
+      *ngIf="authUserData?.userDetails.roles[0] === 'Delivery Agent'"
     >
       <ion-icon name="home-outline"></ion-icon>
       <ion-label>Home</ion-label>
     </ion-tab-button>
     <ion-tab-button
       tab="tab1"
-      *ngIf="authUserDetails?.userDetails.roles[0] === 'User'"
+      *ngIf="authUserData?.userDetails.roles[0] === 'User'"
     >
       <ion-icon name="home-outline"></ion-icon>
       <ion-label>Home</ion-label>
@@ -17,7 +17,7 @@
 
     <ion-tab-button
       tab="tab2"
-      *ngIf="authUserDetails?.userDetails.roles[0] === 'Delivery Agent'"
+      *ngIf="authUserData?.userDetails.roles[0] === 'Delivery Agent'"
     >
       <ion-icon name="cart-outline"></ion-icon>
       <ion-label>Deliveries</ion-label>
@@ -25,7 +25,7 @@
 
     <ion-tab-button
       tab="tab2"
-      *ngIf="authUserDetails?.userDetails.roles[0] === 'User'"
+      *ngIf="authUserData?.userDetails.roles[0] === 'User'"
     >
       <ion-icon name="cart-outline"></ion-icon>
       <ion-label>Orders</ion-label>

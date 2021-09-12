@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { PaystackOptions } from 'angular4-paystack';
 import { OrderModel } from '../models/OrderModel';
 import { PaymentModel } from '../models/PaymentModel';
-import { UserModel } from '../models/UserModel';
+import { AuthDataModel, UserModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { OrdersService } from '../services/orders/orders.service';
 import { PaymentService } from '../services/payment/payment.service';
@@ -29,6 +29,7 @@ export class PaymentPage implements OnInit {
   publicKey = 'pk_test_99174bdc94618967e07f45a39877eb33e54c6545';
   options: PaystackOptions;
   payment: PaymentModel;
+  authData: AuthDataModel;
 
   constructor(
     private router: Router,
@@ -41,6 +42,9 @@ export class PaymentPage implements OnInit {
 
   async ngOnInit() {
     this.userDetails = await this.userData.getUserData();
+    if (!this.userDetails) {
+      this.authData = await this.userData.getAuthorizationData();
+    }
   }
 
   ionViewDidEnter() {
@@ -48,7 +52,10 @@ export class PaymentPage implements OnInit {
     console.log('this.order at payment: ', this.order);
     this.options = {
       amount: this.order.totalPrice * 100,
-      email: this.userDetails.email,
+      email:
+        this.userDetails.email ||
+        this.authData?.userDetails?.email ||
+        this.authData?.email,
       ref: `${Math.ceil(Math.random() * 10e10)}`,
     };
   }
@@ -68,7 +75,10 @@ export class PaymentPage implements OnInit {
     console.log('Payment result: ', result);
     if (result.status === 'success' && result.message === 'Approved') {
       this.payment = {
-        userId: this.userDetails._id,
+        userId:
+          this.userDetails._id ||
+          this.authData?.userDetails?.userId ||
+          this.authData?.userId,
         orderId: this.order._id,
         reference: result.reference,
         transactionId: result.transaction,

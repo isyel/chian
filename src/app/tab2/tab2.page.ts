@@ -33,7 +33,6 @@ export class Tab2Page implements OnInit {
   async ngOnInit() {
     this.userProfileData = await this.userData.getUserData();
     if (!this.userProfileData) {
-      console.log('No user data');
       this.authData = await this.userData.getAuthorizationData();
     }
   }
