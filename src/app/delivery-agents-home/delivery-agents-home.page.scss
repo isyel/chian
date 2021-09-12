@@ -23,7 +23,8 @@
 
   &__details {
     margin: 0 3vw;
-    background-color: white;
+    background-color: var(--ion-color-primary-contrast);
+    color: var(--ion-color-primary);
     border-radius: var(--ion-border-radius);
     padding: 1.5em;
     display: flex;

@@ -37,7 +37,7 @@ export class DeliveryAgentsHomePage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.locationService.getUserCoordinates();
+    await this.locationService.getUserCoordinates();
     this.authUserData = await this.userData.getAuthorizationData();
     this.loadOrderRequest();
   }
@@ -66,11 +66,9 @@ export class DeliveryAgentsHomePage implements OnInit {
   loadMap() {
     const latLng = new google.maps.LatLng(
       this.order?.deliveryAddress?.latitude ||
-        this.locationService.userCoordinates?.latitude ||
-        6.519623,
+        this.locationService.userCoordinates?.latitude,
       this.order?.deliveryAddress?.longitude ||
-        this.locationService.userCoordinates?.longitude ||
-        3.367314
+        this.locationService.userCoordinates?.longitude
     );
 
     const mapOptions = {

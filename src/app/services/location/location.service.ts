@@ -32,18 +32,15 @@ export class LocationService {
     private geolocation: Geolocation
   ) {}
 
-  getUserCoordinates() {
-    this.geolocation
-      .getCurrentPosition({ enableHighAccuracy: true })
-      .then((resp) => {
-        // resp.coords.latitude
-        // resp.coords.longitude
-        this.userCoordinates = resp.coords;
-        console.log('this.userCoordinates', this.userCoordinates);
-      })
-      .catch((error) => {
-        console.log('Error getting location', error);
-      });
+  async getUserCoordinates() {
+    try {
+      this.userCoordinates = await (
+        await this.geolocation.getCurrentPosition({ enableHighAccuracy: true })
+      ).coords;
+    } catch (error) {
+      console.log('Error getting location', error);
+    }
+
     //  If you want a continuous tracking of user location, use can you this
     // const watch = this.geolocation.watchPosition();
     // watch.subscribe((data) => {
