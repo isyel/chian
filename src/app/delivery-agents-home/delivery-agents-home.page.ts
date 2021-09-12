@@ -18,7 +18,7 @@ export class DeliveryAgentsHomePage implements OnInit {
   order: OrderModel;
   latitude: number;
   longitude: number;
-  markers = [{ position: { lat: 6.4926326, lng: 3.3489682 }, type: 'gas' }];
+  markers = [{ position: { lat: 6.519623, lng: 3.367314 }, type: 'gas' }];
   icons: Record<string, { icon: string }> = {
     agent: {
       icon: 'assets/images/gas.svg',
@@ -67,10 +67,10 @@ export class DeliveryAgentsHomePage implements OnInit {
     const latLng = new google.maps.LatLng(
       this.order?.deliveryAddress?.latitude ||
         this.locationService.userCoordinates?.latitude ||
-        6.4926326,
+        6.519623,
       this.order?.deliveryAddress?.longitude ||
         this.locationService.userCoordinates?.longitude ||
-        3.4489682
+        3.367314
     );
 
     const mapOptions = {
