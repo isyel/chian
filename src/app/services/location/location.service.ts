@@ -94,7 +94,7 @@ export class LocationService {
           this.zone.run(() => {
             if (result != null) {
               console.log('In getGeoLocation - result: ', result);
-              this.userCity = result.formatted_address;
+              this.fullAddress = result.formatted_address;
               if (type === 'reverseGeocode') {
                 this.latLngResult = result.formatted_address;
               }

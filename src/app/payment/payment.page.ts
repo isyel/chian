@@ -49,14 +49,13 @@ export class PaymentPage implements OnInit {
 
   ionViewDidEnter() {
     this.order = this.navParamService.navData;
-    console.log('this.order at payment: ', this.order);
     this.options = {
-      amount: this.order.totalPrice * 100,
+      amount: this.order?.totalPrice * 100,
       email:
-        this.userDetails.email ||
+        this.userDetails?.email ||
         this.authData?.userDetails?.email ||
         this.authData?.email,
-      ref: `${Math.ceil(Math.random() * 10e10)}`,
+      ref: this.order?._id,
     };
   }
 
@@ -76,13 +75,13 @@ export class PaymentPage implements OnInit {
     if (result.status === 'success' && result.message === 'Approved') {
       this.payment = {
         userId:
-          this.userDetails._id ||
+          this.userDetails?._id ||
           this.authData?.userDetails?.userId ||
           this.authData?.userId,
-        orderId: this.order._id,
+        orderId: this.order?._id,
         reference: result.reference,
         transactionId: result.transaction,
-        amount: this.order.totalPrice,
+        amount: this.order?.totalPrice,
         paymentChannel: 'Paystack',
         paymentMethod: 'card',
         fromAdmin: false,
@@ -98,7 +97,6 @@ export class PaymentPage implements OnInit {
     this.commonMethods.presentLoading();
     this.paymentService.create(this.payment).subscribe(
       (result) => {
-        console.log('Payment result: ', result);
         if (result.status) {
           this.completePayment();
         }
@@ -126,7 +124,7 @@ export class PaymentPage implements OnInit {
       paymentType,
     };
 
-    this.ordersService.update(this.order._id, this.order).subscribe(
+    this.ordersService.update(this.order?._id, this.order).subscribe(
       (result) => {
         this.order = result.data;
         if (paymentType === 'payOnDelivery') {
