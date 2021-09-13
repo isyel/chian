@@ -4,8 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class NavparamService {
-  navDataValue: any;
   referralId: string;
+  private navDataValue: any;
+  private searchStringValue: string;
 
   constructor() {}
 
@@ -18,5 +19,16 @@ export class NavparamService {
       return null;
     }
     return this.navDataValue;
+  }
+
+  set searchString(searchString) {
+    this.searchStringValue = searchString;
+  }
+
+  get searchString() {
+    if (this.searchStringValue === undefined) {
+      return null;
+    }
+    return this.searchStringValue;
   }
 }

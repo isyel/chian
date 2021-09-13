@@ -1,10 +1,37 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  <ion-header collapse="condense" class="ion-no-border">
-    <app-header
-      pageTitle="Earnings"
-      [lightTheme]="true"
-      [hasNotifications]="true"
-      [hasBackButton]="true"
-    ></app-header>
-  </ion-header>
+<ion-content [fullscreen]="true">
+  <app-hero-card [dark]="true" [radiusTop]="false">
+    <ion-header collapse="condense" class="ion-no-border">
+      <app-header
+        pageTitle="Earnings"
+        [hasNotifications]="true"
+        [hasBackButton]="true"
+        [showIcon]="false"
+      ></app-header>
+    </ion-header>
+    <div class="earnings ion-margin-vertical">
+      <div>
+        <ion-text class="earnings__amount"><strong>0.00</strong></ion-text>
+        <span>NGN</span>
+      </div>
+      <div class="ion-text-center ion-margin-bottom">Total Earnings</div>
+    </div>
+  </app-hero-card>
+
+  <div class="ion-padding ion-margin-vertical">
+    <ion-text><strong>Recent earnings</strong></ion-text>
+    <div class="earnings__dates ion-margin-vertical ion-padding-vertical">
+      <div
+        *ngFor="let date of dates"
+        class="earnings__day {{date.active && 'earnings__day__active'}}"
+      >
+        <ion-text class="earnings__day__date">{{date.date}}</ion-text>
+        <ion-text>{{date.month}}</ion-text>
+      </div>
+    </div>
+  </div>
+  <app-not-found
+    *ngIf="!earnings || earnings.length === 0"
+    message="No earnings recorded yet"
+  ></app-not-found>
+  <div class="earnings__list" *ngFor="let earning of earnings"></div>
 </ion-content>

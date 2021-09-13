@@ -121,7 +121,8 @@ ion-item {
   &__button {
     flex: 1;
     display: flex;
-    background-color: #f5f6f8;
+    background-color: var(--ion-color-light-tint);
+    color: var(--ion-color-primary);
     justify-content: center;
     &:first-child {
       border-radius: var(--ion-border-radius-round) 0 0

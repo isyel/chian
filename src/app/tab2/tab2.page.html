@@ -17,7 +17,10 @@
     (ngModelChange)="filterOrders()"
   ></ion-searchbar>
 
-  <div class="ion-padding-vertical buttonGroup">
+  <div
+    class="ion-padding-vertical buttonGroup"
+    *ngIf="userProfileData?.roles[0] === 'User' || authData?.userDetails.roles[0] === 'User'"
+  >
     <span
       class="ion-padding buttonGroup__button {{activeTab === 0 ? 'active' : ''}}"
       (click)="switchTab(0)"
@@ -60,7 +63,9 @@
       <div
         *ngIf="!todayOrders && (!ordersHistory || ordersHistory.length === 0)"
       >
-        <app-not-found message="No orders made yet"></app-not-found>
+        <app-not-found
+          [message]="userProfileData?.roles[0] === 'User' || authData?.userDetails.roles[0] === 'User' ? 'No orders made yet' : 'No deliveries made yet'"
+        ></app-not-found>
       </div>
     </div>
     <div *ngSwitchCase="1">

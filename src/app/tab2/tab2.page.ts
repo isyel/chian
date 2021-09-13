@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-import { Component, OnInit } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderModel } from '../models/OrderModel';
 import { AuthDataModel, UserModel } from '../models/UserModel';
@@ -13,7 +14,7 @@ import { CommonMethods } from '../util/common';
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
 })
-export class Tab2Page implements OnInit {
+export class Tab2Page implements OnInit, OnDestroy {
   activeTab = 0;
   userProfileData: UserModel;
   todayOrders: OrderModel[];
@@ -43,43 +44,46 @@ export class Tab2Page implements OnInit {
 
   ionViewDidEnter() {
     this.getOfflineOrderHistory();
+    console.log(
+      'this.navParamService.searchString: ',
+      this.navParamService.searchString
+    );
   }
 
   async getOfflineOrderHistory() {
     this.ordersHistory = this.rawOrdersHistory =
       await this.userData.getOrderHistory();
-    if (typeof this.navParamService.navData === 'string') {
-      this.searchFilter = this.navParamService.navData;
-      console.log('this.searchFilter: ', this.searchFilter);
+    if (this.navParamService.searchString?.length > 0) {
+      this.searchFilter = this.navParamService.searchString;
+      this.navParamService.searchString = null;
       this.filterOrders();
     }
-    this.getOrderHistory();
+
+    const userId =
+      this.userProfileData?._id ||
+      this.authData?.userDetails?.userId ||
+      this.authData?.userId;
+    if (userId) {
+      this.getOrderHistory(userId);
+    }
   }
 
-  getOrderHistory() {
+  getOrderHistory(userId) {
     // eslint-disable-next-line no-underscore-dangle
-    this.ordersService
-      .getHistory(
-        this.userProfileData?._id ||
-          this.authData?.userId ||
-          this.authData?.userDetails?.userId
-      )
-      .subscribe(
-        (result) => {
-          console.log('result: ', result);
-          this.ordersHistory = this.rawOrdersHistory = result.order;
-          this.userData.setOrderHistory(this.ordersHistory);
-          if (typeof this.navParamService.navData === 'string') {
-            this.searchFilter = this.navParamService.navData;
-            console.log('this.searchFilter: ', this.searchFilter);
-            this.filterOrders();
-          }
-        },
-        (error) => {
-          console.error(error);
-          this.commonMethods.presentToast('Network or Server Error', false);
+    this.ordersService.getHistory(userId).subscribe(
+      (result) => {
+        this.ordersHistory = this.rawOrdersHistory = result.order;
+
+        this.userData.setOrderHistory(this.ordersHistory);
+        if (this.searchFilter?.length > 0) {
+          this.filterOrders();
         }
-      );
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast('Network or Server Error', false);
+      }
+    );
   }
 
   filterOrders() {
@@ -94,4 +98,10 @@ export class Tab2Page implements OnInit {
   }
 
   groupOrders() {}
+
+  ngOnDestroy() {
+    console.log('Call ngDesctroy');
+
+    this.searchFilter = null;
+  }
 }

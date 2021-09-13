@@ -52,7 +52,7 @@ export class Tab1Page implements OnInit {
   }
 
   filterOrders() {
-    this.navParamService.navData = this.searchFilter;
+    this.navParamService.searchString = this.searchFilter;
     this.searchFilter = null;
     this.router.navigate(['/tabs/tab2']);
   }
