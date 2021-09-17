@@ -10,7 +10,6 @@ import { LocationService } from '../services/location/location.service';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { OptionsService } from '../services/options/options.service';
 import { UserData } from '../user-data';
-import { CommonMethods } from '../util/common';
 
 @Component({
   selector: 'app-order',

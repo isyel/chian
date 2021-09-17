@@ -6,14 +6,97 @@
       [lightTheme]="true"
     ></app-header>
   </ion-header>
-
-  <div
-    class="ion-margin cards__addCard"
-    *ngFor="let address of addresses"
-    (click)="deleteAddress(address)"
-  >
-    <div>Street: <ion-text>{{address.street}}</ion-text></div>
-    <div>City: <ion-text>{{address.city}}</ion-text></div>
-    <div>State: <ion-text>{{address.state}}</ion-text></div>
+  <div [ngSwitch]="addNewAddress" class="ion-margin-top">
+    <div class="address__list" *ngSwitchCase="false">
+      <div
+        class="ion-margin ion-padding address"
+        *ngFor="let address of addresses"
+        tappable
+        (press)="deleteAddress(address)"
+      >
+        <div>Street: <ion-text>{{address.street}}</ion-text></div>
+        <div>Area: <ion-text>{{address.city}}</ion-text></div>
+        <div>State: <ion-text>{{address.state}}</ion-text></div>
+      </div>
+      <div
+        class="ion-margin address__noAddress"
+        *ngIf="!addresses || addresses.length === 0"
+      >
+        <ion-icon
+          class="address__noAddress__icon"
+          name="home-outline"
+        ></ion-icon>
+        <ion-text>No Saved Address</ion-text>
+      </div>
+      <ion-fab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        (click)="switch()"
+      >
+        <ion-fab-button>
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+    <div class="address__addNew" *ngSwitchCase="true">
+      <div class="ion-padding-horizontal">
+        <h1>Add new address</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in
+          convallis leo.
+        </p>
+      </div>
+      <form [formGroup]="addressForm" (ngSubmit)="handleAddAddress()">
+        <div class="ion-padding-horizontal">
+          <div (click)="showStatePicker()">
+            <h5>Select State</h5>
+            <ion-text color="tertiary"
+              >{{state?.text || "No state selected"}}</ion-text
+            >
+          </div>
+          <div (click)="this.state !== undefined && showCityPicker()">
+            <h5>Select Area</h5>
+            <ion-text color="tertiary"
+              >{{city?.text || !state?.text ? "First select a state" : "Select\
+              a region"}}</ion-text
+            >
+          </div>
+        </div>
+        <div class="ion-padding-bottom">
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Street Address</ion-label
+            >
+            <ion-input
+              placeholder="Enter Street Address"
+              formControlName="street"
+              name="street"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="addressForm.controls.street.errors && !addressForm.controls.street.pristine"
+            class="ion-padding-horizontal"
+          >
+            <ion-text
+              *ngIf="addressForm.controls.street.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter a street address
+            </ion-text>
+          </div>
+        </div>
+        <div>
+          <ion-button
+            expand="block"
+            type="submit"
+            [disabled]="!addressForm.valid"
+          >
+            <span>Add address</span>
+          </ion-button>
+        </div>
+      </form>
+    </div>
   </div>
 </ion-content>

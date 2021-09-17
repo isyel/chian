@@ -43,11 +43,11 @@ export class Tab2Page implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
+    if (this.navParamService.searchString === null) {
+      this.searchFilter = null;
+    }
     this.getOfflineOrderHistory();
-    console.log(
-      'this.navParamService.searchString: ',
-      this.navParamService.searchString
-    );
+    console.log('searchFilter: ', this.searchFilter);
   }
 
   async getOfflineOrderHistory() {
@@ -87,6 +87,8 @@ export class Tab2Page implements OnInit, OnDestroy {
   }
 
   filterOrders() {
+    console.log('call filter orders');
+
     this.ordersHistory = this.rawOrdersHistory.filter((order) =>
       order.orderItems[0].options.name.includes(this.searchFilter)
     );
