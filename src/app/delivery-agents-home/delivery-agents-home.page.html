@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="warning">
+    <ion-button (click)="loadOrderRequest()" shape="round" color="dark">
+      <ion-icon slot="start" name="locate"></ion-icon>
+      Refresh
+    </ion-button>
+    <ion-title slot="end">Delivery Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="orderRequest__container">
+  <div #map id="map"></div>
+
+  <div class="orderRequest">
+    <div class="orderRequest__details">
+      <div>
+        <strong class="orderRequest__details__label"
+          >New refill request at:</strong
+        >
+        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+      </div>
+
+      <div>
+        <strong class="orderRequest__details__label">Order Request:</strong>
+        10kg refill x 2
+      </div>
+      <div>
+        <strong class="orderRequest__details__label">Vendor address:</strong>
+        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+      </div>
+      <div class="orderRequest__details__buttons">
+        <ion-button expand="block" fill="outline" (click)="rejectOrder()">
+          <span>Reject</span>
+        </ion-button>
+        <ion-button expand="block" (click)="acceptOrder()">
+          <span>Accept</span>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

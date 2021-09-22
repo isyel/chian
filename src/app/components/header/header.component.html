@@ -1,0 +1,40 @@
+<ion-grid class="header ion-margin-bottom">
+  <ion-row class="ion-align-items-center ion-justify-content-between">
+    <ion-col class="ion-align-self-left">
+      <ion-fab-button
+        *ngIf="hasBackButton && !showIcon"
+        [color]="lightTheme ? 'light' : 'primary'"
+        (click)="handleGoBack()"
+        ><ion-icon [name]="icon"></ion-icon
+      ></ion-fab-button>
+      <ion-img
+        *ngIf="showIcon"
+        src="assets/icon/chian_logo_small.png"
+        class="header__icon"
+        alt="Chian"
+      ></ion-img>
+    </ion-col>
+    <ion-col class="ion-align-self-center header__title" size="auto">
+      <ion-text color="primary" *ngIf="hasPageTitle">{{ pageTitle }}</ion-text>
+    </ion-col>
+    <ion-col class="header__avatar ion-align-self-right">
+      <ion-chip color="secondary" *ngIf="hasNotifications">
+        <ion-label class="header__notificationLabel">{{
+          pendingNotifications
+        }}</ion-label>
+        <ion-icon
+          name="notifications"
+          class="header__notificationIcon"
+          (click)="goToNotifications()"
+        ></ion-icon>
+      </ion-chip>
+      <ion-avatar
+        class="header__avatar__image"
+        (click)="goToProfile()"
+        *ngIf="showAvatar"
+        ><img
+          src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+      /></ion-avatar>
+    </ion-col>
+  </ion-row>
+</ion-grid>

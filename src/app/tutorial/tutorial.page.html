@@ -1,0 +1,65 @@
+<ion-content>
+  <div class="skip ion-padding ion-margin-vertical">
+    <ion-button color="light" (click)="completeTutorial()">Skip</ion-button>
+  </div>
+  <ion-slides
+    (ionSlideReachEnd)="isAtLastSlide()"
+    (ionSlideNextEnd)="increment(10)"
+    (ionSlidePrevEnd)="increment(-10)"
+    [options]="slideOpts"
+    #slides
+  >
+    <ion-slide padding-top margin-top>
+      <app-slide-screen
+        image="assets/images/tutorial_illustration.svg"
+        title="Out of gas ?"
+        description="Lorem ipsum dolor sit amet, consectetur
+      adipiscing elit. Proin in convallis leo.
+      Vivamus finibus imperdiet congue."
+      ></app-slide-screen>
+    </ion-slide>
+
+    <ion-slide padding-top margin-top>
+      <app-slide-screen
+        image="assets/images/tutorial_illustration.svg"
+        title="Fast Delivery"
+        description="Lorem ipsum dolor sit amet, consectetur
+      adipiscing elit. Proin in convallis leo.
+      Vivamus finibus imperdiet congue."
+      ></app-slide-screen>
+    </ion-slide>
+
+    <ion-slide padding-top margin-top>
+      <app-slide-screen
+        image="assets/images/tutorial_illustration.svg"
+        title="Keep Cooking"
+        description="Lorem ipsum dolor sit amet, consectetur
+      adipiscing elit. Proin in convallis leo.
+      Vivamus finibus imperdiet congue."
+      ></app-slide-screen>
+    </ion-slide>
+  </ion-slides>
+  <div class="progress-wrapper">
+    <div class="nextButton">
+      <ion-fab-button (click)="goToNext()" class="nextButton__button"
+        ><ion-icon name="chevron-forward"></ion-icon
+      ></ion-fab-button>
+    </div>
+    <round-progress
+      [current]="progress"
+      [max]="max"
+      [color]="color"
+      [background]="background"
+      [radius]="radius"
+      [stroke]="stroke"
+      [semicircle]="semicircle"
+      [rounded]="rounded"
+      [clockwise]="clockwise"
+      [responsive]="responsive"
+      [duration]="duration"
+      [animation]="animation"
+      [animationDelay]="animationDelay"
+    >
+    </round-progress>
+  </div>
+</ion-content>

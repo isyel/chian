@@ -1,0 +1,26 @@
+<ion-content class="ion-padding">
+  <ion-header collapse="condense" class="ion-no-border">
+    <app-header
+      pageTitle="Pending Orders"
+      [hasNotifications]="true"
+      [lightTheme]="true"
+    ></app-header>
+  </ion-header>
+  <app-cart-item
+    [quantity]="2"
+    (handleRemove)="removeFromCart()"
+  ></app-cart-item>
+  <app-cart-item
+    [quantity]="3"
+    (handleRemove)="removeFromCart()"
+  ></app-cart-item>
+  <app-cart-item
+    [quantity]="1"
+    (handleRemove)="removeFromCart()"
+  ></app-cart-item>
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button expand="block" color="primary" (click)="goToCheckout()">
+    <span>Complete checkout</span>
+  </ion-button>
+</ion-footer>

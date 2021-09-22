@@ -1,0 +1,93 @@
+<ion-content class="ion-padding">
+  <ion-header collapse="condense" class="ion-no-border">
+    <app-header
+      pageTitle="Order details"
+      [hasNotifications]="false"
+      [lightTheme]="true"
+    ></app-header>
+  </ion-header>
+
+  <div class="ion-margin-vertical ion-padding order-details">
+    <div class="order-details__invoice">
+      <strong>Invoice: </strong> {{orderDetails._id}}
+    </div>
+    <p>
+      {{orderDetails?.orderItems[0].options.name}} at
+      {{orderDetails?.deliveryAddress.street}}
+      {{orderDetails?.deliveryAddress.city}},
+      {{orderDetails?.deliveryAddress.state}}
+    </p>
+    <div class="ion-padding-bottom">
+      <strong>Payment Method: </strong> {{showPaymentMethod()}}
+    </div>
+    <div class="order-details__status ion-padding-vertical">
+      <div>
+        <ion-text>Status:</ion-text><br />
+        <ion-text class="order-details__status__text"
+          >{{showOrderStatus()}}</ion-text
+        >
+      </div>
+      <div class="order-details__status__time ion-text-right">
+        <ion-text>{{orderDetails?.updatedAt | date:'shortTime'}}</ion-text
+        ><br />
+        <ion-text>{{orderDetails?.updatedAt | date:'mediumDate'}}</ion-text>
+      </div>
+    </div>
+    <div class="order-details__pricing ion-padding-top">
+      <ion-text
+        ><strong
+          >{{orderDetails?.orderItems[0].quantity}} of
+          {{orderDetails?.orderItems[0].options.size}}kg</strong
+        ></ion-text
+      >
+      <ion-text color="secondary"
+        ><strong
+          >{{orderDetails?.totalPrice | currency:
+          "₦":"symbol-narrow":"1.0-0"}}</strong
+        ></ion-text
+      >
+    </div>
+  </div>
+
+  <div class="order-details__deliveryStatus ion-margin ion-padding-vertical">
+    <div class="order-details__deliveryStatus__top">
+      <div class="order-details__deliveryStatus__icon {{getActiveIcon(1)}}">
+        <ion-icon name="cart-outline"></ion-icon>
+      </div>
+      <ion-text color="primary">Order placed</ion-text>
+    </div>
+    <div
+      class="
+        order-details__deliveryStatus__middle
+        ion-padding-vertical ion-margin-vertical
+      "
+    >
+      <div class="order-details__deliveryStatus__item">
+        <div class="order-details__deliveryStatus__icon {{getActiveIcon(4)}}">
+          <ion-icon name="home" slot="start"></ion-icon>
+        </div>
+        <ion-text color="primary">Delivered</ion-text>
+      </div>
+      <div class="order-details__deliveryStatus__middle__date">
+        <ion-text class="order-details__deliveryStatus__date__time"
+          >{{orderDetails.updatedAt | date:'shortTime'}}</ion-text
+        >
+        <ion-text>{{orderDetails.updatedAt | date:'mediumDate'}}</ion-text>
+      </div>
+
+      <div class="order-details__deliveryStatus__item">
+        <div class="order-details__deliveryStatus__icon {{getActiveIcon(2)}}">
+          <ion-icon name="checkmark-done-outline"></ion-icon>
+        </div>
+
+        <ion-text class="ion-text-center"> Order<br />Received</ion-text>
+      </div>
+    </div>
+    <div class="order-details__deliveryStatus__bottom ion-text-center">
+      <div class="order-details__deliveryStatus__icon {{getActiveIcon(3)}}">
+        <ion-icon name="timer-outline"></ion-icon>
+      </div>
+      <ion-text>In Transit</ion-text>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,22 @@
+.heroBackground {
+  padding: 22px 12px;
+
+  &__dark {
+    background-color: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+  }
+  &__light {
+    background-color: var(--ion-color-light-tint);
+    color: var(--ion-color-primary);
+  }
+}
+
+.radiusBelow {
+  border-bottom-left-radius: var(--ion-border-radius-round);
+  border-bottom-right-radius: var(--ion-border-radius-round);
+}
+
+.radiusAbove {
+  border-top-left-radius: var(--ion-border-radius-round);
+  border-top-right-radius: var(--ion-border-radius-round);
+}

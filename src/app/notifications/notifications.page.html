@@ -1,0 +1,44 @@
+<ion-content class="ion-padding">
+  <ion-header collapse="condense" class="ion-no-border">
+    <app-header
+      pageTitle="Notifications"
+      [hasNotifications]="false"
+      [lightTheme]="true"
+    ></app-header>
+  </ion-header>
+  <div *ngIf="notifications && notifications?.length > 0">
+    <h6 class="ion-padding-horizontal"><strong>Today</strong></h6>
+    <ion-item>
+      <ion-icon name="notifications-outline" slot="start"></ion-icon>
+      <div class="notification__item ion-padding-vertical">
+        Lorem ipsum dolor sit amet, consectetur adipis consectetur adipis ipsum
+        dolor sit amet.
+        <ion-text color="medium">2 hours ago</ion-text>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="notifications-outline" slot="start"></ion-icon>
+      <div class="notification__item ion-padding-vertical">
+        Lorem ipsum dolor sit amet, consectetur adipis consectetur adipis ipsum
+        dolor sit amet.
+        <ion-text color="medium">2 hours ago</ion-text>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="notifications-outline" slot="start"></ion-icon>
+      <div class="notification__item ion-padding-vertical">
+        Lorem ipsum dolor sit amet, consectetur adipis consectetur adipis ipsum
+        dolor sit amet.
+        <ion-text color="medium">2 hours ago</ion-text>
+      </div>
+    </ion-item>
+  </div>
+  <div
+    *ngIf="!notifications || notifications?.length === 0"
+    class="ion-margin-vertical ion-padding-vertical"
+  >
+    <app-not-found message="No notifications"></app-not-found>
+  </div>
+</ion-content>

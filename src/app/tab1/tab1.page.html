@@ -1,17 +1,109 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="home__heroFixed">
+    <app-hero-card [dark]="true" [radiusTop]="false">
+      <div class="home__heroCard">
+        <ion-header collapse="condense" class="ion-no-border">
+          <app-header
+            pageTitle="Home"
+            [hasNotifications]="true"
+            [hasBackButton]="false"
+            [showIcon]="true"
+          ></app-header>
+        </ion-header>
+        <div class="ion-padding home__welcomeText">
+          <ion-text color="light"
+            >Hello {{userDetails?.fullName || authData?.userDetails?.name ||
+            authData?.name}},</ion-text
+          ><br />
+          <ion-text color="light">Welcome to ease with Chian</ion-text>
+        </div>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+        <ion-searchbar
+          placeholder="Search orders"
+          color="light"
+          debounce="500"
+          animated
+          class="home__searchBar"
+          [(ngModel)]="searchFilter"
+          (keyup.enter)="filterOrders()"
+        ></ion-searchbar>
+      </div>
+    </app-hero-card>
+  </div>
+  <ion-grid class="ion-padding ion-margin-top">
+    <ion-row>
+      <ion-col>
+        <div class="ion-margin-top home__orderInfo">
+          <ion-img
+            src="assets/images/new_user_banner.svg"
+            (click)="goToItemsPage()"
+          ></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="this.pendingOrder">
+      <ion-col>
+        <app-hero-card (click)="goToPaymentPage()">
+          <div class="home__cartItems ion-padding-horizontal">
+            <div>
+              <ion-text class="home__cartItems__number" color="secondary"
+                >{{this.pendingOrder.orderItems[0].quantity}}</ion-text
+              >
+              <ion-text
+                >Item{{this.pendingOrder.orderItems[0].quantity > 1 ? 's' : ''}}
+                Pending</ion-text
+              >
+            </div>
+
+            <ion-button expand="block" size="small" color="primary">
+              <span>Continue order</span>
+            </ion-button>
+          </div>
+        </app-hero-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-margin-top">
+        <ion-text><strong>Recent Orders</strong></ion-text
+        ><br />
+        <app-order-item
+          (handleClick)="viewDetails(order)"
+          *ngFor="let order of recentOrders"
+          [name]="order.orderItems[0].options.name"
+          [price]="order.totalPrice"
+          [itemId]="order.orderItems[0].options._id"
+          [size]="order.orderItems[0].options.size"
+          [quantity]="order.orderItems[0].quantity"
+        ></app-order-item>
+        <div
+          class="home__noHistory"
+          *ngIf="!recentOrders || recentOrders.length < 1"
+        >
+          <app-not-found message="No orders made yet"></app-not-found>
+          <ion-button color="primary" (click)="goToItemsPage()">
+            <span>Make your first order</span>
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center">
+      <ion-col>
+        <ion-button color="primary" (click)="goToOrders()">
+          <span>See order history</span>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    (click)="goToItemsPage()"
+  >
+    <ion-fab-button>
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+<ion-footer> </ion-footer>

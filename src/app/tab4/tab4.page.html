@@ -1,0 +1,49 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense" class="ion-no-border">
+    <app-header
+      pageTitle="Settings"
+      [lightTheme]="true"
+      [hasNotifications]="true"
+      [hasBackButton]="false"
+    ></app-header>
+  </ion-header>
+  <div class="ion-margin-vertical ion-padding settings__group">
+    <div class="settings__group__header">
+      <strong>Notification Settings</strong>
+    </div>
+    <div class="settings__group__item ion-padding-top ion-margin-top">
+      <span
+        ><strong>Push Notification</strong><br />
+        <ion-text>Receive weekly push notifications</ion-text>
+      </span>
+      <ion-toggle
+        color="secondary"
+        [checked]="pushNotificationStatus"
+      ></ion-toggle>
+    </div>
+    <div class="settings__group__item ion-padding-top ion-margin-bottom">
+      <span
+        ><strong>Email Notification</strong><br />
+        <ion-text>Receive weekly push notifications</ion-text>
+      </span>
+      <ion-toggle
+        color="secondary"
+        [checked]="emailNotificationStatus"
+      ></ion-toggle>
+    </div>
+  </div>
+  <div class="ion-margin-vertical ion-padding-vertical settings__group">
+    <div class="settings__group__header ion-padding">
+      <strong>Support</strong>
+    </div>
+
+    <ion-item lines="none" (click)="goToAbout()">
+      <ion-label>About</ion-label>
+      <ion-icon name="chevron-forward" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Contact Us</ion-label>
+      <ion-icon name="chevron-forward" slot="end"></ion-icon>
+    </ion-item>
+  </div>
+</ion-content>

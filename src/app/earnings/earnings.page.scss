@@ -1,0 +1,37 @@
+.earnings {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  &__amount {
+    font-size: 3rem;
+  }
+
+  &__dates {
+    border-radius: var(--ion-border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    box-shadow: rgba(var(--ion-color-primary-rgb), 0.2) 0px 4px 16px;
+    max-height: 80px;
+  }
+
+  &__day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__date {
+      font-size: 1.5rem;
+    }
+
+    &__active {
+      background-color: var(--ion-color-primary);
+      color: var(--ion-color-primary-contrast);
+      border-radius: var(--ion-border-radius);
+      height: 130%;
+      padding: 1.3em 1.2em;
+    }
+  }
+}

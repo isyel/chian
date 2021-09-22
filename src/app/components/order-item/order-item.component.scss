@@ -1,0 +1,24 @@
+.order-item {
+  border: var(--ion-border);
+  border-radius: var(--ion-border-radius);
+  &__description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  &__imageContainer {
+    width: 60px;
+    height: 60px;
+    background-color: var(--ion-color-secondary-tint);
+    border-radius: var(--ion-border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    height: 40px;
+    opacity: 1;
+  }
+}

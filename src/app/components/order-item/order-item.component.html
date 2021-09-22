@@ -1,0 +1,31 @@
+<ion-grid class="order-item ion-margin-vertical">
+  <ion-row
+    class="ion-align-items-center ion-justify-content-between"
+    (click)="emitClickEvent()"
+  >
+    <ion-col size="3" class="ion-align-self-center">
+      <div class="order-item__imageContainer">
+        <ion-img
+          class="order-item__image"
+          src="assets/images/gas.svg"
+        ></ion-img>
+      </div>
+    </ion-col>
+    <ion-col class="ion-align-self-center order-item__description">
+      <ion-text color="primary" class="order-item__description__name"
+        ><strong
+          >{{ name || "3kg Cylinder" }}
+          {{ quantity && "x " + quantity }}</strong
+        >
+      </ion-text>
+      <ion-text color="secondary" class="order-item__description__price"
+        ><strong>{{
+          price || 2000 | currency: "₦":"symbol-narrow":"1.0-0"
+        }}</strong></ion-text
+      >
+    </ion-col>
+    <ion-col size="1">
+      <ion-icon name="chevron-forward"></ion-icon>
+    </ion-col>
+  </ion-row>
+</ion-grid>

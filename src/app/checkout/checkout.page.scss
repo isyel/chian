@@ -1,0 +1,22 @@
+.checkout {
+  &__address {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    &__edit {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+  }
+
+  &__shippingCost {
+    border-bottom: 1px dashed var(--ion-color-light-shade);
+  }
+}

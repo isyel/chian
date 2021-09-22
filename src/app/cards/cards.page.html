@@ -1,0 +1,137 @@
+<ion-content class="ion-padding">
+  <ion-header collapse="condense" class="ion-no-border">
+    <app-header
+      pageTitle="Cards"
+      [hasNotifications]="false"
+      [lightTheme]="true"
+    ></app-header>
+  </ion-header>
+  <div class="ion-margin-vertical ion-padding-vertical">
+    <app-debit-card *ngIf="cards?.length > 0"></app-debit-card>
+    <div class="ion-margin cards__addCard" *ngIf="cards.length === 0">
+      <ion-icon class="cards__addCard__icon" name="card-outline"></ion-icon>
+      <ion-text>No Saved Cards</ion-text>
+    </div>
+    <br />
+    <div class="ion-text-center ion-margin-vertical">
+      <ion-text color="medium" *ngIf="cards?.length > 0"
+        >Note: Click and hold on a card to delete</ion-text
+      >
+      <ion-text color="medium" *ngIf="!cards || cards.length === 0"
+        >"Remember" card during checkout to see it here</ion-text
+      >
+    </div>
+  </div>
+  <!-- <div class="ion-padding">
+    <div class="ion-margin cards__addCard" (click)="switchMode()">
+      <ion-icon class="cards__addCard__icon" name="add-outline"></ion-icon>
+      <ion-text>Add new card</ion-text>
+    </div>
+    <div class="ion-padding-vertical">
+      <form [formGroup]="addCardForm" (ngSubmit)="handleAddCard()">
+        <div class="ion-padding-vertical">
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Card holder name</ion-label
+            >
+            <ion-input
+              placeholder="Name On card"
+              formControlName="cardName"
+              name="cardName"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="addCardForm.controls.cardName.errors && !addCardForm.controls.cardName.pristine"
+            class="ion-padding-horizontal"
+          >
+            <ion-text
+              *ngIf="addCardForm.controls.cardName.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter your card name
+            </ion-text>
+          </div>
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Card number</ion-label
+            >
+            <ion-input
+              placeholder="Enter Card Number"
+              formControlName="cardNumber"
+              name="cardNumber"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="addCardForm.controls.cardNumber.errors && !addCardForm.controls.cardNumber.pristine"
+            class="ion-padding-horizontal"
+          >
+            <ion-text
+              *ngIf="addCardForm.controls.cardNumber.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter your card number
+            </ion-text>
+          </div>
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Card holder name</ion-label
+            >
+            <ion-input
+              placeholder="Enter Email"
+              formControlName="cardName"
+              name="cardName"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="addCardForm.controls.cardName.errors && !addCardForm.controls.cardName.pristine"
+            class="ion-padding-horizontal"
+          >
+            <ion-text
+              *ngIf="addCardForm.controls.cardName.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter your card name
+            </ion-text>
+          </div>
+          <ion-item class="ion-margin-vertical" lines="none">
+            <ion-label class="ion-padding-horizontal" position="stacked"
+              >Password</ion-label
+            >
+            <ion-input
+              placeholder="Password"
+              formControlName="password"
+              name="password"
+              type="password"
+              clearOnEdit="false"
+            ></ion-input>
+          </ion-item>
+          <div
+            *ngIf="addCardForm.controls.password.errors && !addCardForm.controls.password.pristine"
+            class="ion-padding-horizontal"
+          >
+            <ion-text
+              *ngIf="addCardForm.controls.password.errors.required"
+              color="danger"
+              padding-left
+            >
+              Enter a password
+            </ion-text>
+          </div>
+        </div>
+
+        <div>
+          <ion-button
+            expand="block"
+            type="submit"
+            [disabled]="!addCardForm.valid"
+          >
+            <span>Login</span>
+          </ion-button>
+        </div>
+      </form>
+    </div>
+  </div> -->
+</ion-content>
