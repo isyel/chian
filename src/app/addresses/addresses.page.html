@@ -7,7 +7,7 @@
     ></app-header>
   </ion-header>
   <div [ngSwitch]="addNewAddress" class="ion-margin-top">
-    <div class="address__list" *ngSwitchCase="false">
+    <div class="address__list ion-padding-horizontal" *ngSwitchCase="false">
       <!-- <div
         class="ion-margin ion-padding address"
         *ngFor="let address of addresses"
@@ -34,9 +34,15 @@
 
         <ion-item class="address" lines="none">
           <ion-label>
-            <div>Street: <ion-text>{{address.street}}</ion-text></div>
-            <div>Area: <ion-text>{{address.city}}</ion-text></div>
-            <div>State: <ion-text>{{address.state}}</ion-text></div></ion-label
+            <div>
+              <strong>Address:</strong> <ion-text>{{address.street}}</ion-text>
+            </div>
+            <div>
+              <strong>Area:</strong> <ion-text>{{address.city}}</ion-text>
+            </div>
+            <div>
+              <strong>State:</strong> <ion-text>{{address.state}}</ion-text>
+            </div></ion-label
           >
         </ion-item>
       </ion-item-sliding>

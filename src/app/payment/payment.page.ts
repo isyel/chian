@@ -55,7 +55,7 @@ export class PaymentPage implements OnInit {
         this.userDetails?.email ||
         this.authData?.userDetails?.email ||
         this.authData?.email,
-      ref: `${this.order?._id} - ${Math.ceil(Math.random() * 1000)}`,
+      ref: `${this.order?._id}-${Math.ceil(Math.random() * 1000)}`,
     };
   }
 

@@ -211,6 +211,8 @@ export class AddressesPage implements OnInit {
         console.log('Result');
         this.switch();
         this.addresses = [...this.addresses, result.data];
+        this.city = this.state = null;
+        this.addressForm.controls.street.setValue(null);
       },
       (error) => {
         this.commonMethods.dismissLoader();
