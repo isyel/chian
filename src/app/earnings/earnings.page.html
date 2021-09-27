@@ -23,6 +23,7 @@
       <div
         *ngFor="let date of dates"
         class="earnings__day {{date.active && 'earnings__day__active'}}"
+        (click)="selectDate(date.date)"
       >
         <ion-text class="earnings__day__date">{{date.date}}</ion-text>
         <ion-text>{{date.month}}</ion-text>

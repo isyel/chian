@@ -7,15 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EarningsPage implements OnInit {
   dates = [
-    { date: '25', month: 'july' },
-    { date: '26', month: 'july' },
-    { date: '27', month: 'july', active: true },
-    { date: '28', month: 'july' },
-    { date: '29', month: 'july' },
+    { date: 25, month: 'july' },
+    { date: 26, month: 'july' },
+    { date: 27, month: 'july', active: true },
+    { date: 28, month: 'july' },
+    { date: 29, month: 'july' },
   ];
   earnings = [];
 
   constructor() {}
 
   ngOnInit() {}
+
+  selectDate(date: number) {
+    this.dates = this.dates.map((singleDate) =>
+      singleDate.date === date
+        ? { ...singleDate, active: true }
+        : { ...singleDate, active: false }
+    );
+  }
 }
