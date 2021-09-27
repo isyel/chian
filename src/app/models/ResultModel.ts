@@ -12,4 +12,5 @@ export type ResultModel = {
   order: any[];
   hasPreviousPage: boolean;
   hasNextPage: boolean;
+  message?: string;
 };
