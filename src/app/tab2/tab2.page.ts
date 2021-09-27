@@ -47,7 +47,6 @@ export class Tab2Page implements OnInit, OnDestroy {
       this.searchFilter = null;
     }
     this.getOfflineOrderHistory();
-    console.log('searchFilter: ', this.searchFilter);
   }
 
   async getOfflineOrderHistory() {
@@ -63,8 +62,10 @@ export class Tab2Page implements OnInit, OnDestroy {
       this.userProfileData?._id ||
       this.authData?.userDetails?.userId ||
       this.authData?.userId;
-    if (userId) {
+    if (this.authData.userDetails.roles[0] === 'User') {
       this.getOrderHistory(userId);
+    } else {
+      this.getDeliveryHistory(userId);
     }
   }
 
@@ -73,6 +74,24 @@ export class Tab2Page implements OnInit, OnDestroy {
     this.ordersService.getHistory(userId).subscribe(
       (result) => {
         this.ordersHistory = this.rawOrdersHistory = result.order;
+
+        this.userData.setOrderHistory(this.ordersHistory);
+        if (this.searchFilter?.length > 0) {
+          this.filterOrders();
+        }
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast('Network or Server Error', false);
+      }
+    );
+  }
+
+  getDeliveryHistory(userId) {
+    // eslint-disable-next-line no-underscore-dangle
+    this.ordersService.getAcceptedOrders(userId).subscribe(
+      (result) => {
+        this.ordersHistory = this.rawOrdersHistory = result.data;
 
         this.userData.setOrderHistory(this.ordersHistory);
         if (this.searchFilter?.length > 0) {
