@@ -38,7 +38,7 @@ export class Tab2Page implements OnInit, OnDestroy {
     }
   }
 
-  switchTab(tab) {
+  switchTab(tab: number) {
     this.activeTab = tab;
   }
 
@@ -62,7 +62,10 @@ export class Tab2Page implements OnInit, OnDestroy {
       this.userProfileData?._id ||
       this.authData?.userDetails?.userId ||
       this.authData?.userId;
-    if (this.authData.userDetails.roles[0] === 'User') {
+    if (
+      this.authData?.userDetails?.roles[0] === 'User' ||
+      this.userProfileData.roles[0] === 'User'
+    ) {
       this.getOrderHistory(userId);
     } else {
       this.getDeliveryHistory(userId);
