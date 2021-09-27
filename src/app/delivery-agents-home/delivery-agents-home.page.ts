@@ -229,6 +229,7 @@ export class DeliveryAgentsHomePage implements OnInit {
         (result) => {
           this.orderRequest = result.data;
           this.delivered = true;
+          this.commonMethods.dismissLoader();
         },
         (error) => {
           console.error(error);
@@ -236,6 +237,7 @@ export class DeliveryAgentsHomePage implements OnInit {
             error.message || 'Network or Server Error',
             false
           );
+          this.commonMethods.dismissLoader();
         }
       );
   }
