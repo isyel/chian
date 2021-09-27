@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { NavController, Platform } from '@ionic/angular';
 import { StorageService } from './services/storage.service';
 import { UserData } from './user-data';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,7 @@ export class AppComponent {
     this.storageService.storageReady.subscribe((result) => {
       if (result) {
         this.platform.ready().then(async () => {
+          SplashScreen.hide();
           const hasSeenTutorial = await this.userData.checkHasSeenTutorial();
           if (hasSeenTutorial) {
             console.log('hasSeenTutorial: ', hasSeenTutorial);
