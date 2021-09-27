@@ -1,7 +1,13 @@
+/* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { OrderStatusEnum } from '../models/enums/OrderStatusEnum';
 import { OrderModel } from '../models/OrderModel';
+import { AuthDataModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
+import { OrdersService } from '../services/orders/orders.service';
+import { UserData } from '../user-data';
+import { CommonMethods } from '../util/common';
 
 @Component({
   selector: 'app-order-details',
@@ -10,11 +16,19 @@ import { NavparamService } from '../services/navparam/navparam.service';
 })
 export class OrderDetailsPage implements OnInit {
   orderDetails: OrderModel;
+  authData: AuthDataModel;
 
-  constructor(private navParamService: NavparamService) {}
+  constructor(
+    private navParamService: NavparamService,
+    private commonMethods: CommonMethods,
+    public alertController: AlertController,
+    private ordersService: OrdersService,
+    private userData: UserData
+  ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.orderDetails = this.navParamService.navData || {};
+    this.authData = await this.userData.getAuthorizationData();
   }
 
   getActiveIcon(defaultValue: number) {
@@ -49,5 +63,60 @@ export class OrderDetailsPage implements OnInit {
       default:
         break;
     }
+  }
+
+  async markDelivered() {
+    if (this.authData.userDetails.roles[0] !== 'Delivery Agent') {
+      return;
+    }
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirm order as delivered!',
+      message: 'Successfully delivered to customer?!!!',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.updateDeliveryStatus();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  updateDeliveryStatus() {
+    this.orderDetails = {
+      ...this.orderDetails,
+      orderStatus: 'delivered',
+    };
+    this.commonMethods.presentLoading('Updating Delivery Status...');
+    this.ordersService
+      .update(this.orderDetails?._id, this.orderDetails)
+      .subscribe(
+        (result) => {
+          this.orderDetails = result.data;
+          this.orderDetails.orderStatus = 'delivered';
+          this.commonMethods.dismissLoader();
+        },
+        (error) => {
+          console.error(error);
+          this.commonMethods.presentToast(
+            error.message || 'Network or Server Error',
+            false
+          );
+          this.commonMethods.dismissLoader();
+        }
+      );
   }
 }
