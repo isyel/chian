@@ -109,13 +109,13 @@ export class LocationService {
     }
   }
 
-  forwardGeocode() {
+  async forwardGeocode() {
     if (this.platform.is('hybrid')) {
       const options: NativeGeocoderOptions = {
         useLocale: true,
         maxResults: 5,
       };
-      this.nativeGeocoder
+      await this.nativeGeocoder
         .forwardGeocode(this.fullAddress, options)
         .then((result: NativeGeocoderResult[]) => {
           this.zone.run(() => {
@@ -151,7 +151,7 @@ export class LocationService {
             this.userCoordinates = coordinates;
           });
         } else {
-          alert('Error - ' + results + ' & Status - ' + status);
+          console.log('Error - ' + results + ' & Status - ' + status);
         }
       });
     }

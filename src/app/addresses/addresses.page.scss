@@ -1,6 +1,7 @@
 .address {
   border: 1px solid var(--ion-color-medium);
   border-radius: var(--ion-border-radius);
+  padding-left: 0.5rem;
 
   &__noAddress {
     display: flex;

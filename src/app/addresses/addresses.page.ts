@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PickerController } from '@ionic/angular';
+import { AlertController, PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { AddressModel } from '../models/AddressModel';
 import { UserModel } from '../models/UserModel';
@@ -32,7 +32,8 @@ export class AddressesPage implements OnInit {
     private optionsService: OptionsService,
     private commonMethods: CommonMethods,
     private formBuilder: FormBuilder,
-    private locationService: LocationService
+    private locationService: LocationService,
+    public alertController: AlertController
   ) {
     this.addressForm = this.formBuilder.group({
       street: ['', [Validators.required]],
@@ -146,11 +147,40 @@ export class AddressesPage implements OnInit {
     return options;
   }
 
-  deleteAddress(addressId) {
+  async deleteAddress(addressId) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Delete this addresss?',
+      message: 'This is not a reversible action!!!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.completeAddressDelete(addressId);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  completeAddressDelete(addressId) {
     this.commonMethods.presentLoading();
     this.addressService.delete(addressId).subscribe(
       (result) => {
         console.log('Address deleted');
+        this.addresses = this.addresses.filter(
+          (address) => address._id !== addressId
+        );
         this.commonMethods.dismissLoader();
       },
       (error) => {
@@ -167,17 +197,11 @@ export class AddressesPage implements OnInit {
   handleAddAddress() {
     this.commonMethods.presentLoading();
     this.locationService.forwardGeocode();
-    // while (
-    //   this.locationService.userCoordinates === null ||
-    //   this.locationService.userCoordinates === undefined
-    // ) {
-    //   console.log('Waiting for coordinates');
-    // }
     const addressData = {
       userId: this.userDetails._id,
       city: this.city.text,
       state: this.state.text,
-      street: this.addressForm.value.phoneNumber,
+      street: this.addressForm.value.street,
       latitude: this.locationService.userCoordinates?.latitude,
       longitude: this.locationService.userCoordinates?.longitude,
     };
@@ -186,7 +210,7 @@ export class AddressesPage implements OnInit {
         this.commonMethods.dismissLoader();
         console.log('Result');
         this.switch();
-        this.addresses = [...this.addresses, result];
+        this.addresses = [...this.addresses, result.data];
       },
       (error) => {
         this.commonMethods.dismissLoader();

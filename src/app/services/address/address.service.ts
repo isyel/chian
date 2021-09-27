@@ -20,7 +20,7 @@ export class AddressService {
    */
   public create(payload: AddressModel) {
     this.service.setActionUrl(this.actionUrl);
-    return this.service.post<AddressModel>(payload);
+    return this.service.post<ResultModel>(payload);
   }
 
   /**

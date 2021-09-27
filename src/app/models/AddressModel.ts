@@ -1,3 +1,5 @@
+import { BaseModel } from './BaseModel';
+
 export type AddressModel = {
   userId: string;
   street: string;
@@ -5,4 +7,4 @@ export type AddressModel = {
   state: string;
   latitude?: number;
   longitude?: number;
-};
+} & BaseModel;
