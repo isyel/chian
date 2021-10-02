@@ -99,7 +99,7 @@ export class AuthenticationPage implements OnInit {
   handleLogin() {
     this.commonMethods.presentLoading();
     const loginCredentials: LoginModel = {
-      'email/phone': this.loginForm.value.email,
+      emailOrPhoneNumber: this.loginForm.value.email,
       password: this.loginForm.value.password,
       userType: this.userType,
     };

@@ -47,6 +47,9 @@ export class DeliveryAgentsHomePage implements OnInit {
   async ngOnInit() {
     this.authUserData = await this.userData.getAuthorizationData();
     await this.locationService.getUserCoordinates();
+  }
+
+  ionViewWillEnter() {
     this.loadOrderRequest();
   }
 

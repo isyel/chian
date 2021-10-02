@@ -1,6 +1,6 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" *ngIf="orderRequest">
   <ion-toolbar color="warning">
-    <ion-button (click)="loadOrderRequest()" shape="round" color="dark">
+    <ion-button (click)="loadMap()" shape="round" color="dark">
       <ion-icon slot="start" name="locate"></ion-icon>
       Refresh
     </ion-button>
