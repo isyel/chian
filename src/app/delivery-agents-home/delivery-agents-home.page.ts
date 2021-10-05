@@ -45,6 +45,7 @@ export class DeliveryAgentsHomePage implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.commonMethods.presentLoading('Loading order...');
     this.authUserData = await this.userData.getAuthorizationData();
     await this.locationService.getUserCoordinates();
   }
@@ -54,7 +55,34 @@ export class DeliveryAgentsHomePage implements OnInit {
   }
 
   loadOrderRequest() {
-    this.commonMethods.presentLoading('Loading order...');
+    this.ordersService
+      .getAcceptedOrders(
+        this.authUserData.userDetails?.userId || this.authUserData.userId
+      )
+      .subscribe(
+        (result) => {
+          if (result.data.length > 0) {
+            this.accepted = true;
+            this.orderRequest = result.data[0];
+            console.log('orderRequest being fulfilled: ', this.orderRequest);
+            this.loadMap();
+            this.commonMethods.dismissLoader();
+          } else {
+            this.getPendingOrder();
+          }
+        },
+        (error) => {
+          console.error(error);
+          this.commonMethods.presentToast(
+            error.message || 'Network or Server Error',
+            false
+          );
+          this.commonMethods.dismissLoader();
+        }
+      );
+  }
+
+  getPendingOrder() {
     this.ordersService
       .getPending(
         this.authUserData.userDetails?.userId || this.authUserData.userId
@@ -62,7 +90,7 @@ export class DeliveryAgentsHomePage implements OnInit {
       .subscribe(
         (result) => {
           this.orderRequest = result.data[0];
-          console.log('this.orderRequest: ', this.orderRequest);
+          console.log('pending orderRequest: ', this.orderRequest);
           this.loadMap();
           this.commonMethods.dismissLoader();
         },

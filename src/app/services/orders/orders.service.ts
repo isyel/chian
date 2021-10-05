@@ -86,7 +86,19 @@ export class OrdersService {
   }
 
   /**
-   * Get Accepted Orders
+   * Get Pending Order
+   *
+   * @param userId
+   * @returns ResultModel
+   * @memberof OrdersService
+   */
+  public getOrderBeingFulfilled(userId: string) {
+    this.service.setActionUrl(this.transactionStateUrl, `${userId}/fulfilling`);
+    return this.service.getAll<ResultModel>();
+  }
+
+  /**
+   * Get Fulfilling Order
    *
    * @param userId
    * @returns ResultModel
@@ -117,7 +129,7 @@ export class OrdersService {
    * @memberof OrdersService
    */
   public rejectOrderRequest(data: TransactionStateModel) {
-    this.service.setActionUrl(this.transactionStateUrl, `accept`);
+    this.service.setActionUrl(this.transactionStateUrl, `reject`);
     return this.service.updateStatus<ResultModel>(data);
   }
 
