@@ -10,6 +10,9 @@ export type UserModel = {
   referralId: string;
   address: string;
   roles: [string];
+  avatar?: string;
+  emailVerified: string;
+  phoneVerified: string;
 } & BaseModel;
 
 export type AuthDataModel = {
