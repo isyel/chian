@@ -24,8 +24,8 @@ export type OrderModel = {
   paymentType?: string;
   totalPrice: number;
   orderStatus: string;
-  vendor: VendorModel;
-  deliveryAgent: DeliveryAgentModel;
+  vendor?: VendorModel;
+  deliveryAgent?: DeliveryAgentModel;
   deliveryStatus?: string;
 } & BaseModel;
 
