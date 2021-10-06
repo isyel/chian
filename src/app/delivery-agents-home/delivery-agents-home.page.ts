@@ -45,6 +45,7 @@ export class DeliveryAgentsHomePage implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.commonMethods.presentLoading('Loading order...');
     await this.locationService.getUserCoordinates();
   }
 
@@ -54,7 +55,6 @@ export class DeliveryAgentsHomePage implements OnInit {
   }
 
   loadOrderRequest() {
-    this.commonMethods.presentLoading('Loading order...');
     this.ordersService
       .getAcceptedOrders(
         this.authUserData.userDetails?.userId || this.authUserData.userId

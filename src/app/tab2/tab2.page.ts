@@ -69,7 +69,7 @@ export class Tab2Page implements OnInit, OnDestroy {
     // eslint-disable-next-line no-underscore-dangle
     this.ordersService.getHistory(userId).subscribe(
       (result) => {
-        if (this.ordersHistory?.length !== result.order.length) {
+        if (this.ordersHistory?.length !== result.order?.length) {
           this.ordersHistory = this.rawOrdersHistory = result.order;
         }
 
@@ -89,7 +89,7 @@ export class Tab2Page implements OnInit, OnDestroy {
     // eslint-disable-next-line no-underscore-dangle
     this.ordersService.getAcceptedOrders(userId).subscribe(
       (result) => {
-        if (this.ordersHistory?.length !== result.order.length) {
+        if (this.ordersHistory?.length !== result.data?.length) {
           this.ordersHistory = this.rawOrdersHistory = result.data;
         }
 

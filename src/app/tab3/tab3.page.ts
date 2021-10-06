@@ -18,6 +18,7 @@ export class Tab3Page implements OnInit {
   userProfileData: UserModel | any;
   authData: AuthDataModel;
   orderHistory: OrderModel[];
+  noOfOrders: string | number;
 
   constructor(
     private router: Router,
@@ -38,6 +39,7 @@ export class Tab3Page implements OnInit {
   ionViewWillEnter() {
     this.userData.getUserData().then((userData) => {
       this.userProfileData = userData;
+      this.getNumberOfOrders();
     });
 
     this.userData.getOrderHistory().then((orderHistory) => {
@@ -83,6 +85,7 @@ export class Tab3Page implements OnInit {
           console.log('result: ', result);
           this.userData.setUserData(result.data);
           this.userProfileData = result.data;
+          this.getNumberOfOrders();
         },
         (error) => {
           console.error(error);
@@ -93,13 +96,15 @@ export class Tab3Page implements OnInit {
 
   getNumberOfOrders() {
     if (this.userProfileData?.roles[0] === 'User') {
-      return this.userProfileData?.noOfOrders === 0
-        ? this.orderHistory?.length
-        : this.userProfileData?.noOfOrders;
+      this.noOfOrders =
+        this.userProfileData?.noOfOrders === 0
+          ? this.orderHistory?.length
+          : this.userProfileData?.noOfOrders;
     } else {
-      return this.userProfileData?.noOfDeliveries === 0
-        ? this.orderHistory?.length
-        : `${this.userProfileData?.noOfFulfilledDeliveries}/${this.userProfileData?.noOfDeliveries}`;
+      this.noOfOrders =
+        this.userProfileData?.noOfDeliveries === 0
+          ? this.orderHistory?.length
+          : `${this.userProfileData?.noOfFulfilledDeliveries}/${this.userProfileData?.noOfDeliveries}`;
     }
   }
 
