@@ -72,10 +72,10 @@ export class AuthenticationPage implements OnInit {
       userType: this.userType,
     };
     this.authService.register(signupCredentials).subscribe(
-      (result) => {
+      async (result) => {
         this.commonMethods.dismissLoader();
         if (result.status) {
-          this.userData.setAuthorizationData(result.data);
+          await this.userData.setAuthorizationData(result.data);
           if (this.userType === 'User') {
             this.navController.navigateRoot('/tabs/tab1');
           } else {
@@ -104,8 +104,8 @@ export class AuthenticationPage implements OnInit {
       userType: this.userType,
     };
     this.authService.login(loginCredentials).subscribe(
-      (result) => {
-        this.userData.setAuthorizationData(result.data);
+      async (result) => {
+        await this.userData.setAuthorizationData(result.data);
         this.commonMethods.dismissLoader();
         if (this.userType === 'User') {
           this.navController.navigateRoot('/tabs/tab1');

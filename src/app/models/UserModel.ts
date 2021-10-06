@@ -4,7 +4,9 @@ export type UserModel = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   fullName: string;
   phoneNumber: string;
-  refills: number;
+  noOfOrders: number;
+  noOfDeliveries?: number;
+  noOfFulfilledDeliveries?: number;
   maintenances: number;
   email: string;
   referralId: string;

@@ -38,12 +38,10 @@ export class Tab3Page implements OnInit {
   ionViewWillEnter() {
     this.userData.getUserData().then((userData) => {
       this.userProfileData = userData;
-      console.log('this.userProfileData: ', this.userProfileData);
     });
 
     this.userData.getOrderHistory().then((orderHistory) => {
       this.orderHistory = orderHistory || [];
-      console.log('this.userProfileData: ', this.userProfileData);
     });
   }
 
@@ -91,6 +89,18 @@ export class Tab3Page implements OnInit {
           this.commonMethods.presentToast('Network or Server Error', false);
         }
       );
+  }
+
+  getNumberOfOrders() {
+    if (this.userProfileData?.roles[0] === 'User') {
+      return this.userProfileData?.noOfOrders === 0
+        ? this.orderHistory?.length
+        : this.userProfileData?.noOfOrders;
+    } else {
+      return this.userProfileData?.noOfDeliveries === 0
+        ? this.orderHistory?.length
+        : `${this.userProfileData?.noOfFulfilledDeliveries}/${this.userProfileData?.noOfDeliveries}`;
+    }
   }
 
   changeProfilePics() {

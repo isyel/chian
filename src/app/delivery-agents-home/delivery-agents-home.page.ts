@@ -45,16 +45,16 @@ export class DeliveryAgentsHomePage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.commonMethods.presentLoading('Loading order...');
-    this.authUserData = await this.userData.getAuthorizationData();
     await this.locationService.getUserCoordinates();
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
+    this.authUserData = await this.userData.getAuthorizationData();
     this.loadOrderRequest();
   }
 
   loadOrderRequest() {
+    this.commonMethods.presentLoading('Loading order...');
     this.ordersService
       .getAcceptedOrders(
         this.authUserData.userDetails?.userId || this.authUserData.userId
