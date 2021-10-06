@@ -17,6 +17,7 @@ import { CommonMethods } from '../util/common';
 export class OrderDetailsPage implements OnInit {
   orderDetails: OrderModel;
   authData: AuthDataModel;
+  isDeliveryAgent: boolean;
 
   constructor(
     private navParamService: NavparamService,
@@ -29,24 +30,25 @@ export class OrderDetailsPage implements OnInit {
   async ngOnInit() {
     this.orderDetails = this.navParamService.navData || {};
     this.authData = await this.userData.getAuthorizationData();
+    this.isDeliveryAgent =
+      this.authData.userDetails.roles[0] !== 'Delivery Agent';
   }
 
   getActiveIcon(defaultValue: number) {
     return OrderStatusEnum[this.orderDetails.orderStatus] > defaultValue
-      ? 'icon-active'
+      ? 'icon-enabled'
       : OrderStatusEnum[this.orderDetails.orderStatus] === defaultValue
-      ? 'icon-outline'
+      ? 'icon-active'
       : 'icon-disabled';
   }
 
   showOrderStatus() {
     switch (this.orderDetails.orderStatus) {
       case 'pending':
-        return 'In Transit';
-      case 'placed':
-        return 'Order Placed';
       case 'received':
         return 'Order Received';
+      case 'placed':
+        return 'Order Placed';
       case 'delivered':
         return 'Delivered';
       default:
@@ -66,9 +68,6 @@ export class OrderDetailsPage implements OnInit {
   }
 
   async markDelivered() {
-    if (this.authData.userDetails.roles[0] !== 'Delivery Agent') {
-      return;
-    }
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Confirm order as delivered!',

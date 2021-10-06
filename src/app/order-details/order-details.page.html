@@ -62,7 +62,7 @@
     >
       <div
         class="order-details__deliveryStatus__item"
-        (click)="markDelivered()"
+        (click)="isDeliveryAgent && markDelivered()"
       >
         <div class="order-details__deliveryStatus__icon {{getActiveIcon(4)}}">
           <ion-icon name="home" slot="start"></ion-icon>

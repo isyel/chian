@@ -37,7 +37,10 @@
             ></span
           > -->
         </div>
-        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        <div>
+          {{orderRequest?.vendor ? orderRequest?.vendor.officeAddress : "No\
+          Vendor Assigned"}}
+        </div>
       </div>
       <div class="orderRequest__details__buttons" *ngIf="!accepted">
         <ion-button expand="block" fill="outline" (click)="rejectOrder()">

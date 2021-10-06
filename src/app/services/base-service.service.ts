@@ -1,6 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -17,8 +16,7 @@ export class BaseServiceService {
   constructor(
     private http: HttpClient,
     private config: AppConfig,
-    public commonMethods: CommonMethods,
-    private cookieService: CookieService
+    public commonMethods: CommonMethods
   ) {
     this.baseUrl = this.config.apiUrl;
   }
@@ -36,10 +34,6 @@ export class BaseServiceService {
   }
 
   public getById<T>(id: string): Observable<T> {
-    const cookieValue = this.cookieService.get('SESSIONID');
-    console.log('cookieValue: ', cookieValue);
-    const allCookies = this.cookieService.getAll();
-    console.log('allCookies: ', allCookies);
     return this.http
       .get<T>(`${this.baseUrl}${this.actionUrl}${id}/`)
       .pipe(retry(3), catchError(this.handleError));
