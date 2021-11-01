@@ -69,8 +69,8 @@ export class Tab2Page implements OnInit, OnDestroy {
     // eslint-disable-next-line no-underscore-dangle
     this.ordersService.getHistory(userId).subscribe(
       (result) => {
-        if (this.ordersHistory?.length !== result.order?.length) {
-          this.ordersHistory = this.rawOrdersHistory = result.order;
+        if (this.ordersHistory?.length !== result.order?.data?.length) {
+          this.ordersHistory = this.rawOrdersHistory = result.order.data;
         }
 
         this.userData.setOrderHistory(this.ordersHistory);

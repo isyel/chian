@@ -50,7 +50,7 @@ export class ForgotPasswordPage implements OnInit {
         console.error(error);
         this.commonMethods.presentAlert(
           this.commonMethods.hasErrorProperties(error),
-          'Network or Server Error'
+          'Error resetting password'
         );
       }
     );
@@ -59,9 +59,9 @@ export class ForgotPasswordPage implements OnInit {
   resetPassword() {
     this.commonMethods.presentLoading();
     const resetPassword: PasswordUpdateModel = {
-      email: this.forgotPasswordForm.value.emailOrPhonenumber,
-      token: this.forgotPasswordForm.value.token,
-      password: this.forgotPasswordForm.value.password,
+      email: this.updatePasswordForm.value.emailOrPhonenumber,
+      token: this.updatePasswordForm.value.token,
+      password: this.updatePasswordForm.value.password,
     };
     this.authService.resetPassword(resetPassword).subscribe(
       (result) => {

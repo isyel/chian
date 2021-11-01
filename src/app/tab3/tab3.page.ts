@@ -64,13 +64,13 @@ export class Tab3Page implements OnInit {
       (result) => {
         console.log('Logout result: ', result);
         this.userData.setisLoggedIn(false);
-        this.navController.navigateRoot('/login-options');
       },
       (error) => {
         console.error(error);
         this.commonMethods.presentToast('Network or Server Error', false);
       }
     );
+    this.navController.navigateRoot('/login-options');
   }
 
   goToUpdateProfile() {

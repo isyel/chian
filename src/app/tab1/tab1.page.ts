@@ -79,8 +79,8 @@ export class Tab1Page implements OnInit {
       .getHistory(this.authData?.userDetails.userId || this.authData?.userId)
       .subscribe(
         (result) => {
-          this.recentOrders = result.order?.slice(0, 3);
-          this.userData.setOrderHistory(result.order);
+          this.recentOrders = result.order?.data?.slice(0, 3);
+          this.userData.setOrderHistory(result.order.data);
         },
         (error) => {
           console.error(error);

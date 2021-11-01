@@ -46,7 +46,6 @@ export class DeliveryAgentsHomePage implements OnInit {
 
   async ngOnInit() {
     this.commonMethods.presentLoading('Loading order...');
-    await this.locationService.getUserCoordinates();
   }
 
   async ionViewWillEnter() {
@@ -56,7 +55,7 @@ export class DeliveryAgentsHomePage implements OnInit {
 
   loadOrderRequest() {
     this.ordersService
-      .getAcceptedOrders(
+      .getOrderBeingFulfilled(
         this.authUserData.userDetails?.userId || this.authUserData.userId
       )
       .subscribe(
@@ -65,7 +64,9 @@ export class DeliveryAgentsHomePage implements OnInit {
             this.accepted = true;
             this.orderRequest = result.data[0];
             console.log('orderRequest being fulfilled: ', this.orderRequest);
-            this.loadMap();
+            if (this.orderRequest) {
+              this.loadMap();
+            }
             this.commonMethods.dismissLoader();
           } else {
             this.getPendingOrder();
@@ -73,10 +74,7 @@ export class DeliveryAgentsHomePage implements OnInit {
         },
         (error) => {
           console.error(error);
-          this.commonMethods.presentToast(
-            error.message || 'Network or Server Error',
-            false
-          );
+          this.getPendingOrder();
           this.commonMethods.dismissLoader();
         }
       );
@@ -91,7 +89,9 @@ export class DeliveryAgentsHomePage implements OnInit {
         (result) => {
           this.orderRequest = result.data[0];
           console.log('pending orderRequest: ', this.orderRequest);
-          this.loadMap();
+          if (this.orderRequest) {
+            this.loadMap();
+          }
           this.commonMethods.dismissLoader();
         },
         (error) => {
@@ -105,7 +105,8 @@ export class DeliveryAgentsHomePage implements OnInit {
       );
   }
 
-  loadMap() {
+  async loadMap() {
+    await this.locationService.getUserCoordinates();
     const latLng = new google.maps.LatLng(
       this.orderRequest?.deliveryAddress?.latitude,
       this.orderRequest?.deliveryAddress?.longitude
