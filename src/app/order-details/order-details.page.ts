@@ -35,7 +35,7 @@ export class OrderDetailsPage implements OnInit {
   }
 
   getActiveIcon(defaultValue: number) {
-    return OrderStatusEnum[this.orderDetails.orderStatus] > defaultValue
+    return OrderStatusEnum[this.orderDetails.orderStatus] >= defaultValue
       ? 'icon-enabled'
       : OrderStatusEnum[this.orderDetails.orderStatus] === defaultValue
       ? 'icon-active'
@@ -48,6 +48,7 @@ export class OrderDetailsPage implements OnInit {
       case 'received':
         return 'Order Received';
       case 'placed':
+      case 'created':
         return 'Order Placed';
       case 'delivered':
         return 'Delivered';

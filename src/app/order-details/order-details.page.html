@@ -17,6 +17,10 @@
     </p>
     <div class="ion-padding-bottom">
       <strong>Payment Method: </strong> {{showPaymentMethod()}}
+      <ion-text
+        [color]="orderDetails.paymentStatus === 'pending' ? 'danger' : 'success'"
+        >({{orderDetails.paymentStatus}})</ion-text
+      >
     </div>
     <div class="order-details__status ion-padding-vertical">
       <div>
@@ -49,7 +53,7 @@
 
   <div class="order-details__deliveryStatus ion-margin ion-padding-vertical">
     <div class="order-details__deliveryStatus__top">
-      <div class="order-details__deliveryStatus__icon {{getActiveIcon(1)}}">
+      <div class="order-details__deliveryStatus__icon {{getActiveIcon(0)}}">
         <ion-icon name="cart-outline"></ion-icon>
       </div>
       <ion-text color="primary">Order placed</ion-text>
