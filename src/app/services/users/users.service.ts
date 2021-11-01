@@ -19,7 +19,7 @@ export class UsersService {
    * @memberof UsersService
    */
   public getProfile(userId: string) {
-    this.service.setActionUrl(this.actionUrl);
+    this.service.setActionUrl(this.actionUrl, 'get-one/');
     return this.service.getById<ResultModel>(userId);
   }
 

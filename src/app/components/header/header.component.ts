@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getNotifications() {
-    this.pendingNotifications = 1;
+    this.pendingNotifications = 0;
   }
 
   goToNotifications() {

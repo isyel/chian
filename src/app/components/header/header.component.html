@@ -18,7 +18,10 @@
       <ion-text color="primary" *ngIf="hasPageTitle">{{ pageTitle }}</ion-text>
     </ion-col>
     <ion-col class="header__avatar ion-align-self-right">
-      <ion-chip color="secondary" *ngIf="hasNotifications">
+      <ion-chip
+        color="secondary"
+        *ngIf="hasNotifications && pendingNotifications > 0"
+      >
         <ion-label class="header__notificationLabel">{{
           pendingNotifications
         }}</ion-label>

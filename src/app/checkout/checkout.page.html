@@ -31,7 +31,11 @@
         </ion-button>
       </div>
     </div>
-    <ion-item lines="none" class="checkout__useExisting ion-margin-top">
+    <ion-item
+      lines="none"
+      class="checkout__useExisting ion-margin-top"
+      *ngIf="addresses?.length > 0"
+    >
       <ion-label>Use saved address</ion-label>
       <ion-checkbox slot="start" [(ngModel)]="useSavedAddress"></ion-checkbox>
     </ion-item>

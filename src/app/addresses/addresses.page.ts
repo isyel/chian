@@ -49,7 +49,7 @@ export class AddressesPage implements OnInit {
   getAddresses() {
     this.addressService.getByUser(this.userDetails._id).subscribe(
       (result) => {
-        this.addresses = result.data;
+        this.addresses = result.data?.data;
         console.log('this.addresses: ', this.addresses);
         this.commonMethods.dismissLoader();
       },

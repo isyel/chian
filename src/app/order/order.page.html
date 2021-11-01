@@ -62,7 +62,8 @@
         <div (click)="this.selectedState !== undefined && showCityPicker()">
           <h5>Select Area</h5>
           <ion-text color="secondary"
-            >{{selectedCity?.text || "Select a state"}}</ion-text
+            >{{selectedCity?.text || selectedState?.text ? "Select a region"
+            :"Select a state"}}</ion-text
           >
         </div>
       </div>
