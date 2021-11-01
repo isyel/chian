@@ -60,9 +60,9 @@ export class DeliveryAgentsHomePage implements OnInit {
       )
       .subscribe(
         (result) => {
-          if (result.data.length > 0) {
+          if (result.data) {
             this.accepted = true;
-            this.orderRequest = result.data[0];
+            this.orderRequest = result.data;
             console.log('orderRequest being fulfilled: ', this.orderRequest);
             if (this.orderRequest) {
               this.loadMap();
