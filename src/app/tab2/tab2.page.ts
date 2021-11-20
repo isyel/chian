@@ -86,11 +86,10 @@ export class Tab2Page implements OnInit, OnDestroy {
   }
 
   getDeliveryHistory(userId) {
-    // eslint-disable-next-line no-underscore-dangle
     this.ordersService.getAcceptedOrders(userId).subscribe(
       (result) => {
         if (this.ordersHistory?.length !== result.data?.length) {
-          this.ordersHistory = this.rawOrdersHistory = result.data;
+          this.ordersHistory = this.rawOrdersHistory = result.data.data;
         }
 
         this.userData.setOrderHistory(this.ordersHistory);

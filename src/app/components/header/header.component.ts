@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   @Input() hasNotifications: boolean;
   @Input() showAvatar: boolean;
   @Input() lightTheme: boolean;
-  @Input() showIcon: boolean;
+  @Input() showLogo: boolean;
   pendingNotifications: number;
 
   constructor(private navController: NavController) {}

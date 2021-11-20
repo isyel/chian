@@ -2,13 +2,13 @@
   <ion-row class="ion-align-items-center ion-justify-content-between">
     <ion-col class="ion-align-self-left">
       <ion-fab-button
-        *ngIf="hasBackButton && !showIcon"
+        *ngIf="hasBackButton && !showLogo"
         [color]="lightTheme ? 'light' : 'primary'"
         (click)="handleGoBack()"
         ><ion-icon [name]="icon"></ion-icon
       ></ion-fab-button>
       <ion-img
-        *ngIf="showIcon"
+        *ngIf="showLogo"
         src="assets/icon/chian_logo_small.png"
         class="header__icon"
         alt="Chian"
