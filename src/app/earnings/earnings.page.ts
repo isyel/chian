@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EarningsModel } from '../models/EarningsModel';
+import { UserData } from '../user-data';
 
 @Component({
   selector: 'app-earnings',
@@ -13,11 +15,14 @@ export class EarningsPage implements OnInit {
     { date: 28, month: 'july' },
     { date: 29, month: 'july' },
   ];
-  earnings = [];
+  earnings: EarningsModel;
 
-  constructor() {}
+  constructor(private userData: UserData) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    const userData = await this.userData.getUserData();
+    this.earnings = userData.earnings;
+  }
 
   selectDate(date: number) {
     this.dates = this.dates.map((singleDate) =>
