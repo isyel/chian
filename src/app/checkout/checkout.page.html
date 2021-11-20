@@ -6,10 +6,13 @@
       [lightTheme]="true"
     ></app-header>
   </ion-header>
-  <div class="ion-padding-horizontal ion-padding-bottom">
+  <div class="ion-padding-horizontal">
     <h5>Address:</h5>
     <div class="checkout__address" *ngIf="!addressEditMode">
-      <span>{{order?.street || locationService.fullAddress}}</span>
+      <span
+        >{{order?.street || locationService?.fullAddress || 'No Address\
+        Entered'}}</span
+      >
       <ion-text color="secondary" (click)="handleEditAddress()">Edit</ion-text>
     </div>
     <div class="checkout__address__edit" *ngIf="addressEditMode">
@@ -28,21 +31,35 @@
         </ion-button>
       </div>
     </div>
-  </div>
-  <div class="ion-padding-horizontal">
+    <ion-item
+      lines="none"
+      class="checkout__useExisting ion-margin-top"
+      *ngIf="addresses?.length > 0"
+    >
+      <ion-label>Use saved address</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="useSavedAddress"></ion-checkbox>
+    </ion-item>
+    <div class="checkout__addresses" *ngIf="useSavedAddress">
+      <div
+        *ngFor="let address of addresses"
+        class="ion-padding checkout__addresses__address"
+        (click)="useAddress(address)"
+      >
+        {{address.street}}{{address.state && ", " + address.state}}
+      </div>
+    </div>
     <h5>Delivery Information:</h5>
     <ion-textarea
       cols="2"
       placeholder="(Optional) Enter additional delivery information"
     ></ion-textarea>
+    <app-cart-item
+      [quantity]="item?.quantity"
+      [item]="item?.options"
+      (handleRemove)="removeFromCart()"
+      *ngFor="let item of order?.orderItems"
+    ></app-cart-item>
   </div>
-
-  <app-cart-item
-    [quantity]="item?.quantity"
-    [item]="item?.options"
-    (handleRemove)="removeFromCart()"
-    *ngFor="let item of order?.orderItems"
-  ></app-cart-item>
 </ion-content>
 <ion-footer>
   <app-hero-card [radiusBottom]="false">

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OrderModel, OrderModelPayload } from 'src/app/models/OrderModel';
 import { ResultModel } from 'src/app/models/ResultModel';
+import { TransactionStateModel } from 'src/app/models/TransactionStateModel';
 import { BaseServiceService } from '../base-service.service';
 
 @Injectable({
@@ -8,6 +9,8 @@ import { BaseServiceService } from '../base-service.service';
 })
 export class OrdersService {
   actionUrl = 'api/orders/';
+  transactionStateUrl = 'api/transactionstate/';
+  transactionUrl = 'api/transaction/';
 
   constructor(public service: BaseServiceService) {}
 
@@ -75,12 +78,60 @@ export class OrdersService {
    * Get Pending Order
    *
    * @param userId
-   * @returns OrderModel
+   * @returns ResultModel
    * @memberof OrdersService
    */
   public getPending(userId: string) {
-    this.service.setActionUrl(this.actionUrl, 'pending/');
-    return this.service.getById<OrderModel>(userId);
+    this.service.setActionUrl(this.transactionStateUrl, `${userId}/pending`);
+    return this.service.getAll<ResultModel>();
+  }
+
+  /**
+   * Get Pending Order
+   *
+   * @param userId
+   * @returns ResultModel
+   * @memberof OrdersService
+   */
+  public getOrderBeingFulfilled(userId: string) {
+    this.service.setActionUrl(this.transactionStateUrl, `${userId}/fulfilling`);
+    return this.service.getAll<ResultModel>();
+  }
+
+  /**
+   * Get Fulfilling Order
+   *
+   * @param userId
+   * @returns ResultModel
+   * @memberof OrdersService
+   */
+  public getAcceptedOrders(userId: string) {
+    this.service.setActionUrl(this.transactionStateUrl, `${userId}/accepted`);
+    return this.service.getAll<ResultModel>();
+  }
+
+  /**
+   * Accept Orders
+   *
+   * @param data
+   * @returns ResultModel
+   * @memberof OrdersService
+   */
+  public acceptOrderRequest(data: TransactionStateModel) {
+    this.service.setActionUrl(this.transactionStateUrl, `accept`);
+    return this.service.updateStatus<ResultModel>(data);
+  }
+
+  /**
+   * Reject Orders
+   *
+   * @param data
+   * @returns ResultModel
+   * @memberof OrdersService
+   */
+  public rejectOrderRequest(data: TransactionStateModel) {
+    this.service.setActionUrl(this.transactionStateUrl, `reject`);
+    return this.service.updateStatus<ResultModel>(data);
   }
 
   /**

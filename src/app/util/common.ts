@@ -88,7 +88,7 @@ export class CommonMethods {
         'In hasErrorProperties(message and status from error): ',
         error.message
       );
-      return 'Network error, check connection';
+      return error.message;
     } else if (
       error?.error !== null &&
       !error?.error?.hasOwnProperty('status') &&

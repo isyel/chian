@@ -19,7 +19,7 @@
 
   <div
     class="ion-padding-vertical buttonGroup"
-    *ngIf="userProfileData?.roles[0] === 'User' || authData?.userDetails.roles[0] === 'User'"
+    *ngIf="authData?.userDetails.roles[0] === 'User'"
   >
     <span
       class="ion-padding buttonGroup__button {{activeTab === 0 ? 'active' : ''}}"
@@ -64,7 +64,7 @@
         *ngIf="!todayOrders && (!ordersHistory || ordersHistory.length === 0)"
       >
         <app-not-found
-          [message]="userProfileData?.roles[0] === 'User' || authData?.userDetails.roles[0] === 'User' ? 'No orders made yet' : 'No deliveries made yet'"
+          [message]="authData?.userDetails.roles[0] === 'User' ? 'No orders made yet' : 'No deliveries made yet'"
         ></app-not-found>
       </div>
     </div>
@@ -74,4 +74,14 @@
       ></app-not-found>
     </div>
   </div>
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    (click)="goToItemsPage()"
+  >
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

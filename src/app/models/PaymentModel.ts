@@ -6,5 +6,6 @@ export type PaymentModel = {
   transactionId?: string;
   paymentMethod?: string;
   paymentChannel: string;
+  paymentStatus?: string;
   fromAdmin?: false;
 };

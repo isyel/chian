@@ -10,7 +10,6 @@ import { LocationService } from '../services/location/location.service';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { OptionsService } from '../services/options/options.service';
 import { UserData } from '../user-data';
-import { CommonMethods } from '../util/common';
 
 @Component({
   selector: 'app-order',
@@ -59,9 +58,11 @@ export class OrderPage implements OnInit {
       this.authData = await this.userData.getAuthorizationData();
     }
     this.selectedOption = this.navParamService.navData;
+    console.log('this.selectedOption: ', this.selectedOption);
+
     this.selectedCylinder = {
-      text: this.selectedOption.name,
-      value: this.selectedOption._id,
+      text: this.selectedOption?.name,
+      value: this.selectedOption?._id,
     };
     this.cylinderOptions = await this.userData.getOptions();
     this.getStates();
@@ -240,7 +241,9 @@ export class OrderPage implements OnInit {
   }
 
   incrementQuantity() {
-    ++this.quantity;
+    if (this.quantity < 2) {
+      ++this.quantity;
+    }
   }
 
   decrementQuantity() {

@@ -1,6 +1,18 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "Chian",
-	"webDir": "www",
-	"bundledWebRuntime": false
+  "appId": "io.ionic.starter",
+  "appName": "Chian",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "SplashScreen": {
+      "androidScaleType": "CENTER_CROP",
+      "launchShowDuration": 4000,
+      "launchAutoHide": true,
+      "backgroundColor": "#050f44",
+      "splashFullScreen": true,
+      "splashImmersive": true,
+      "androidSplashResourceName": "splash",
+      "showSpinner": false
+    }
+  }
 }

@@ -16,6 +16,21 @@
     }
   }
 
+  &__addresses {
+    overflow-x: auto;
+    display: flex;
+    gap: 0.2em;
+    padding-bottom: 0.25em;
+    &__address {
+      border-radius: var(--ion-border-radius);
+      border: 1px solid var(--ion-color-primary);
+      min-width: 200px;
+      max-width: 200px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
   &__shippingCost {
     border-bottom: 1px dashed var(--ion-color-light-shade);
   }

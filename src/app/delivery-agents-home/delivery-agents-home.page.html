@@ -1,6 +1,6 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" *ngIf="orderRequest">
   <ion-toolbar color="warning">
-    <ion-button (click)="loadOrderRequest()" shape="round" color="dark">
+    <ion-button (click)="loadMap()" shape="round" color="dark">
       <ion-icon slot="start" name="locate"></ion-icon>
       Refresh
     </ion-button>
@@ -9,26 +9,40 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="orderRequest__container">
-  <div #map id="map"></div>
-
-  <div class="orderRequest">
+  <div
+    #map
+    id="map"
+    [class]="orderRequest && !delivered ? 'orderRequest__map' :'orderRequest__noMap'"
+  ></div>
+  <div class="orderRequest" *ngIf="orderRequest && !delivered ">
     <div class="orderRequest__details">
       <div>
         <strong class="orderRequest__details__label"
           >New refill request at:</strong
         >
-        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        <div>{{orderRequest?.orderDetails.deliveryAddress?.street}}</div>
       </div>
 
       <div>
         <strong class="orderRequest__details__label">Order Request:</strong>
-        10kg refill x 2
+        {{orderRequest?.orderDetails.orderItems[0]?.options?.name}} x
+        {{orderRequest?.orderDetails.orderItems[0]?.quantity}}
       </div>
       <div>
-        <strong class="orderRequest__details__label">Vendor address:</strong>
-        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        <div>
+          <strong class="orderRequest__details__label">Vendor address:</strong>
+          <!-- <span
+            ><ion-text color="secondary" (click)="changeVendor()"
+              >change</ion-text
+            ></span
+          > -->
+        </div>
+        <div>
+          {{orderRequest?.vendorDetails ? orderRequest?.vendorDetails.location :
+          "No\ Vendor Assigned"}}
+        </div>
       </div>
-      <div class="orderRequest__details__buttons">
+      <div class="orderRequest__details__buttons" *ngIf="!accepted">
         <ion-button expand="block" fill="outline" (click)="rejectOrder()">
           <span>Reject</span>
         </ion-button>
@@ -36,6 +50,35 @@
           <span>Accept</span>
         </ion-button>
       </div>
+      <div *ngIf="accepted" class="orderRequest__details__accepted">
+        <span> <strong>Status:</strong> {{showOrderStatus()}} </span>
+        <ion-button
+          expand="block"
+          size="small"
+          color="primary"
+          (click)="markDelivered()"
+        >
+          <span>Mark Delivered</span>
+        </ion-button>
+      </div>
     </div>
+  </div>
+  <div
+    *ngIf="delivered || !this.orderRequest"
+    class="orderRequest__noRequest ion-margin"
+  >
+    <ion-img
+      class="orderRequest__noRequest__image ion-padding-vertical"
+      src="assets/images/delivery-truck.svg"
+    ></ion-img>
+    <div class="ion-padding-vertical ion-text-center">
+      <ion-text color="primary"
+        >No Order Assigned. <br />Awaiting Order Request...</ion-text
+      >
+    </div>
+
+    <ion-button color="primary" (click)="goToDeliveries()">
+      <span>See delivery history</span>
+    </ion-button>
   </div>
 </ion-content>

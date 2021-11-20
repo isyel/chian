@@ -18,6 +18,7 @@ export class Tab3Page implements OnInit {
   userProfileData: UserModel | any;
   authData: AuthDataModel;
   orderHistory: OrderModel[];
+  noOfOrders: string | number;
 
   constructor(
     private router: Router,
@@ -38,12 +39,11 @@ export class Tab3Page implements OnInit {
   ionViewWillEnter() {
     this.userData.getUserData().then((userData) => {
       this.userProfileData = userData;
-      console.log('this.userProfileData: ', this.userProfileData);
+      this.getNumberOfOrders();
     });
 
     this.userData.getOrderHistory().then((orderHistory) => {
       this.orderHistory = orderHistory || [];
-      console.log('this.userProfileData: ', this.userProfileData);
     });
   }
 
@@ -64,13 +64,13 @@ export class Tab3Page implements OnInit {
       (result) => {
         console.log('Logout result: ', result);
         this.userData.setisLoggedIn(false);
-        this.navController.navigateRoot('/login-options');
       },
       (error) => {
         console.error(error);
         this.commonMethods.presentToast('Network or Server Error', false);
       }
     );
+    this.navController.navigateRoot('/login-options');
   }
 
   goToUpdateProfile() {
@@ -85,12 +85,27 @@ export class Tab3Page implements OnInit {
           console.log('result: ', result);
           this.userData.setUserData(result.data);
           this.userProfileData = result.data;
+          this.getNumberOfOrders();
         },
         (error) => {
           console.error(error);
           this.commonMethods.presentToast('Network or Server Error', false);
         }
       );
+  }
+
+  getNumberOfOrders() {
+    if (this.userProfileData?.roles[0] === 'User') {
+      this.noOfOrders =
+        this.userProfileData?.noOfOrders === 0
+          ? this.orderHistory?.length
+          : this.userProfileData?.noOfOrders;
+    } else {
+      this.noOfOrders =
+        this.userProfileData?.noOfDeliveries === 0
+          ? this.orderHistory?.length
+          : `${this.userProfileData?.noOfFulfilledDeliveries}/${this.userProfileData?.noOfDeliveries}`;
+    }
   }
 
   changeProfilePics() {

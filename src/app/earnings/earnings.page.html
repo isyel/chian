@@ -5,12 +5,14 @@
         pageTitle="Earnings"
         [hasNotifications]="true"
         [hasBackButton]="true"
-        [showIcon]="false"
+        [showLogo]="false"
       ></app-header>
     </ion-header>
     <div class="earnings ion-margin-vertical">
       <div>
-        <ion-text class="earnings__amount"><strong>0.00</strong></ion-text>
+        <ion-text class="earnings__amount"
+          ><strong>{{earnings.totalEarnings}} </strong></ion-text
+        >
         <span>NGN</span>
       </div>
       <div class="ion-text-center ion-margin-bottom">Total Earnings</div>
@@ -23,6 +25,7 @@
       <div
         *ngFor="let date of dates"
         class="earnings__day {{date.active && 'earnings__day__active'}}"
+        (click)="selectDate(date.date)"
       >
         <ion-text class="earnings__day__date">{{date.date}}</ion-text>
         <ion-text>{{date.month}}</ion-text>
@@ -30,8 +33,8 @@
     </div>
   </div>
   <app-not-found
-    *ngIf="!earnings || earnings.length === 0"
+    *ngIf="earnings.balance=== 0 && earnings.totalEarnings === 0"
     message="No earnings recorded yet"
   ></app-not-found>
-  <div class="earnings__list" *ngFor="let earning of earnings"></div>
+  <!-- <div class="earnings__list" *ngFor="let earning of earnings"></div> -->
 </ion-content>

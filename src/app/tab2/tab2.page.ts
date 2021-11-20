@@ -16,7 +16,6 @@ import { CommonMethods } from '../util/common';
 })
 export class Tab2Page implements OnInit, OnDestroy {
   activeTab = 0;
-  userProfileData: UserModel;
   todayOrders: OrderModel[];
   ordersHistory: OrderModel[];
   rawOrdersHistory: OrderModel[];
@@ -32,39 +31,37 @@ export class Tab2Page implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
-    this.userProfileData = await this.userData.getUserData();
-    if (!this.userProfileData) {
-      this.authData = await this.userData.getAuthorizationData();
-    }
+    this.authData = await this.userData.getAuthorizationData();
   }
 
-  switchTab(tab) {
+  switchTab(tab: number) {
     this.activeTab = tab;
   }
 
   ionViewDidEnter() {
+    if (this.navParamService.searchString === null) {
+      this.searchFilter = null;
+    }
     this.getOfflineOrderHistory();
-    console.log(
-      'this.navParamService.searchString: ',
-      this.navParamService.searchString
-    );
   }
 
   async getOfflineOrderHistory() {
-    this.ordersHistory = this.rawOrdersHistory =
-      await this.userData.getOrderHistory();
+    const offlineData = await this.userData.getOrderHistory();
+    if (this.ordersHistory?.length !== offlineData?.length) {
+      this.ordersHistory = this.rawOrdersHistory = offlineData;
+    }
     if (this.navParamService.searchString?.length > 0) {
       this.searchFilter = this.navParamService.searchString;
       this.navParamService.searchString = null;
       this.filterOrders();
     }
 
-    const userId =
-      this.userProfileData?._id ||
-      this.authData?.userDetails?.userId ||
-      this.authData?.userId;
-    if (userId) {
+    const userId = this.authData?.userDetails?.userId || this.authData?.userId;
+
+    if (this.authData?.userDetails?.roles[0] === 'User') {
       this.getOrderHistory(userId);
+    } else {
+      this.getDeliveryHistory(userId);
     }
   }
 
@@ -72,7 +69,28 @@ export class Tab2Page implements OnInit, OnDestroy {
     // eslint-disable-next-line no-underscore-dangle
     this.ordersService.getHistory(userId).subscribe(
       (result) => {
-        this.ordersHistory = this.rawOrdersHistory = result.order;
+        if (this.ordersHistory?.length !== result.order?.data?.length) {
+          this.ordersHistory = this.rawOrdersHistory = result.order.data;
+        }
+
+        this.userData.setOrderHistory(this.ordersHistory);
+        if (this.searchFilter?.length > 0) {
+          this.filterOrders();
+        }
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast('Network or Server Error', false);
+      }
+    );
+  }
+
+  getDeliveryHistory(userId) {
+    this.ordersService.getAcceptedOrders(userId).subscribe(
+      (result) => {
+        if (this.ordersHistory?.length !== result.data?.length) {
+          this.ordersHistory = this.rawOrdersHistory = result.data.data;
+        }
 
         this.userData.setOrderHistory(this.ordersHistory);
         if (this.searchFilter?.length > 0) {
@@ -99,9 +117,11 @@ export class Tab2Page implements OnInit, OnDestroy {
 
   groupOrders() {}
 
-  ngOnDestroy() {
-    console.log('Call ngDesctroy');
+  goToItemsPage() {
+    this.router.navigate(['/items']);
+  }
 
+  ngOnDestroy() {
     this.searchFilter = null;
   }
 }

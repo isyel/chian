@@ -13,6 +13,7 @@ import { BaseServiceService } from '../base-service.service';
 })
 export class AuthenticationService {
   actionUrl = 'user/';
+  authPath = 'auth/';
 
   constructor(public service: BaseServiceService) {}
 
@@ -48,7 +49,10 @@ export class AuthenticationService {
    * @memberof AuthenticationService
    */
   public forgotPassword(payload: ForgotPasswordModel) {
-    this.service.setActionUrl(this.actionUrl, 'forgot-password');
+    this.service.setActionUrl(
+      this.actionUrl,
+      `${this.authPath}requestResetPassword`
+    );
     return this.service.post<any>(payload);
   }
 
@@ -60,7 +64,7 @@ export class AuthenticationService {
    * @memberof AuthenticationService
    */
   public resetPassword(payload: PasswordUpdateModel) {
-    this.service.setActionUrl(this.actionUrl, 'password-reset');
+    this.service.setActionUrl(this.actionUrl, `${this.authPath}resetPassword`);
     return this.service.post<any>(payload);
   }
 

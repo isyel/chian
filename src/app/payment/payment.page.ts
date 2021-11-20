@@ -55,7 +55,7 @@ export class PaymentPage implements OnInit {
         this.userDetails?.email ||
         this.authData?.userDetails?.email ||
         this.authData?.email,
-      ref: `${this.order?._id} - ${Math.ceil(Math.random() * 1000)}`,
+      ref: `${this.order?._id}-${Math.ceil(Math.random() * 1000)}`,
     };
   }
 
@@ -71,25 +71,26 @@ export class PaymentPage implements OnInit {
 
   paymentDone(result: PaystackRefModel | any) {
     console.log('Payment result: ', result);
+    this.payment = {
+      userId:
+        this.userDetails?._id ||
+        this.authData?.userDetails?.userId ||
+        this.authData?.userId,
+      orderId: this.order?._id,
+      reference: result.reference,
+      transactionId: result.transaction,
+      amount: this.order?.totalPrice,
+      paymentChannel: 'Paystack',
+      paymentMethod: 'card',
+      fromAdmin: false,
+    };
     if (result.status === 'success' && result.message === 'Approved') {
-      this.payment = {
-        userId:
-          this.userDetails?._id ||
-          this.authData?.userDetails?.userId ||
-          this.authData?.userId,
-        orderId: this.order?._id,
-        reference: result.reference,
-        transactionId: result.transaction,
-        amount: this.order?.totalPrice,
-        paymentChannel: 'Paystack',
-        paymentMethod: 'card',
-        fromAdmin: false,
-      };
+      this.payment = { ...this.payment, paymentStatus: result.status };
       this.userData.setPendingOrder(null);
-      this.makePayment();
     } else {
-      console.log('payment failed:', result);
+      this.payment = { ...this.payment, paymentStatus: 'pending' };
     }
+    this.makePayment();
   }
 
   makePayment() {

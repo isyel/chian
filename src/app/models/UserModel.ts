@@ -1,15 +1,23 @@
 import { BaseModel } from './BaseModel';
+import { EarningsModel } from './EarningsModel';
 
 export type UserModel = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   fullName: string;
   phoneNumber: string;
-  refills: number;
+  noOfOrders: number;
+  noOfDeliveries?: number;
+  noOfFulfilledDeliveries?: number;
   maintenances: number;
   email: string;
   referralId: string;
   address: string;
   roles: [string];
+  avatar?: string;
+  location: string;
+  earnings: EarningsModel;
+  emailVerified: string;
+  phoneVerified: string;
 } & BaseModel;
 
 export type AuthDataModel = {

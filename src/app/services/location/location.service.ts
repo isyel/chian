@@ -22,7 +22,7 @@ export class LocationService {
   userLocationFromLatLng: NativeGeocoderResult = null;
   userCity: any;
   latLngResult: any;
-  userCoordinates: Coordinates;
+  userCoordinates;
   fullAddress = null;
 
   constructor(
@@ -30,7 +30,11 @@ export class LocationService {
     private platform: Platform,
     public zone: NgZone,
     private geolocation: Geolocation
-  ) {}
+  ) {
+    this.userCoordinates = {
+      value: 0,
+    };
+  }
 
   async getUserCoordinates() {
     try {
@@ -75,11 +79,13 @@ export class LocationService {
           console.log('error: ', error);
         });
     } else {
-      this.getGeoLocation(
-        this.userCoordinates.latitude,
-        this.userCoordinates.longitude,
-        'reverseGeocode'
-      );
+      if (this.userCoordinates.latitude) {
+        this.getGeoLocation(
+          this.userCoordinates.latitude,
+          this.userCoordinates.longitude,
+          'reverseGeocode'
+        );
+      }
     }
   }
 
@@ -109,13 +115,13 @@ export class LocationService {
     }
   }
 
-  forwardGeocode() {
+  async forwardGeocode() {
     if (this.platform.is('hybrid')) {
       const options: NativeGeocoderOptions = {
         useLocale: true,
         maxResults: 5,
       };
-      this.nativeGeocoder
+      await this.nativeGeocoder
         .forwardGeocode(this.fullAddress, options)
         .then((result: NativeGeocoderResult[]) => {
           this.zone.run(() => {
@@ -149,9 +155,10 @@ export class LocationService {
               speed: this.userCoordinates.speed,
             };
             this.userCoordinates = coordinates;
+            console.log('this.userCoordinates: ', this.userCoordinates);
           });
         } else {
-          alert('Error - ' + results + ' & Status - ' + status);
+          console.log('Error - ' + results + ' & Status - ' + status);
         }
       });
     }

@@ -51,13 +51,7 @@
     <div
       class="ion-text-center ion-padding-vertical profile__orderSummary__item"
     >
-      <ion-text
-        ><strong
-          >{{userProfileData?.roles[0] === 'User' ? userProfileData?.noOfOrders
-          === 0 ? orderHistory?.length : userProfileData?.noOfOrders :
-          0}}</strong
-        ></ion-text
-      >
+      <ion-text><strong>{{noOfOrders}}</strong></ion-text>
       <br />
       <ion-text
         >{{userProfileData?.roles[0] === 'User' ? 'Refills' :

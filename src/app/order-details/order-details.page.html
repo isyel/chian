@@ -14,11 +14,13 @@
     <p>
       {{orderDetails?.orderItems[0].options.name}} at
       {{orderDetails?.deliveryAddress.street}}
-      {{orderDetails?.deliveryAddress.city}},
-      {{orderDetails?.deliveryAddress.state}}
     </p>
     <div class="ion-padding-bottom">
       <strong>Payment Method: </strong> {{showPaymentMethod()}}
+      <ion-text
+        [color]="orderDetails.paymentStatus === 'pending' ? 'danger' : 'success'"
+        >({{orderDetails.paymentStatus}})</ion-text
+      >
     </div>
     <div class="order-details__status ion-padding-vertical">
       <div>
@@ -51,7 +53,7 @@
 
   <div class="order-details__deliveryStatus ion-margin ion-padding-vertical">
     <div class="order-details__deliveryStatus__top">
-      <div class="order-details__deliveryStatus__icon {{getActiveIcon(1)}}">
+      <div class="order-details__deliveryStatus__icon {{getActiveIcon(0)}}">
         <ion-icon name="cart-outline"></ion-icon>
       </div>
       <ion-text color="primary">Order placed</ion-text>
@@ -62,7 +64,10 @@
         ion-padding-vertical ion-margin-vertical
       "
     >
-      <div class="order-details__deliveryStatus__item">
+      <div
+        class="order-details__deliveryStatus__item"
+        (click)="isDeliveryAgent && markDelivered()"
+      >
         <div class="order-details__deliveryStatus__icon {{getActiveIcon(4)}}">
           <ion-icon name="home" slot="start"></ion-icon>
         </div>
@@ -76,7 +81,9 @@
       </div>
 
       <div class="order-details__deliveryStatus__item">
-        <div class="order-details__deliveryStatus__icon {{getActiveIcon(2)}}">
+        <div
+          class="order-details__deliveryStatus__icon {{orderDetails.paymentType==='payOnDelivery' ? 'icon-active' : getActiveIcon(2)}}"
+        >
           <ion-icon name="checkmark-done-outline"></ion-icon>
         </div>
 

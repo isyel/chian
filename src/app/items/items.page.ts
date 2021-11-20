@@ -40,7 +40,7 @@ export class ItemsPage implements OnInit {
   getLiveOptions() {
     this.optionsService.getAll().subscribe(
       (result) => {
-        this.options = result.data;
+        this.options = result.data?.data;
         this.userData.setOptions(this.options);
       },
       (error) => {

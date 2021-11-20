@@ -1,15 +1,9 @@
+import { PaginationModel } from './PaginationModel';
 import { UserModel } from './UserModel';
 
 export type ResultModel = {
-  pageIndex: number;
-  pageSize: number;
-  totalCount: number;
-  totalPages: number;
-  indexFrom: number;
-  items: any[];
-  allOrders: any[];
-  data: UserModel | any;
-  order: any[];
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
+  status: boolean;
+  data: PaginationModel | UserModel | any;
+  order?: PaginationModel;
+  message?: string;
 };

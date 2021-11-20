@@ -7,6 +7,8 @@ import { LocationService } from '../services/location/location.service';
 import { UserData } from '../user-data';
 import { OrdersService } from '../services/orders/orders.service';
 import { CommonMethods } from '../util/common';
+import { AddressService } from '../services/address/address.service';
+import { AddressModel } from '../models/AddressModel';
 
 @Component({
   selector: 'app-checkout',
@@ -19,6 +21,8 @@ export class CheckoutPage implements OnInit {
   deliveryPrice = 2000;
   totalPrice: number;
   subTotal: number;
+  useSavedAddress: boolean;
+  addresses: AddressModel[];
 
   constructor(
     private router: Router,
@@ -27,7 +31,8 @@ export class CheckoutPage implements OnInit {
     private userData: UserData,
     private navController: NavController,
     private ordersService: OrdersService,
-    public commonMethods: CommonMethods
+    public commonMethods: CommonMethods,
+    private addressService: AddressService
   ) {}
 
   ngOnInit() {
@@ -43,6 +48,25 @@ export class CheckoutPage implements OnInit {
       }
     }
     this.calculateTotalPrice();
+    this.getAddresses();
+  }
+
+  async getAddresses() {
+    const authData = await this.userData.getAuthorizationData();
+    this.addressService.getByUser(authData.userDetails.userId).subscribe(
+      (result) => {
+        this.addresses = result.data.data;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  useAddress(address: AddressModel) {
+    this.locationService.fullAddress = this.order.street = address.street;
+    this.locationService.forwardGeocode();
+    this.useSavedAddress = false;
   }
 
   calculateTotalPrice() {
