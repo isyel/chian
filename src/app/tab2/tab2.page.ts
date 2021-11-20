@@ -118,6 +118,10 @@ export class Tab2Page implements OnInit, OnDestroy {
 
   groupOrders() {}
 
+  goToItemsPage() {
+    this.router.navigate(['/items']);
+  }
+
   ngOnDestroy() {
     this.searchFilter = null;
   }

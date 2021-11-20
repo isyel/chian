@@ -10,6 +10,7 @@ import { BaseServiceService } from '../base-service.service';
 export class OrdersService {
   actionUrl = 'api/orders/';
   transactionStateUrl = 'api/transactionstate/';
+  transactionUrl = 'api/transaction/';
 
   constructor(public service: BaseServiceService) {}
 

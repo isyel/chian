@@ -1,4 +1,5 @@
 import { BaseModel } from './BaseModel';
+import { EarningsModel } from './EarningsModel';
 
 export type UserModel = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -13,6 +14,8 @@ export type UserModel = {
   address: string;
   roles: [string];
   avatar?: string;
+  location: string;
+  earnings: EarningsModel;
   emailVerified: string;
   phoneVerified: string;
 } & BaseModel;

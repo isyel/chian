@@ -20,13 +20,13 @@
         <strong class="orderRequest__details__label"
           >New refill request at:</strong
         >
-        <div>{{orderRequest?.deliveryAddress?.street}}</div>
+        <div>{{orderRequest?.orderDetails.deliveryAddress?.street}}</div>
       </div>
 
       <div>
         <strong class="orderRequest__details__label">Order Request:</strong>
-        {{orderRequest?.orderItems[0]?.options?.name}} x
-        {{orderRequest?.orderItems[0]?.quantity}}
+        {{orderRequest?.orderDetails.orderItems[0]?.options?.name}} x
+        {{orderRequest?.orderDetails.orderItems[0]?.quantity}}
       </div>
       <div>
         <div>
@@ -38,8 +38,8 @@
           > -->
         </div>
         <div>
-          {{orderRequest?.vendor ? orderRequest?.vendor.officeAddress : "No\
-          Vendor Assigned"}}
+          {{orderRequest?.vendorDetails ? orderRequest?.vendorDetails.location :
+          "No\ Vendor Assigned"}}
         </div>
       </div>
       <div class="orderRequest__details__buttons" *ngIf="!accepted">

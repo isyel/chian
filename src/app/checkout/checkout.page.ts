@@ -55,7 +55,7 @@ export class CheckoutPage implements OnInit {
     const authData = await this.userData.getAuthorizationData();
     this.addressService.getByUser(authData.userDetails.userId).subscribe(
       (result) => {
-        this.addresses = result.data;
+        this.addresses = result.data.data;
       },
       (error) => {
         console.error(error);

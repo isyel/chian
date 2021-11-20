@@ -81,7 +81,9 @@
       </div>
 
       <div class="order-details__deliveryStatus__item">
-        <div class="order-details__deliveryStatus__icon {{getActiveIcon(2)}}">
+        <div
+          class="order-details__deliveryStatus__icon {{orderDetails.paymentType==='payOnDelivery' ? 'icon-active' : getActiveIcon(2)}}"
+        >
           <ion-icon name="checkmark-done-outline"></ion-icon>
         </div>
 

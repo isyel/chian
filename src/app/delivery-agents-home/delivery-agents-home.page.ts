@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { OrderModel } from '../models/OrderModel';
+import { TransactionModel } from '../models/TransactionModel';
 import { TransactionStateModel } from '../models/TransactionStateModel';
 import { AuthDataModel } from '../models/UserModel';
 import { LocationService } from '../services/location/location.service';
@@ -19,7 +20,7 @@ export class DeliveryAgentsHomePage implements OnInit {
   @ViewChild('map', { static: false }) mapElement: ElementRef;
   map: any;
   authUserData: AuthDataModel;
-  orderRequest: OrderModel;
+  orderRequest: TransactionModel;
   latitude: number;
   longitude: number;
   markers = [];
@@ -87,7 +88,7 @@ export class DeliveryAgentsHomePage implements OnInit {
       )
       .subscribe(
         (result) => {
-          this.orderRequest = result.data[0];
+          this.orderRequest = result.data.data[0];
           console.log('pending orderRequest: ', this.orderRequest);
           if (this.orderRequest) {
             this.loadMap();
@@ -108,8 +109,8 @@ export class DeliveryAgentsHomePage implements OnInit {
   async loadMap() {
     await this.locationService.getUserCoordinates();
     const latLng = new google.maps.LatLng(
-      this.orderRequest?.deliveryAddress?.latitude,
-      this.orderRequest?.deliveryAddress?.longitude
+      this.orderRequest?.orderDetails.deliveryAddress?.latitude,
+      this.orderRequest?.orderDetails.deliveryAddress?.longitude
     );
 
     const mapOptions = {
@@ -120,8 +121,8 @@ export class DeliveryAgentsHomePage implements OnInit {
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     const customerMarker = {
       position: {
-        lat: this.orderRequest?.deliveryAddress?.latitude,
-        lng: this.orderRequest?.deliveryAddress?.longitude,
+        lat: this.orderRequest?.orderDetails.deliveryAddress?.latitude,
+        lng: this.orderRequest?.orderDetails.deliveryAddress?.longitude,
       },
       type: 'gas',
     };
@@ -132,7 +133,9 @@ export class DeliveryAgentsHomePage implements OnInit {
       },
       type: 'agent',
     };
-    this.markers = [...this.markers, customerMarker, deliveryAgentMarker];
+    this.markers = [customerMarker, deliveryAgentMarker];
+    console.log('this.markers: ', this.markers);
+
     this.markers.forEach((location) => {
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(
@@ -160,7 +163,7 @@ export class DeliveryAgentsHomePage implements OnInit {
   }
 
   showOrderStatus() {
-    switch (this.orderRequest.orderStatus) {
+    switch (this.orderRequest.orderDetails.orderStatus) {
       case 'pending':
         return 'In Transit';
       case 'placed':
@@ -178,7 +181,7 @@ export class DeliveryAgentsHomePage implements OnInit {
     this.commonMethods.presentLoading('Accepting Request...');
     const data: TransactionStateModel = {
       userId: this.authUserData.userDetails.userId || this.authUserData.userId,
-      orderId: this.orderRequest._id,
+      orderId: this.orderRequest.transactionId,
       status: 'accepted',
     };
     this.ordersService.acceptOrderRequest(data).subscribe(
@@ -202,7 +205,7 @@ export class DeliveryAgentsHomePage implements OnInit {
     this.commonMethods.presentLoading('Updating...');
     const data: TransactionStateModel = {
       userId: this.authUserData.userDetails.userId || this.authUserData.userId,
-      orderId: this.orderRequest._id,
+      orderId: this.orderRequest.transactionId,
       status: 'rejected',
     };
     this.ordersService.acceptOrderRequest(data).subscribe(
@@ -250,13 +253,13 @@ export class DeliveryAgentsHomePage implements OnInit {
   }
 
   updateDeliveryStatus() {
-    this.orderRequest = {
-      ...this.orderRequest,
+    const updatedOrder = {
+      ...this.orderRequest.orderDetails,
       orderStatus: 'delivered',
     };
     this.commonMethods.presentLoading('Updating Delivery Status...');
     this.ordersService
-      .update(this.orderRequest?._id, this.orderRequest)
+      .update(this.orderRequest?.transactionId, updatedOrder)
       .subscribe(
         (result) => {
           this.orderRequest = result.data;
