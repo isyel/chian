@@ -15,6 +15,8 @@ export type UserModel = {
   roles: [string];
   avatar?: string;
   location: string;
+  latitude?: number;
+  longitude?: number;
   earnings: EarningsModel;
   emailVerified: string;
   phoneVerified: string;

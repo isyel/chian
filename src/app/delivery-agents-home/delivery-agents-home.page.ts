@@ -31,6 +31,9 @@ export class DeliveryAgentsHomePage implements OnInit {
     agent: {
       icon: 'assets/images/delivery-truck.svg',
     },
+    vendor: {
+      icon: 'assets/images/gas-station.svg',
+    },
   };
   distanceBetween: any;
   accepted: boolean;
@@ -133,7 +136,14 @@ export class DeliveryAgentsHomePage implements OnInit {
       },
       type: 'agent',
     };
-    this.markers = [customerMarker, deliveryAgentMarker];
+    const vendorAgentMarker = {
+      position: {
+        lat: this.orderRequest?.vendorDetails?.latitude,
+        lng: this.orderRequest?.vendorDetails?.longitude,
+      },
+      type: 'vendor',
+    };
+    this.markers = [customerMarker, deliveryAgentMarker, vendorAgentMarker];
     console.log('this.markers: ', this.markers);
 
     this.markers.forEach((location) => {
@@ -167,6 +177,7 @@ export class DeliveryAgentsHomePage implements OnInit {
       case 'pending':
         return 'In Transit';
       case 'placed':
+      case 'created':
         return 'Order Placed';
       case 'received':
         return 'Order Received';
@@ -181,9 +192,9 @@ export class DeliveryAgentsHomePage implements OnInit {
     this.commonMethods.presentLoading('Accepting Request...');
     const data: TransactionStateModel = {
       userId: this.authUserData.userDetails.userId || this.authUserData.userId,
-      orderId: this.orderRequest.transactionId,
-      status: 'accepted',
+      transactionId: this.orderRequest.transationId,
     };
+    console.log('data: ', data);
     this.ordersService.acceptOrderRequest(data).subscribe(
       (result) => {
         this.commonMethods.presentToast(result.message);
@@ -205,9 +216,11 @@ export class DeliveryAgentsHomePage implements OnInit {
     this.commonMethods.presentLoading('Updating...');
     const data: TransactionStateModel = {
       userId: this.authUserData.userDetails.userId || this.authUserData.userId,
-      orderId: this.orderRequest.transactionId,
+      transactionId: this.orderRequest.transationId,
       status: 'rejected',
     };
+    console.log('data: ', data);
+
     this.ordersService.acceptOrderRequest(data).subscribe(
       (result) => {
         this.commonMethods.presentToast(result.message);
@@ -259,11 +272,12 @@ export class DeliveryAgentsHomePage implements OnInit {
     };
     this.commonMethods.presentLoading('Updating Delivery Status...');
     this.ordersService
-      .update(this.orderRequest?.transactionId, updatedOrder)
+      .update(this.orderRequest?.transationId, updatedOrder)
       .subscribe(
         (result) => {
           this.orderRequest = result.data;
           this.delivered = true;
+          this.getPendingOrder();
           this.commonMethods.dismissLoader();
         },
         (error) => {

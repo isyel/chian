@@ -5,6 +5,7 @@ import { UserModel } from './UserModel';
 
 export type TransactionModel = {
   transactionId: string;
+  transationId: string;
   agentDetails: UserModel;
   clientDetails: UserModel;
   orderDetails: OrderModel;

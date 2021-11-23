@@ -118,7 +118,7 @@ export class OrdersService {
    * @memberof OrdersService
    */
   public acceptOrderRequest(data: TransactionStateModel) {
-    this.service.setActionUrl(this.transactionStateUrl, `accept`);
+    this.service.setActionUrl(this.transactionStateUrl, `assigned/accept`);
     return this.service.updateStatus<ResultModel>(data);
   }
 
@@ -130,7 +130,7 @@ export class OrdersService {
    * @memberof OrdersService
    */
   public rejectOrderRequest(data: TransactionStateModel) {
-    this.service.setActionUrl(this.transactionStateUrl, `reject`);
+    this.service.setActionUrl(this.transactionStateUrl, `assigned/reject`);
     return this.service.updateStatus<ResultModel>(data);
   }
 
