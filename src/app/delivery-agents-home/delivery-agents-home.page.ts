@@ -8,6 +8,7 @@ import { TransactionStateModel } from '../models/TransactionStateModel';
 import { AuthDataModel } from '../models/UserModel';
 import { LocationService } from '../services/location/location.service';
 import { OrdersService } from '../services/orders/orders.service';
+import { TransactionsService } from '../services/transactions/transactions.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
 
@@ -41,6 +42,7 @@ export class DeliveryAgentsHomePage implements OnInit {
 
   constructor(
     private locationService: LocationService,
+    private transactionsService: TransactionsService,
     private ordersService: OrdersService,
     private userData: UserData,
     private commonMethods: CommonMethods,
@@ -58,7 +60,7 @@ export class DeliveryAgentsHomePage implements OnInit {
   }
 
   loadOrderRequest() {
-    this.ordersService
+    this.transactionsService
       .getOrderBeingFulfilled(
         this.authUserData.userDetails?.userId || this.authUserData.userId
       )
@@ -85,7 +87,7 @@ export class DeliveryAgentsHomePage implements OnInit {
   }
 
   getPendingOrder() {
-    this.ordersService
+    this.transactionsService
       .getPending(
         this.authUserData.userDetails?.userId || this.authUserData.userId
       )
@@ -195,7 +197,7 @@ export class DeliveryAgentsHomePage implements OnInit {
       transactionId: this.orderRequest.transationId,
     };
     console.log('data: ', data);
-    this.ordersService.acceptOrderRequest(data).subscribe(
+    this.transactionsService.acceptOrderRequest(data).subscribe(
       (result) => {
         this.commonMethods.presentToast(result.message);
         this.accepted = true;
@@ -221,7 +223,7 @@ export class DeliveryAgentsHomePage implements OnInit {
     };
     console.log('data: ', data);
 
-    this.ordersService.acceptOrderRequest(data).subscribe(
+    this.transactionsService.acceptOrderRequest(data).subscribe(
       (result) => {
         this.commonMethods.presentToast(result.message);
         this.orderRequest = null;

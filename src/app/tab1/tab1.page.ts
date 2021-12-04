@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { OrderModel } from '../models/OrderModel';
+import { TransactionModel } from '../models/TransactionModel';
 import { AuthDataModel, UserModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
-import { OrdersService } from '../services/orders/orders.service';
+import { TransactionsService } from '../services/transactions/transactions.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
 
@@ -14,7 +15,7 @@ import { CommonMethods } from '../util/common';
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page implements OnInit {
-  recentOrders: OrderModel[];
+  recentOrders: TransactionModel[];
   authData: AuthDataModel;
   userDetails: UserModel;
   pendingOrder: OrderModel;
@@ -24,7 +25,7 @@ export class Tab1Page implements OnInit {
     public modalController: ModalController,
     private router: Router,
     public commonMethods: CommonMethods,
-    private ordersService: OrdersService,
+    private transactionsService: TransactionsService,
     private userData: UserData,
     private navParamService: NavparamService
   ) {}
@@ -62,8 +63,8 @@ export class Tab1Page implements OnInit {
     this.router.navigate(['/payment']);
   }
 
-  viewDetails(order: OrderModel) {
-    this.navParamService.navData = order;
+  viewDetails(transaction: TransactionModel) {
+    this.navParamService.navData = transaction;
     this.router.navigate(['/order-details']);
   }
 
@@ -75,11 +76,13 @@ export class Tab1Page implements OnInit {
 
   getRecentOrders() {
     // eslint-disable-next-line no-underscore-dangle
-    this.ordersService
+    this.transactionsService
       .getHistory(this.authData?.userDetails.userId || this.authData?.userId)
       .subscribe(
         (result) => {
           this.recentOrders = result.order?.data?.slice(0, 3);
+          console.log('this.recentOrders: ', this.recentOrders);
+
           this.userData.setOrderHistory(result.order.data);
         },
         (error) => {

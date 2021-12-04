@@ -39,7 +39,7 @@ export class CartPage implements OnInit {
   getPendingOrder() {
     // eslint-disable-next-line no-underscore-dangle
     this.ordersService
-      .getPending(
+      .getOne(
         this.userProfileData?._id ||
           this.authData.userId ||
           this.authData.userDetails.userId

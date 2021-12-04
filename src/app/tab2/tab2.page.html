@@ -40,11 +40,11 @@
         <app-order-item
           (handleClick)="viewDetails(order)"
           *ngFor="let order of todayOrders"
-          [name]="order.orderItems[0].options.name"
-          [price]="order.totalPrice"
-          [itemId]="order.orderItems[0].options._id"
-          [size]="order.orderItems[0].options.size"
-          [quantity]="order.orderItems[0].quantity"
+          [name]="order.orderDetails?.orderItems[0].options.name"
+          [price]="order.transactionAmount"
+          [itemId]="order.orderDetails?.orderItems[0].options._id"
+          [size]="order.orderDetails?.orderItems[0].options.size"
+          [quantity]="order.orderDetails?.orderItems[0].quantity"
         ></app-order-item>
       </div>
       <div *ngIf="ordersHistory?.length > 0">
@@ -52,11 +52,11 @@
         <app-order-item
           (handleClick)="viewDetails(order)"
           *ngFor="let order of ordersHistory"
-          [name]="order.orderItems[0].options.name"
-          [price]="order.totalPrice"
-          [itemId]="order.orderItems[0].options._id"
-          [size]="order.orderItems[0].options.size"
-          [quantity]="order.orderItems[0].quantity"
+          [name]="order.orderDetails?.orderItems[0].options.name"
+          [price]="order.transactionAmount"
+          [itemId]="order.orderDetails?.orderItems[0].options._id"
+          [size]="order.orderDetails?.orderItems[0].options.size"
+          [quantity]="order.orderDetails?.orderItems[0].quantity"
         ></app-order-item>
       </div>
 

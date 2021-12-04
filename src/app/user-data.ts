@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NotificationModel } from './models/NotificationModel';
 import { OptionsModel } from './models/OptionsModel';
 import { OrderModel, OrderModelPayload } from './models/OrderModel';
+import { TransactionModel } from './models/TransactionModel';
 import { AuthDataModel, UserModel } from './models/UserModel';
 import { StorageService } from './services/storage.service';
 
@@ -68,11 +69,11 @@ export class UserData {
     return await this.storageService.set(this.options, options);
   }
 
-  async getOrderHistory(): Promise<OrderModel[]> {
+  async getOrderHistory(): Promise<TransactionModel[]> {
     return await this.storageService.get(this.orderHistory);
   }
 
-  async setOrderHistory(orderHistory: OrderModel[]) {
+  async setOrderHistory(orderHistory: TransactionModel[]) {
     return await this.storageService.set(this.orderHistory, orderHistory);
   }
 

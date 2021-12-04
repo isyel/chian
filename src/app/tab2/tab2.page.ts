@@ -3,9 +3,10 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderModel } from '../models/OrderModel';
+import { TransactionModel } from '../models/TransactionModel';
 import { AuthDataModel, UserModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
-import { OrdersService } from '../services/orders/orders.service';
+import { TransactionsService } from '../services/transactions/transactions.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
 
@@ -16,16 +17,16 @@ import { CommonMethods } from '../util/common';
 })
 export class Tab2Page implements OnInit, OnDestroy {
   activeTab = 0;
-  todayOrders: OrderModel[];
-  ordersHistory: OrderModel[];
-  rawOrdersHistory: OrderModel[];
+  todayOrders: TransactionModel[];
+  ordersHistory: TransactionModel[];
+  rawOrdersHistory: TransactionModel[];
   authData: AuthDataModel;
   searchFilter = null;
 
   constructor(
     private router: Router,
     public commonMethods: CommonMethods,
-    private ordersService: OrdersService,
+    private transactionsService: TransactionsService,
     private userData: UserData,
     private navParamService: NavparamService
   ) {}
@@ -67,7 +68,7 @@ export class Tab2Page implements OnInit, OnDestroy {
 
   getOrderHistory(userId) {
     // eslint-disable-next-line no-underscore-dangle
-    this.ordersService.getHistory(userId).subscribe(
+    this.transactionsService.getHistory(userId).subscribe(
       (result) => {
         if (this.ordersHistory?.length !== result.order?.data?.length) {
           this.ordersHistory = this.rawOrdersHistory = result.order.data;
@@ -86,7 +87,7 @@ export class Tab2Page implements OnInit, OnDestroy {
   }
 
   getDeliveryHistory(userId) {
-    this.ordersService.getAcceptedOrders(userId).subscribe(
+    this.transactionsService.getAcceptedOrders(userId).subscribe(
       (result) => {
         if (this.ordersHistory?.length !== result.data?.length) {
           this.ordersHistory = this.rawOrdersHistory = result.data.data;
@@ -106,11 +107,11 @@ export class Tab2Page implements OnInit, OnDestroy {
 
   filterOrders() {
     this.ordersHistory = this.rawOrdersHistory.filter((order) =>
-      order.orderItems[0].options.name.includes(this.searchFilter)
+      order.orderDetails.orderItems[0].options.name.includes(this.searchFilter)
     );
   }
 
-  viewDetails(order: OrderModel) {
+  viewDetails(order: TransactionModel) {
     this.navParamService.navData = order;
     this.router.navigate(['/order-details']);
   }

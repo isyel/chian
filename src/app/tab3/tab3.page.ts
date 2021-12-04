@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { OrderModel } from '../models/OrderModel';
+import { TransactionModel } from '../models/TransactionModel';
 import { AuthDataModel, UserModel } from '../models/UserModel';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { PhotoService } from '../services/photo/photo.service';
@@ -17,7 +18,7 @@ import { CommonMethods } from '../util/common';
 export class Tab3Page implements OnInit {
   userProfileData: UserModel | any;
   authData: AuthDataModel;
-  orderHistory: OrderModel[];
+  orderHistory: TransactionModel[];
   noOfOrders: string | number;
 
   constructor(
