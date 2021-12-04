@@ -80,10 +80,10 @@ export class Tab1Page implements OnInit {
       .getHistory(this.authData?.userDetails.userId || this.authData?.userId)
       .subscribe(
         (result) => {
-          this.recentOrders = result.order?.data?.slice(0, 3);
-          console.log('this.recentOrders: ', this.recentOrders);
+          console.log('result from server: ', result);
+          this.recentOrders = result?.data?.data?.slice(0, 3);
 
-          this.userData.setOrderHistory(result.order.data);
+          this.userData.setOrderHistory(result.data);
         },
         (error) => {
           console.error(error);
