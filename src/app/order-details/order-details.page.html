@@ -9,17 +9,17 @@
 
   <div class="ion-margin-vertical ion-padding order-details">
     <div class="order-details__invoice">
-      <strong>Invoice: </strong> {{orderDetails._id}}
+      <strong>Invoice: </strong> {{order.transationId}}
     </div>
     <p>
-      {{orderDetails?.orderItems[0].options.name}} at
-      {{orderDetails?.deliveryAddress.street}}
+      {{order?.orderDetails?.orderItems[0].options.name}} at
+      {{order?.shippingDetails?.deliveryAddress.street}}
     </p>
     <div class="ion-padding-bottom">
       <strong>Payment Method: </strong> {{showPaymentMethod()}}
       <ion-text
-        [color]="orderDetails.paymentStatus === 'pending' ? 'danger' : 'success'"
-        >({{orderDetails.paymentStatus}})</ion-text
+        [color]="order.paymentDetails?.paymentStatus === 'pending' ? 'danger' : 'success'"
+        >({{order.paymentDetails?.paymentStatus}})</ion-text
       >
     </div>
     <div class="order-details__status ion-padding-vertical">
@@ -30,21 +30,24 @@
         >
       </div>
       <div class="order-details__status__time ion-text-right">
-        <ion-text>{{orderDetails?.updatedAt | date:'shortTime'}}</ion-text
+        <ion-text
+          >{{order?.orderDetails?.updatedAt | date:'shortTime'}}</ion-text
         ><br />
-        <ion-text>{{orderDetails?.updatedAt | date:'mediumDate'}}</ion-text>
+        <ion-text
+          >{{order?.orderDetails?.updatedAt | date:'mediumDate'}}</ion-text
+        >
       </div>
     </div>
     <div class="order-details__pricing ion-padding-top">
       <ion-text
         ><strong
-          >{{orderDetails?.orderItems[0].quantity}} of
-          {{orderDetails?.orderItems[0].options.size}}kg</strong
+          >{{order?.orderDetails?.orderItems[0].quantity}} of
+          {{order?.orderDetails?.orderItems[0].options.size}}kg</strong
         ></ion-text
       >
       <ion-text color="secondary"
         ><strong
-          >{{orderDetails?.totalPrice | currency:
+          >{{order?.orderDetails?.totalPrice | currency:
           "₦":"symbol-narrow":"1.0-0"}}</strong
         ></ion-text
       >
@@ -75,14 +78,14 @@
       </div>
       <div class="order-details__deliveryStatus__middle__date">
         <ion-text class="order-details__deliveryStatus__date__time"
-          >{{orderDetails.updatedAt | date:'shortTime'}}</ion-text
+          >{{order.updatedAt | date:'shortTime'}}</ion-text
         >
-        <ion-text>{{orderDetails.updatedAt | date:'mediumDate'}}</ion-text>
+        <ion-text>{{order.updatedAt | date:'mediumDate'}}</ion-text>
       </div>
 
       <div class="order-details__deliveryStatus__item">
         <div
-          class="order-details__deliveryStatus__icon {{orderDetails.paymentType==='payOnDelivery' ? 'icon-active' : getActiveIcon(2)}}"
+          class="order-details__deliveryStatus__icon {{order.paymentDetails?.paymentMethod ==='payOnDelivery' ? 'icon-active' : getActiveIcon(2)}}"
         >
           <ion-icon name="checkmark-done-outline"></ion-icon>
         </div>

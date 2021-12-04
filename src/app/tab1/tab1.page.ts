@@ -82,8 +82,7 @@ export class Tab1Page implements OnInit {
         (result) => {
           console.log('result from server: ', result);
           this.recentOrders = result?.data?.data?.slice(0, 3);
-
-          this.userData.setOrderHistory(result.data);
+          this.userData.setOrderHistory(this.recentOrders);
         },
         (error) => {
           console.error(error);

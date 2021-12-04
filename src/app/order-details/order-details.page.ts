@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { OrderStatusEnum } from '../models/enums/OrderStatusEnum';
 import { OrderModel } from '../models/OrderModel';
+import { TransactionModel } from '../models/TransactionModel';
 import { AuthDataModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { OrdersService } from '../services/orders/orders.service';
@@ -15,7 +16,7 @@ import { CommonMethods } from '../util/common';
   styleUrls: ['./order-details.page.scss'],
 })
 export class OrderDetailsPage implements OnInit {
-  orderDetails: OrderModel;
+  order: TransactionModel;
   authData: AuthDataModel;
   isDeliveryAgent: boolean;
 
@@ -28,23 +29,24 @@ export class OrderDetailsPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.orderDetails = this.navParamService.navData || {};
+    this.order = this.navParamService.navData || {};
     this.authData = await this.userData.getAuthorizationData();
     this.isDeliveryAgent =
       this.authData.userDetails.roles[0] !== 'Delivery Agent';
   }
 
   getActiveIcon(defaultValue: number) {
-    return OrderStatusEnum[this.orderDetails.orderStatus] >= defaultValue
+    return OrderStatusEnum[this.order.orderDetails?.orderStatus] > defaultValue
       ? 'icon-enabled'
-      : OrderStatusEnum[this.orderDetails.orderStatus] === defaultValue
+      : OrderStatusEnum[this.order.orderDetails?.orderStatus] === defaultValue
       ? 'icon-active'
       : 'icon-disabled';
   }
 
   showOrderStatus() {
-    switch (this.orderDetails.orderStatus) {
+    switch (this.order.orderDetails?.orderStatus) {
       case 'pending':
+        return 'In Transit';
       case 'received':
         return 'Order Received';
       case 'placed':
@@ -58,7 +60,7 @@ export class OrderDetailsPage implements OnInit {
   }
 
   showPaymentMethod() {
-    switch (this.orderDetails.paymentType) {
+    switch (this.order?.paymentDetails?.paymentMethod) {
       case 'payOnDelivery':
         return 'Pay On Delivery';
       case 'payWithCard':
@@ -96,27 +98,25 @@ export class OrderDetailsPage implements OnInit {
   }
 
   updateDeliveryStatus() {
-    this.orderDetails = {
-      ...this.orderDetails,
+    const orderPayload: OrderModel = {
+      ...this.order.orderDetails,
       orderStatus: 'delivered',
     };
     this.commonMethods.presentLoading('Updating Delivery Status...');
-    this.ordersService
-      .update(this.orderDetails?._id, this.orderDetails)
-      .subscribe(
-        (result) => {
-          this.orderDetails = result.data;
-          this.orderDetails.orderStatus = 'delivered';
-          this.commonMethods.dismissLoader();
-        },
-        (error) => {
-          console.error(error);
-          this.commonMethods.presentToast(
-            error.message || 'Network or Server Error',
-            false
-          );
-          this.commonMethods.dismissLoader();
-        }
-      );
+    this.ordersService.update(this.order?._id, orderPayload).subscribe(
+      (result) => {
+        this.order = result.data;
+        this.order.orderDetails.orderStatus = 'delivered';
+        this.commonMethods.dismissLoader();
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast(
+          error.message || 'Network or Server Error',
+          false
+        );
+        this.commonMethods.dismissLoader();
+      }
+    );
   }
 }
