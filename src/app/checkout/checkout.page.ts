@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderModelPayload } from '../models/OrderModel';
+import { OrderModelPayload, ShippingPayloadModel } from '../models/OrderModel';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { NavController } from '@ionic/angular';
 import { LocationService } from '../services/location/location.service';
@@ -17,6 +17,7 @@ import { AddressModel } from '../models/AddressModel';
 })
 export class CheckoutPage implements OnInit {
   order: OrderModelPayload;
+  shippingDetails: ShippingPayloadModel;
   addressEditMode = false;
   deliveryPrice = 2000;
   totalPrice: number;
@@ -81,8 +82,8 @@ export class CheckoutPage implements OnInit {
   }
 
   updateAddress() {
-    this.handleEditAddress();
     this.locationService.forwardGeocode();
+    this.handleEditAddress();
   }
 
   removeFromCart() {
@@ -103,44 +104,66 @@ export class CheckoutPage implements OnInit {
     );
   }
 
-  goToCheckout() {
-    this.order = {
-      ...this.order,
-      street: this.locationService.fullAddress || this.order.street || '',
-      latitude:
-        this.locationService.userCoordinates?.latitude ||
-        this.order.latitude ||
-        0,
-      longitude:
-        this.locationService.userCoordinates?.longitude ||
-        this.order.longitude ||
-        0,
-      state:
-        this.locationService.userLocationFromLatLng?.administrativeArea ||
-        this.order.state ||
-        '',
-      city:
-        this.locationService.userLocationFromLatLng?.subAdministrativeArea ||
-        this.order.city ||
-        '',
-      postalCode:
-        this.locationService.userLocationFromLatLng?.postalCode ||
-        this.order.postalCode ||
-        '',
-      deliveryPrice: this.deliveryPrice,
-    };
-    console.log('this.order in checkout: ', this.order);
-    this.placeOrder();
-  }
-
   placeOrder() {
     this.commonMethods.presentLoading();
     this.ordersService.create(this.order).subscribe(
       (result) => {
+        this.userData.setPendingOrder(result.data);
+        console.log('Result of creating order: ', result.data);
+        // eslint-disable-next-line no-underscore-dangle
+        this.addShippingDetails(result.data._id);
+      },
+      (error) => {
+        console.error(error);
+        this.commonMethods.presentToast(
+          error.message || 'Network or Server Error',
+          false
+        );
+        this.commonMethods.dismissLoader();
+      }
+    );
+  }
+
+  async addShippingDetails(orderId) {
+    const authData = await this.userData.getAuthorizationData();
+    this.shippingDetails = {
+      orderId,
+      userId: authData.userDetails?.userId || authData.userId,
+      address: {
+        street: this.locationService.fullAddress || this.order.street || '',
+        state:
+          this.locationService.userLocationFromLatLng?.administrativeArea ||
+          this.order.state ||
+          '',
+        city:
+          this.locationService.userLocationFromLatLng?.subAdministrativeArea ||
+          this.order.city ||
+          '',
+        latitude:
+          this.locationService.userCoordinates?.latitude ||
+          this.order.latitude ||
+          0,
+        longitude:
+          this.locationService.userCoordinates?.longitude ||
+          this.order.longitude ||
+          0,
+        postalCode:
+          this.locationService.userLocationFromLatLng?.postalCode ||
+          this.order.postalCode ||
+          '',
+      },
+      deliveryPrice: this.deliveryPrice,
+      quantity: this.order.orderItems.length,
+    };
+    this.ordersService.createShipping(this.shippingDetails).subscribe(
+      (result) => {
         this.commonMethods.dismissLoader();
         this.commonMethods.presentToast('Order Placed, Continue to payment');
-        this.userData.setPendingOrder(result.data);
-        this.navParamService.navData = result.data;
+        const shippingInfo: ShippingPayloadModel = {
+          ...result.data,
+          amount: this.totalPrice,
+        };
+        this.navParamService.navData = shippingInfo;
         this.router.navigate(['/payment']);
       },
       (error) => {

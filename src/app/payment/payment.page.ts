@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaystackOptions } from 'angular4-paystack';
-import { OrderModel } from '../models/OrderModel';
+import { OrderModel, ShippingPayloadModel } from '../models/OrderModel';
 import { PaymentModel } from '../models/PaymentModel';
 import { AuthDataModel, UserModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
@@ -24,7 +24,7 @@ type PaystackRefModel = {
   styleUrls: ['./payment.page.scss'],
 })
 export class PaymentPage implements OnInit {
-  order: OrderModel;
+  order: ShippingPayloadModel;
   userDetails: UserModel;
   publicKey = 'pk_test_99174bdc94618967e07f45a39877eb33e54c6545';
   options: PaystackOptions;
@@ -49,21 +49,25 @@ export class PaymentPage implements OnInit {
 
   ionViewDidEnter() {
     this.order = this.navParamService.navData;
+    this.payment = {
+      userId: this.order?.userId,
+      orderId: this.order?.orderId,
+      shippingId: this.order._id,
+      amount: this.order?.amount,
+      fromAdmin: false,
+    };
     this.options = {
-      amount: this.order?.totalPrice * 100,
+      amount: this.payment?.amount * 100,
       email:
         this.userDetails?.email ||
         this.authData?.userDetails?.email ||
         this.authData?.email,
-      ref: `${this.order?._id}-${Math.ceil(Math.random() * 1000)}`,
+      ref: `${this.order?.orderId}-${Math.ceil(Math.random() * 1000)}`,
     };
-
-    // console.log('this.order: ', this.order);
-    // console.log('this.options: ', this.options);
   }
 
   paymentInit() {
-    this.updateOrder('payWithCard');
+    console.log('Card payment initialized');
   }
 
   paymentCancel() {
@@ -75,17 +79,10 @@ export class PaymentPage implements OnInit {
   paymentDone(result: PaystackRefModel | any) {
     console.log('Payment result: ', result);
     this.payment = {
-      userId:
-        this.userDetails?._id ||
-        this.authData?.userDetails?.userId ||
-        this.authData?.userId,
-      orderId: this.order?._id,
+      ...this.payment,
       reference: result.reference,
-      transactionId: result.transaction,
-      amount: this.order?.totalPrice,
       paymentChannel: 'Paystack',
-      paymentMethod: 'card',
-      fromAdmin: false,
+      paymentMethod: 'payWithCard',
     };
     if (result.status === 'success' && result.message === 'Approved') {
       this.payment = { ...this.payment, paymentStatus: result.status };
@@ -121,27 +118,12 @@ export class PaymentPage implements OnInit {
     this.router.navigate(['/success']);
   }
 
-  updateOrder(paymentType: string) {
-    this.order = {
-      ...this.order,
-      paymentType,
+  useCashOnDelivery(paymentMethod: string) {
+    this.payment = {
+      ...this.payment,
+      paymentMethod,
     };
 
-    this.ordersService.update(this.order?._id, this.order).subscribe(
-      (result) => {
-        this.order = result.data;
-        if (paymentType === 'payOnDelivery') {
-          this.userData.setPendingOrder(null);
-          this.completePayment();
-        }
-      },
-      (error) => {
-        console.error(error);
-        this.commonMethods.presentToast(
-          error.message || 'Network or Server Error',
-          false
-        );
-      }
-    );
+    this.makePayment();
   }
 }

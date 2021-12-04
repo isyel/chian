@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { LoginModel, RegisterModel } from '../models/AuthModel';
+import { AuthDataModel } from '../models/UserModel';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { NavparamService } from '../services/navparam/navparam.service';
 import { UserData } from '../user-data';
@@ -75,7 +76,10 @@ export class AuthenticationPage implements OnInit {
       async (result) => {
         this.commonMethods.dismissLoader();
         if (result.status) {
-          await this.userData.setAuthorizationData(result.data);
+          const authData = {
+            userDetails: result.data,
+          };
+          await this.userData.setAuthorizationData(authData);
           if (this.userType === 'User') {
             this.navController.navigateRoot('/tabs/tab1');
           } else {

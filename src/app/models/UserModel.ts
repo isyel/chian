@@ -23,8 +23,8 @@ export type UserModel = {
 } & BaseModel;
 
 export type AuthDataModel = {
-  session: string;
-  isAuthenticated: boolean;
+  session?: string;
+  isAuthenticated?: boolean;
   userDetails: {
     userId: string;
     name: string;
@@ -34,11 +34,11 @@ export type AuthDataModel = {
     userName: string;
     roles: [string];
   };
-  userId: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  verificationStatus: boolean;
-  userName: string;
-  roles: [string];
+  userId?: string;
+  name?: string;
+  email?: string;
+  phoneNumber?: string;
+  verificationStatus?: boolean;
+  userName?: string;
+  roles?: [string];
 };

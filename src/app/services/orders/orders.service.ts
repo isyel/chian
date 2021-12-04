@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { OrderModel, OrderModelPayload } from 'src/app/models/OrderModel';
+import {
+  OrderModel,
+  OrderModelPayload,
+  ShippingPayloadModel,
+} from 'src/app/models/OrderModel';
 import { ResultModel } from 'src/app/models/ResultModel';
 import { TransactionStateModel } from 'src/app/models/TransactionStateModel';
 import { BaseServiceService } from '../base-service.service';
@@ -9,6 +13,7 @@ import { BaseServiceService } from '../base-service.service';
 })
 export class OrdersService {
   actionUrl = 'api/orders/';
+  shippingUrl = 'api/shipping/';
   transactionStateUrl = 'api/transactionstate/';
   transactionUrl = 'api/transaction/';
 
@@ -72,6 +77,18 @@ export class OrdersService {
   public getHistory(userId: string) {
     this.service.setActionUrl(this.actionUrl, 'user/');
     return this.service.getById<ResultModel>(userId);
+  }
+
+  /**
+   * Create Shipping Details
+   *
+   * @param payload
+   * @returns OrderModel
+   * @memberof OrdersService
+   */
+  public createShipping(payload: ShippingPayloadModel) {
+    this.service.setActionUrl(this.shippingUrl);
+    return this.service.post<any>(payload);
   }
 
   /**
