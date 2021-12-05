@@ -46,16 +46,19 @@ export class OrderDetailsPage implements OnInit {
   showOrderStatus() {
     switch (this.order.orderDetails?.orderStatus) {
       case 'pending':
+      case 'accepted':
         return 'In Transit';
-      case 'received':
-        return 'Order Received';
       case 'placed':
-      case 'created':
         return 'Order Placed';
+      case 'created':
+        return 'Order Received';
       case 'delivered':
         return 'Delivered';
+      case 'cancelled':
+        return 'Order Cancelled';
+      case 'assigned':
       default:
-        break;
+        return 'Order Processing';
     }
   }
 

@@ -1,7 +1,8 @@
 export enum OrderStatusEnum {
   created,
-  placed,
-  received,
+  assigned,
+  accepted,
   pending,
   delivered,
+  cancelled,
 }

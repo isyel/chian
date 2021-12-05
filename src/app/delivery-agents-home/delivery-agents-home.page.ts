@@ -66,10 +66,9 @@ export class DeliveryAgentsHomePage implements OnInit {
       )
       .subscribe(
         (result) => {
-          if (result.data) {
+          if (result.status) {
             this.accepted = true;
-            this.orderRequest = result.data;
-            console.log('orderRequest being fulfilled: ', this.orderRequest);
+            this.orderRequest = result.order;
             if (this.orderRequest) {
               this.loadMap();
             }
@@ -114,8 +113,8 @@ export class DeliveryAgentsHomePage implements OnInit {
   async loadMap() {
     await this.locationService.getUserCoordinates();
     const latLng = new google.maps.LatLng(
-      this.orderRequest?.orderDetails.deliveryAddress?.latitude,
-      this.orderRequest?.orderDetails.deliveryAddress?.longitude
+      this.orderRequest?.shippingDetails.deliveryAddress?.latitude,
+      this.orderRequest?.shippingDetails.deliveryAddress?.longitude
     );
 
     const mapOptions = {
@@ -126,8 +125,8 @@ export class DeliveryAgentsHomePage implements OnInit {
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     const customerMarker = {
       position: {
-        lat: this.orderRequest?.orderDetails.deliveryAddress?.latitude,
-        lng: this.orderRequest?.orderDetails.deliveryAddress?.longitude,
+        lat: this.orderRequest?.shippingDetails.deliveryAddress?.latitude,
+        lng: this.orderRequest?.shippingDetails.deliveryAddress?.longitude,
       },
       type: 'gas',
     };

@@ -3,4 +3,5 @@ export enum DeliveryStatusEnum {
   'picked-up',
   'in-trasit',
   delivered,
+  returned,
 }

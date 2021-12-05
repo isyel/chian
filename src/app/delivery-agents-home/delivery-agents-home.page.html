@@ -20,7 +20,7 @@
         <strong class="orderRequest__details__label"
           >New refill request at:</strong
         >
-        <div>{{orderRequest?.orderDetails.deliveryAddress?.street}}</div>
+        <div>{{orderRequest?.shippingDetails.deliveryAddress?.street}}</div>
       </div>
 
       <div>
@@ -58,7 +58,7 @@
           color="primary"
           (click)="markDelivered()"
         >
-          <span>Mark Delivered</span>
+          <span>Mark as Delivered</span>
         </ion-button>
       </div>
     </div>

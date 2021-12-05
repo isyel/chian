@@ -85,16 +85,16 @@
 
       <div class="order-details__deliveryStatus__item">
         <div
-          class="order-details__deliveryStatus__icon {{order.paymentDetails?.paymentMethod ==='payOnDelivery' ? 'icon-active' : getActiveIcon(2)}}"
+          class="order-details__deliveryStatus__icon {{order.paymentDetails?.paymentMethod ==='payOnDelivery' ? 'icon-enabled' : getActiveIcon(1)}}"
         >
           <ion-icon name="checkmark-done-outline"></ion-icon>
         </div>
 
-        <ion-text class="ion-text-center"> Order<br />Received</ion-text>
+        <ion-text class="ion-text-center"> Order<br />Processing</ion-text>
       </div>
     </div>
     <div class="order-details__deliveryStatus__bottom ion-text-center">
-      <div class="order-details__deliveryStatus__icon {{getActiveIcon(3)}}">
+      <div class="order-details__deliveryStatus__icon {{getActiveIcon(2)}}">
         <ion-icon name="timer-outline"></ion-icon>
       </div>
       <ion-text>In Transit</ion-text>
