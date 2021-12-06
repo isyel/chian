@@ -174,18 +174,21 @@ export class DeliveryAgentsHomePage implements OnInit {
   }
 
   showOrderStatus() {
-    switch (this.orderRequest.orderDetails.orderStatus) {
+    switch (this.orderRequest.orderDetails?.orderStatus) {
       case 'pending':
+      case 'accepted':
         return 'In Transit';
       case 'placed':
-      case 'created':
         return 'Order Placed';
-      case 'received':
+      case 'created':
         return 'Order Received';
       case 'delivered':
         return 'Delivered';
+      case 'cancelled':
+        return 'Order Cancelled';
+      case 'assigned':
       default:
-        break;
+        return 'Order Processing';
     }
   }
 
@@ -272,12 +275,13 @@ export class DeliveryAgentsHomePage implements OnInit {
       orderStatus: 'delivered',
     };
     this.commonMethods.presentLoading('Updating Delivery Status...');
-    this.ordersService
-      .update(this.orderRequest?.transationId, updatedOrder)
+    this.transactionsService
+      .markAsDelivered(this.orderRequest?.transationId)
       .subscribe(
         (result) => {
-          this.orderRequest = result.data;
-          this.delivered = true;
+          this.commonMethods.presentToast(result.message);
+          this.orderRequest = null;
+          this.delivered = result.status;
           this.getPendingOrder();
           this.commonMethods.dismissLoader();
         },

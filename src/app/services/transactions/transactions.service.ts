@@ -96,4 +96,16 @@ export class TransactionsService {
     this.service.setActionUrl(this.transactionStateUrl, `assigned/reject`);
     return this.service.updateStatus<ResultModel>(data);
   }
+
+  /**
+   * Mark Delivered
+   *
+   * @param data
+   * @returns ResultModel
+   * @memberof TransactionsService
+   */
+  public markAsDelivered(transactionId: string) {
+    this.service.setActionUrl(this.transactionStateUrl);
+    return this.service.update<ResultModel>(transactionId, {});
+  }
 }
