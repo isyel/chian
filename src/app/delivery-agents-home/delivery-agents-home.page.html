@@ -12,9 +12,9 @@
   <div
     #map
     id="map"
-    [class]="orderRequest && !delivered ? 'orderRequest__map' :'orderRequest__noMap'"
+    [class]="orderRequest ? 'orderRequest__map' :'orderRequest__noMap'"
   ></div>
-  <div class="orderRequest" *ngIf="orderRequest && !delivered ">
+  <div class="orderRequest" *ngIf="orderRequest">
     <div class="orderRequest__details">
       <div>
         <strong class="orderRequest__details__label"
@@ -63,17 +63,14 @@
       </div>
     </div>
   </div>
-  <div
-    *ngIf="delivered || !this.orderRequest"
-    class="orderRequest__noRequest ion-margin"
-  >
+  <div *ngIf="!this.orderRequest" class="orderRequest__noRequest ion-margin">
     <ion-img
       class="orderRequest__noRequest__image ion-padding-vertical"
       src="assets/images/delivery-truck.svg"
     ></ion-img>
     <div class="ion-padding-vertical ion-text-center">
       <ion-text color="primary"
-        >No Order Assigned. <br />Awaiting Order Request...</ion-text
+        >No Order Assigned. <br /><br />Awaiting Order Request...</ion-text
       >
     </div>
 

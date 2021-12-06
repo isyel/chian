@@ -2,12 +2,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { OrderModel } from '../models/OrderModel';
 import { TransactionModel } from '../models/TransactionModel';
 import { TransactionStateModel } from '../models/TransactionStateModel';
 import { AuthDataModel } from '../models/UserModel';
 import { LocationService } from '../services/location/location.service';
-import { OrdersService } from '../services/orders/orders.service';
 import { TransactionsService } from '../services/transactions/transactions.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
@@ -38,12 +36,10 @@ export class DeliveryAgentsHomePage implements OnInit {
   };
   distanceBetween: any;
   accepted: boolean;
-  delivered: boolean;
 
   constructor(
     private locationService: LocationService,
     private transactionsService: TransactionsService,
-    private ordersService: OrdersService,
     private userData: UserData,
     private commonMethods: CommonMethods,
     public alertController: AlertController,
@@ -281,7 +277,6 @@ export class DeliveryAgentsHomePage implements OnInit {
         (result) => {
           this.commonMethods.presentToast(result.message);
           this.orderRequest = null;
-          this.delivered = result.status;
           this.getPendingOrder();
           this.commonMethods.dismissLoader();
         },
