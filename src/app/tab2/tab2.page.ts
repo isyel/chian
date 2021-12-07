@@ -89,7 +89,7 @@ export class Tab2Page implements OnInit, OnDestroy {
   getDeliveryHistory(userId) {
     this.transactionsService.getAcceptedOrders(userId).subscribe(
       (result) => {
-        if (this.ordersHistory?.length !== result.data?.length) {
+        if (result.status && result.data.data.length) {
           this.ordersHistory = this.rawOrdersHistory = result.data.data;
         }
 

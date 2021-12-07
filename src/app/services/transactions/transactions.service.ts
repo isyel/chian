@@ -69,7 +69,7 @@ export class TransactionsService {
    * @memberof TransactionsService
    */
   public getAcceptedOrders(userId: string) {
-    this.service.setActionUrl(this.transactionStateUrl, `${userId}/accepted`);
+    this.service.setActionUrl(this.transactionStateUrl, `${userId}/accept`);
     return this.service.getAll<ResultModel>();
   }
 

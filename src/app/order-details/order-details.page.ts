@@ -32,7 +32,7 @@ export class OrderDetailsPage implements OnInit {
     this.order = this.navParamService.navData || {};
     this.authData = await this.userData.getAuthorizationData();
     this.isDeliveryAgent =
-      this.authData.userDetails.roles[0] !== 'Delivery Agent';
+      this.authData.userDetails.roles[0] === 'Delivery Agent';
   }
 
   getActiveIcon(defaultValue: number) {

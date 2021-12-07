@@ -79,6 +79,7 @@
     horizontal="end"
     slot="fixed"
     (click)="goToItemsPage()"
+    *ngIf="authData?.userDetails.roles[0] === 'User'"
   >
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>

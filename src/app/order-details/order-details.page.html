@@ -69,12 +69,15 @@
     >
       <div
         class="order-details__deliveryStatus__item"
-        (click)="isDeliveryAgent && markDelivered()"
+        (click)="isDeliveryAgent && order.orderDetails.orderStatus !== 'delivered' && markDelivered()"
       >
         <div class="order-details__deliveryStatus__icon {{getActiveIcon(4)}}">
           <ion-icon name="home" slot="start"></ion-icon>
         </div>
-        <ion-text color="primary">Delivered</ion-text>
+        <ion-text color="primary"
+          >{{isDeliveryAgent && order.orderDetails.orderStatus !== 'delivered' ?
+          "Update Delivery" : "Delivered"}}</ion-text
+        >
       </div>
       <div class="order-details__deliveryStatus__middle__date">
         <ion-text class="order-details__deliveryStatus__date__time"
