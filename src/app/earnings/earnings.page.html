@@ -11,7 +11,7 @@
     <div class="earnings ion-margin-vertical">
       <div>
         <ion-text class="earnings__amount"
-          ><strong>{{earnings.totalEarnings}} </strong></ion-text
+          ><strong>{{earnings?.totalEarnings}} </strong></ion-text
         >
         <span>NGN</span>
       </div>
@@ -33,7 +33,7 @@
     </div>
   </div>
   <app-not-found
-    *ngIf="earnings.balance=== 0 && earnings.totalEarnings === 0"
+    *ngIf="earnings?.balance=== 0 && earnings?.totalEarnings === 0"
     message="No earnings recorded yet"
   ></app-not-found>
   <!-- <div class="earnings__list" *ngFor="let earning of earnings"></div> -->

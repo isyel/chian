@@ -99,11 +99,15 @@ const routes: Routes = [
   },
   {
     path: 'earnings',
-    loadChildren: () => import('./earnings/earnings.module').then( m => m.EarningsPageModule)
+    loadChildren: () =>
+      import('./earnings/earnings.module').then((m) => m.EarningsPageModule),
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () =>
+      import('./forgot-password/forgot-password.module').then(
+        (m) => m.ForgotPasswordPageModule
+      ),
   },
 ];
 @NgModule({

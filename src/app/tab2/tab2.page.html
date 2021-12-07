@@ -48,7 +48,12 @@
         ></app-order-item>
       </div>
       <div *ngIf="ordersHistory?.length > 0">
-        <h6><strong>Recent Orders</strong></h6>
+        <h6>
+          <strong
+            >Recent {{authData?.userDetails?.roles[0] === 'User' ? "Orders" :
+            "Deliveries"}}</strong
+          >
+        </h6>
         <app-order-item
           (handleClick)="viewDetails(order)"
           *ngFor="let order of ordersHistory"
