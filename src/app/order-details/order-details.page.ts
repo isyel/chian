@@ -9,6 +9,7 @@ import { NavparamService } from '../services/navparam/navparam.service';
 import { OrdersService } from '../services/orders/orders.service';
 import { UserData } from '../user-data';
 import { CommonMethods } from '../util/common';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @Component({
   selector: 'app-order-details',
@@ -25,7 +26,8 @@ export class OrderDetailsPage implements OnInit {
     private commonMethods: CommonMethods,
     public alertController: AlertController,
     private ordersService: OrdersService,
-    private userData: UserData
+    private userData: UserData,
+    private clipboard: Clipboard
   ) {}
 
   async ngOnInit() {
@@ -121,5 +123,10 @@ export class OrderDetailsPage implements OnInit {
         this.commonMethods.dismissLoader();
       }
     );
+  }
+
+  async copyOrderId() {
+    await this.clipboard.copy(this.order._id);
+    this.commonMethods.presentToast('Order Id Copied', true);
   }
 }

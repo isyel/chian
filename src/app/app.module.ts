@@ -17,6 +17,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { BaseServiceService } from './services/base-service.service';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 import { CookieService } from 'ngx-cookie-service';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,6 +49,7 @@ import { CookieService } from 'ngx-cookie-service';
     Geolocation,
     NativeGeocoder,
     CookieService,
+    Clipboard,
   ],
   bootstrap: [AppComponent],
 })
