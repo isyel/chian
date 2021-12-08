@@ -121,6 +121,7 @@ export class PaymentPage implements OnInit {
   useCashOnDelivery(paymentMethod: string) {
     this.payment = {
       ...this.payment,
+      reference: this.options.ref,
       paymentMethod,
     };
 
