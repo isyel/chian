@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderModel } from '../models/OrderModel';
+import { OrderModel, ShippingPayloadModel } from '../models/OrderModel';
 import { AuthDataModel, UserModel } from '../models/UserModel';
 import { OrdersService } from '../services/orders/orders.service';
 import { UserData } from '../user-data';
@@ -15,7 +15,7 @@ import { CommonMethods } from '../util/common';
 export class CartPage implements OnInit {
   userProfileData: UserModel;
   authData: AuthDataModel;
-  pendingOrder: OrderModel;
+  pendingOrder: ShippingPayloadModel;
 
   constructor(
     private router: Router,
