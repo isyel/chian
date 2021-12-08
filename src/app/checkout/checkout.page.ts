@@ -108,7 +108,6 @@ export class CheckoutPage implements OnInit {
     this.commonMethods.presentLoading();
     this.ordersService.create(this.order).subscribe(
       (result) => {
-        this.userData.setPendingOrder(result.data);
         console.log('Result of creating order: ', result.data);
         // eslint-disable-next-line no-underscore-dangle
         this.addShippingDetails(result.data._id);
@@ -164,6 +163,7 @@ export class CheckoutPage implements OnInit {
           amount: this.totalPrice,
         };
         this.navParamService.navData = shippingInfo;
+        this.userData.setPendingOrder(shippingInfo);
         this.router.navigate(['/payment']);
       },
       (error) => {

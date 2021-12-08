@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { OrderModel } from '../models/OrderModel';
+import { OrderModel, ShippingPayloadModel } from '../models/OrderModel';
 import { TransactionModel } from '../models/TransactionModel';
 import { AuthDataModel, UserModel } from '../models/UserModel';
 import { NavparamService } from '../services/navparam/navparam.service';
@@ -18,7 +18,7 @@ export class Tab1Page implements OnInit {
   recentOrders: TransactionModel[];
   authData: AuthDataModel;
   userDetails: UserModel;
-  pendingOrder: OrderModel;
+  pendingOrder: ShippingPayloadModel;
   searchFilter = null;
 
   constructor(
